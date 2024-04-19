@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
+
+logging:
+  level:
+    root: WARN
+    com.zaxxer.hikari.HikariConfig: WARN
+    org.hibernate.SQL: WARN
+    com.github.dockerjava: WARN
+    org.testcontainers: WARN

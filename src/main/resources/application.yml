@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: account-registry
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.yml
