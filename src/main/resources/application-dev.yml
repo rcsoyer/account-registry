@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:32771/accountregistry
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
+
+logging:
+  level:
+    root: DEBUG
+    org.acme.accountregistry: DEBUG
+   # org.hibernate.SQL: DEBUG
+    com.zaxxer.hikari.HikariConfig: INFO
+    #org.springframework.orm.jpa: INFO
+    #org.springframework.jdbc.core: DEBUG
+    org.springframework.transaction: INFO
