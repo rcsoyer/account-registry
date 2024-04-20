@@ -42,6 +42,8 @@ databaseChangeLog:
               - column:
                   name: date_created
                   type: datetime(6)
+                  constraints:
+                    nullable: false
                   remarks: The date time of when this Account was created
               - column:
                   name: date_modified
@@ -50,6 +52,8 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(50)
+                  constraints:
+                    nullable: false
                   remarks: The user that created this Account
               - column:
                   name: modified_by
