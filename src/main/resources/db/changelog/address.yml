@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: addressv1
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: address
+            remarks: Represents a User's Address data in the system
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_account_id
+                    references: account(id)
+              - column:
+                  name: street
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                  remarks: The street and house number of the Address
+              - column:
+                  name: city
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  remarks: The name of the City in which the Address is located
+              - column:
+                  name: zip_code
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+                  remarks: The ZIP Code of the Address
+              - column:
+                  name: country
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+                  remarks: The country of the Address
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  remarks: The date time of when this Account was created
+              - column:
+                  name: date_modified
+                  type: datetime(6)
+                  remarks: The date time of when this Account was last modified
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  remarks: The user that created this Account
+              - column:
+                  name: modified_by
+                  type: varchar(50)
+                  remarks: The user that last modified this Account
