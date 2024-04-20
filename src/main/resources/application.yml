@@ -1,7 +1,76 @@
+server:
+  shutdown: graceful
+  error:
+    whitelabel.enabled: false
+  servlet:
+    encoding:
+      force: true
+  forward-headers-strategy: framework
+  http2:
+    enabled: true
+
 spring:
   application:
     name: account-registry
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      data-source-properties:
+        useConfigs: maxPerformance-8-0
+        tlsVersions: TLSv1.3
+        rewriteBatchedStatements: true
+        useServerPrepStmts: true
+        cacheResultSetMetadata: true
+        useUnbufferedInput: false
+        useCursorFetch: true
+        defaultFetchSize: 200
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+   # open-in-view: false
+    properties:
+      hibernate:
+        order_updates: true
+        jdbc:
+          batch_size: 30
+          fetch_size: 200
+  lifecycle:
+    timeout-per-shutdown-phase: 80s
+  mvc:
+    contentnegotiation:
+      media-types:
+        defaultContentType:
+          application/json
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /
+      path-mapping:
+        health: health
+        info: info
+  endpoint:
+    metrics:
+      enabled: true
+    health:
+      group:
+        liveness:
+          include: livenessState,diskSpace
+        readiness:
+          include: readinessState,ping,db
+      probes:
+        enabled: true
+      show-details: always
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
