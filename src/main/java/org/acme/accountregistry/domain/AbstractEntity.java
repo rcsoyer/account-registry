@@ -7,6 +7,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
@@ -31,6 +33,7 @@ abstract class AbstractEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @NotNull
     @CreatedDate
     @Column(name = "date_created", updatable = false)
     private Instant createdAt;
@@ -42,6 +45,7 @@ abstract class AbstractEntity {
     /**
      * username that created the entity
      */
+    @NotBlank
     @CreatedBy
     @Column(name = "created_by", updatable = false)
     private String createdBy;

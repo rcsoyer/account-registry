@@ -1,8 +1,12 @@
 package org.acme.accountregistry.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PROTECTED;
 
 /**
  * User's credentials.
@@ -10,11 +14,14 @@ import lombok.Getter;
  */
 @Getter
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 public class Principal {
 
-    @Column(nullable = false, unique = true)
+    @NotBlank
     private String username;
 
+    @NotBlank
     private String password;
 
 }
