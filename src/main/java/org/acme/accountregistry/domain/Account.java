@@ -3,6 +3,7 @@ package org.acme.accountregistry.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 
@@ -12,14 +13,14 @@ import lombok.Getter;
  */
 @Getter
 @Entity
-public class Account extends AbstractEntity {
+public class Account extends AbstractIdentityEntity {
 
     private String name;
 
-    private String address;
-
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "id_document")
     private String idDocument;
 
     private Principal principal;
