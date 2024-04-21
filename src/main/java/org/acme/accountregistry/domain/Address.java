@@ -6,6 +6,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,19 +27,24 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 @NoArgsConstructor(access = PROTECTED)
 public class Address extends AbstractIdEntity {
 
+    @NotBlank(message = "The street is mandatory")
     private String street;
 
+    @NotBlank(message = "The city name is mandatory")
     private String city;
 
     //TODO consider validation of zip code format per country
     @Column(name = "zip_code")
+    @NotBlank(message = "Zip Code is mandatory")
     private String zipCode;
 
     @Enumerated(STRING)
     @Column(columnDefinition = "VARCHAR")
+    @NotBlank(message = "The country is mandatory")
     private Country country;
 
     @MapsId
+    @NotNull
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "id")
     private Account account;
@@ -46,12 +53,17 @@ public class Address extends AbstractIdEntity {
     private Address(final String street,
                     final String city,
                     final String zipCode,
-                    final Country country,
-                    final Account account) {
+                    final Country country) {
         this.street = normalizeSpace(street);
         this.city = normalizeSpace(city);
         this.zipCode = deleteWhitespace(zipCode);
         this.country = country;
+    }
+
+    /**
+     * In order to set the bidirectional relationship between the {@link Account} and the {@link Address} entities.
+     */
+    void setAccount(final Account account) {
         this.account = account;
     }
 

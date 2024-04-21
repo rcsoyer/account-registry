@@ -6,7 +6,9 @@ import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,8 +39,12 @@ public class Account extends AbstractIdentityEntity {
     @Column(name = "id_document")
     private String idDocument;
 
+    @Valid
+    @NotNull(message = "The account credentials are mandatory")
     private Principal principal;
 
+    @Valid
+    @NotNull(message = "The account address is mandatory")
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
 
@@ -53,6 +59,7 @@ public class Account extends AbstractIdentityEntity {
         this.idDocument = deleteWhitespace(idDocument);
         this.principal = principal;
         this.address = address;
+        this.address.setAccount(this);
     }
 
     @Override
