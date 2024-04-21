@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
 /**
@@ -49,7 +50,7 @@ public class Account extends AbstractIdentityEntity {
                     final Address address) {
         this.name = normalizeSpace(name);
         this.birthDate = birthDate;
-        this.idDocument = normalizeSpace(idDocument);
+        this.idDocument = deleteWhitespace(idDocument);
         this.principal = principal;
         this.address = address;
     }

@@ -2,11 +2,11 @@ package org.acme.accountregistry.domain;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 
 /**
  * User's credentials.
@@ -14,7 +14,6 @@ import static lombok.AccessLevel.PROTECTED;
  */
 @Getter
 @Embeddable
-@AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
 public class Principal {
 
@@ -24,4 +23,8 @@ public class Principal {
     @NotBlank
     private String password;
 
+    public Principal(final String username, final String password) {
+        this.username = deleteWhitespace(username);
+        this.password = deleteWhitespace(password);
+    }
 }
