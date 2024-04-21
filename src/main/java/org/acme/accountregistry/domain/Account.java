@@ -62,7 +62,7 @@ public class Account extends AbstractIdentityEntity {
                     final Address address) {
         this.name = name;
         setBirthDate(birthDate);
-        this.idDocument = deleteWhitespace(idDocument);
+        setIdDocument(idDocument);
         this.principal = principal;
         this.address = address;
         this.address.setAccount(this);
@@ -79,6 +79,10 @@ public class Account extends AbstractIdentityEntity {
         }
 
         this.birthDate = birthDate;
+    }
+
+    private void setIdDocument(final String idDocument) {
+        this.idDocument = deleteWhitespace(idDocument);
     }
 
     @Override
