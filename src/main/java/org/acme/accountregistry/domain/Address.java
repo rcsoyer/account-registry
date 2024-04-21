@@ -20,6 +20,8 @@ import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
+import static org.apache.commons.lang3.StringUtils.upperCase;
+import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 @Getter
 @Entity
@@ -54,9 +56,9 @@ public class Address extends AbstractIdEntity {
                     final String city,
                     final String zipCode,
                     final Country country) {
-        this.street = normalizeSpace(street);
-        this.city = normalizeSpace(city);
-        this.zipCode = deleteWhitespace(zipCode);
+        this.street = capitalizeFully(normalizeSpace(street));
+        this.city = capitalizeFully(normalizeSpace(city));
+        this.zipCode = upperCase(deleteWhitespace(zipCode));
         this.country = country;
     }
 
