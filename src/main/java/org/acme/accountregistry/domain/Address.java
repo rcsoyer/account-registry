@@ -56,10 +56,22 @@ public class Address extends AbstractIdEntity {
                     final String city,
                     final String zipCode,
                     final Country country) {
-        this.street = capitalizeFully(normalizeSpace(street));
-        this.city = capitalizeFully(normalizeSpace(city));
-        this.zipCode = upperCase(deleteWhitespace(zipCode));
+        setStreet(street);
+        setCity(city);
+        setZipCode(zipCode);
         this.country = country;
+    }
+
+    private void setStreet(final String street) {
+        this.street = capitalizeFully(normalizeSpace(street));
+    }
+
+    private void setCity(final String city) {
+        this.city = capitalizeFully(normalizeSpace(city));
+    }
+
+    private void setZipCode(final String zipCode) {
+        this.zipCode = upperCase(deleteWhitespace(zipCode));
     }
 
     /**
