@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PROTECTED;
-import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.apache.commons.lang3.StringUtils.upperCase;
+import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
  * A person's name.
@@ -32,7 +32,7 @@ public class PersonName {
     @Builder
     private PersonName(final String initials, final String firstName, final String lastName) {
         this.initials = upperCase(deleteWhitespace(initials));
-        this.firstName = capitalize(normalizeSpace(firstName));
-        this.lastName = capitalize(normalizeSpace(lastName));
+        this.firstName = capitalizeFully(normalizeSpace(firstName));
+        this.lastName = capitalizeFully(normalizeSpace(lastName));
     }
 }

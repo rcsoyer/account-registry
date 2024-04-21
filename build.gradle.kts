@@ -21,6 +21,8 @@ repositories {
     mavenCentral()
 }
 
+val commonsTextVersion by extra { "1.12.0" }
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -29,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.session:spring-session-core")
     implementation("org.apache.commons:commons-lang3")
+    implementation("org.apache.commons:commons-text:$commonsTextVersion")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")
