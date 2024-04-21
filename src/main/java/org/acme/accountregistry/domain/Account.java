@@ -5,6 +5,7 @@ import java.time.Period;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import jakarta.validation.constraints.Past;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.iban4j.Iban;
 import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -21,6 +23,7 @@ import static jakarta.persistence.FetchType.LAZY;
 import static java.time.LocalDate.now;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
+import static org.iban4j.CountryCode.getByCode;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
@@ -54,6 +57,9 @@ public class Account extends AbstractIdentityEntity {
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
 
+    @Convert(converter = IbanConverter.class)
+    private Iban iban;
+
     @Builder
     private Account(final PersonName name,
                     final LocalDate birthDate,
@@ -66,6 +72,7 @@ public class Account extends AbstractIdentityEntity {
         this.principal = principal;
         this.address = address;
         this.address.setAccount(this);
+        this.iban = Iban.random(getByCode(address.getCountry().name()));
     }
 
     private void setBirthDate(final LocalDate birthDate) {
