@@ -7,10 +7,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
+import static lombok.AccessLevel.PROTECTED;
 
 /**
  * A person's Account details with the bank.
@@ -18,6 +21,7 @@ import static jakarta.persistence.FetchType.LAZY;
  */
 @Getter
 @Entity
+@NoArgsConstructor(access = PROTECTED)
 public class Account extends AbstractIdentityEntity {
 
     @NotBlank(message = "A person's Name is mandatory")
@@ -35,6 +39,19 @@ public class Account extends AbstractIdentityEntity {
 
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
+
+    @Builder
+    private Account(final String name,
+                    final LocalDate birthDate,
+                    final String idDocument,
+                    final Principal principal,
+                    final Address address) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.idDocument = idDocument;
+        this.principal = principal;
+        this.address = address;
+    }
 
     @Override
     public boolean equals(final Object other) {
