@@ -27,9 +27,9 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: validate
-   # open-in-view: false
     properties:
       hibernate:
         order_updates: true
