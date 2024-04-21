@@ -31,8 +31,20 @@ public class PersonName {
 
     @Builder
     private PersonName(final String initials, final String firstName, final String lastName) {
+        setInitials(initials);
+        setFirstName(firstName);
+        setLastName(lastName);
+    }
+
+    private void setInitials(final String initials) {
         this.initials = upperCase(deleteWhitespace(initials));
+    }
+
+    private void setFirstName(final String firstName) {
         this.firstName = capitalizeFully(normalizeSpace(firstName));
+    }
+
+    public void setLastName(final String lastName) {
         this.lastName = capitalizeFully(normalizeSpace(lastName));
     }
 }
