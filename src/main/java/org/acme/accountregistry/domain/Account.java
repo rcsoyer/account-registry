@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
 /**
  * A person's Account details with the bank.
@@ -46,9 +47,9 @@ public class Account extends AbstractIdentityEntity {
                     final String idDocument,
                     final Principal principal,
                     final Address address) {
-        this.name = name;
+        this.name = normalizeSpace(name);
         this.birthDate = birthDate;
-        this.idDocument = idDocument;
+        this.idDocument = normalizeSpace(idDocument);
         this.principal = principal;
         this.address = address;
     }
