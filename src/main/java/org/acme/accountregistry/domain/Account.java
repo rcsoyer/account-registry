@@ -14,12 +14,14 @@ import jakarta.validation.constraints.Past;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 import static java.time.LocalDate.now;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
  * A person's Account details with the bank.
@@ -72,7 +74,7 @@ public class Account extends AbstractIdentityEntity {
             final boolean isAdult = personsAge >= 18;
 
             if (!isAdult) {
-                throw new IllegalArgumentException("The person must be an adult to open an account");
+                throw new ResponseStatusException(BAD_REQUEST, "The person must be an adult to open an account");
             }
         }
 
