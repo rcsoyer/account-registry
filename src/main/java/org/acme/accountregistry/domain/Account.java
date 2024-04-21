@@ -57,6 +57,7 @@ public class Account extends AbstractIdentityEntity {
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
 
+    @NotNull(message = "The account IBAN is mandatory")
     @Convert(converter = IbanConverter.class)
     private Iban iban;
 
