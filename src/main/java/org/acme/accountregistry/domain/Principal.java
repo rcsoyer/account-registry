@@ -17,10 +17,10 @@ import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 @NoArgsConstructor(access = PROTECTED)
 public class Principal {
 
-    @NotBlank
+    @NotBlank(message = "The Account username is mandatory")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "The account password is mandatory")
     private String password;
 
     public Principal(final String username, final String password) {
