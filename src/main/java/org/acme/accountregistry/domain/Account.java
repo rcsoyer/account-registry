@@ -20,7 +20,6 @@ import static jakarta.persistence.FetchType.LAZY;
 import static java.time.LocalDate.now;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
-import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
 /**
  * A person's Account details with the bank.
@@ -31,8 +30,9 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 @NoArgsConstructor(access = PROTECTED)
 public class Account extends AbstractIdentityEntity {
 
-    @NotBlank(message = "A person's Name is mandatory")
-    private String name;
+    @Valid
+    @NotNull(message = "A person's name is mandatory")
+    private PersonName name;
 
     @Column(name = "birth_date")
     @Past(message = "The birthdate must be in the past")
@@ -53,12 +53,12 @@ public class Account extends AbstractIdentityEntity {
     private Address address;
 
     @Builder
-    private Account(final String name,
+    private Account(final PersonName name,
                     final LocalDate birthDate,
                     final String idDocument,
                     final Principal principal,
                     final Address address) {
-        this.name = normalizeSpace(name);
+        this.name = name;
         setBirthDate(birthDate);
         this.idDocument = deleteWhitespace(idDocument);
         this.principal = principal;
