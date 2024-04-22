@@ -50,9 +50,9 @@ public class BankAccount extends AbstractIdentityEntity {
         this.accountHolder.setBankAccount(this);
         this.type = type;
         this.balance = initialBalance;
-        final String accountCountry = accountHolder.getAddress().getCountry().name();
-        this.iban = Iban.random(getByCode(accountCountry));
-        this.currency = Currency.getInstance(accountHolder.getAddress().getCountry().getCurrencyCode());
+        final Address.Country accountCountry = accountHolder.getAddress().getCountry();
+        this.iban = Iban.random(getByCode(accountCountry.name()));
+        this.currency = Currency.getInstance(accountCountry.getCurrencyCode());
     }
 
     @Override
