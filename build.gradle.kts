@@ -23,6 +23,7 @@ repositories {
 
 val commonsTextVersion by extra { "1.12.0" }
 val iban4JVersion by extra { "3.2.7-RELEASE" }
+val i18nVersion by extra { "1.29" }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -34,6 +35,7 @@ dependencies {
     implementation("org.apache.commons:commons-lang3")
     implementation("org.apache.commons:commons-text:$commonsTextVersion")
     implementation("org.iban4j:iban4j:$iban4JVersion")
+    implementation("com.neovisionaries:nv-i18n:$i18nVersion")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")

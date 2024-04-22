@@ -1,7 +1,6 @@
 package org.acme.accountregistry.domain;
 
-import java.util.Currency;
-
+import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -13,12 +12,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
-import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
@@ -45,7 +42,7 @@ public class Address extends AbstractIdEntity {
     @Enumerated(STRING)
     @Column(columnDefinition = "VARCHAR")
     @NotBlank(message = "The country is mandatory")
-    private Country country;
+    private CountryCode country;
 
     @MapsId
     @NotNull
@@ -57,7 +54,7 @@ public class Address extends AbstractIdEntity {
     private Address(final String street,
                     final String city,
                     final String zipCode,
-                    final Country country) {
+                    final CountryCode country) {
         setStreet(street);
         setCity(city);
         setZipCode(zipCode);
@@ -81,15 +78,5 @@ public class Address extends AbstractIdEntity {
      */
     void setAccount(final Account account) {
         this.account = account;
-    }
-
-    @Getter
-    @RequiredArgsConstructor(access = PRIVATE)
-    public enum Country {
-        NL("THE NETHERLANDS", "EUR"),
-        BE("BELGIUM", "EUR");
-
-        private final String title;
-        private final String currencyCode;
     }
 }

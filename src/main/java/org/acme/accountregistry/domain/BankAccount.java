@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Objects;
 
+import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -50,9 +51,9 @@ public class BankAccount extends AbstractIdentityEntity {
         this.accountHolder.setBankAccount(this);
         this.type = type;
         this.balance = initialBalance;
-        final Address.Country accountCountry = accountHolder.getAddress().getCountry();
-        this.iban = Iban.random(getByCode(accountCountry.name()));
-        this.currency = Currency.getInstance(accountCountry.getCurrencyCode());
+        final CountryCode accountCountry = accountHolder.getAddress().getCountry();
+        this.iban = Iban.random(getByCode(accountCountry.getAlpha2()));
+        this.currency = accountCountry.getCurrency();
     }
 
     @Override
