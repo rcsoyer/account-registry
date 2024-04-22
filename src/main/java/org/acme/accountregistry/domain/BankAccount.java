@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
@@ -42,13 +43,14 @@ public class BankAccount extends AbstractIdentityEntity {
     @OneToOne
     private Account accountHolder;
 
+    @Builder
     public BankAccount(final Account accountHolder,
                        final Type type,
-                       final BigDecimal balance) {
+                       final BigDecimal initialBalance) {
         this.accountHolder = accountHolder;
         this.accountHolder.setBankAccount(this);
         this.type = type;
-        this.balance = balance;
+        this.balance = initialBalance;
         final String accountCountry = accountHolder.getAddress().getCountry().name();
         this.iban = Iban.random(getByCode(accountCountry));
         this.currency = Currency.getInstance(Locale.of(accountCountry));
