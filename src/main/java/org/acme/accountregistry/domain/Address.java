@@ -1,5 +1,7 @@
 package org.acme.accountregistry.domain;
 
+import java.util.Currency;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -84,9 +86,10 @@ public class Address extends AbstractIdEntity {
     @Getter
     @RequiredArgsConstructor(access = PRIVATE)
     public enum Country {
-        NL("THE NETHERLANDS"),
-        BE("BELGIUM");
+        NL("THE NETHERLANDS", "EUR"),
+        BE("BELGIUM", "EUR");
 
         private final String title;
+        private final String currencyCode;
     }
 }

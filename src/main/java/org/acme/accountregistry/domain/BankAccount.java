@@ -2,7 +2,6 @@ package org.acme.accountregistry.domain;
 
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Locale;
 import java.util.Objects;
 
 import jakarta.persistence.Convert;
@@ -53,7 +52,7 @@ public class BankAccount extends AbstractIdentityEntity {
         this.balance = initialBalance;
         final String accountCountry = accountHolder.getAddress().getCountry().name();
         this.iban = Iban.random(getByCode(accountCountry));
-        this.currency = Currency.getInstance(Locale.of(accountCountry));
+        this.currency = Currency.getInstance(accountHolder.getAddress().getCountry().getCurrencyCode());
     }
 
     @Override
