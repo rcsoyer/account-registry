@@ -4,9 +4,11 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.server.ResponseStatusException;
 
 import static com.neovisionaries.i18n.CountryCode.NL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountTest {
 
@@ -38,27 +40,16 @@ class AccountTest {
 
         @Test
         void testConstructor_whenNotLegalAgeThenError() {
-            final var legalAge = LocalDate.now().minusYears(18);
-            final var idDocument = "1234567890ETG";
-            final Principal principal = principal();
-            final Address address = address();
-            final PersonName personName = personName();
-            final var account = Account.builder()
-                                       .birthDate(legalAge)
-                                       .idDocument(idDocument)
-                                       .principal(principal)
-                                       .address(address)
-                                       .name(personName)
-                                       .build();
-
-            assertEquals(legalAge, account.getBirthDate());
-            assertEquals(idDocument, account.getIdDocument());
-            assertEquals(principal, account.getPrincipal());
-            assertEquals(address, account.getAddress());
-            assertEquals(personName, account.getName());
+            final var notLegalAge = LocalDate.now().minusYears(17);
+            assertThrows(ResponseStatusException.class,
+                         () -> Account.builder()
+                                      .birthDate(notLegalAge)
+                                      .idDocument("1234567890ETG")
+                                      .principal(principal())
+                                      .address(address())
+                                      .name(personName())
+                                      .build());
         }
-
-
     }
 
     @Test
