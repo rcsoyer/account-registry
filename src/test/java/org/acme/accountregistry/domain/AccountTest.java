@@ -32,8 +32,33 @@ class AccountTest {
             assertEquals(idDocument, account.getIdDocument());
             assertEquals(principal, account.getPrincipal());
             assertEquals(address, account.getAddress());
+            assertEquals(account, address.getAccount());
             assertEquals(personName, account.getName());
         }
+
+        @Test
+        void testConstructor_whenNotLegalAgeThenError() {
+            final var legalAge = LocalDate.now().minusYears(18);
+            final var idDocument = "1234567890ETG";
+            final Principal principal = principal();
+            final Address address = address();
+            final PersonName personName = personName();
+            final var account = Account.builder()
+                                       .birthDate(legalAge)
+                                       .idDocument(idDocument)
+                                       .principal(principal)
+                                       .address(address)
+                                       .name(personName)
+                                       .build();
+
+            assertEquals(legalAge, account.getBirthDate());
+            assertEquals(idDocument, account.getIdDocument());
+            assertEquals(principal, account.getPrincipal());
+            assertEquals(address, account.getAddress());
+            assertEquals(personName, account.getName());
+        }
+
+
     }
 
     @Test
