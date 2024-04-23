@@ -44,7 +44,7 @@ class AddressTest {
                                       .build());
         }
 
-        static Stream<CountryCode> notAllowedCountries() {
+        private static Stream<CountryCode> notAllowedCountries() {
             return Stream.of(CountryCode.values())
                          .filter(countryCode -> countryCode != NL && countryCode != BE);
         }
