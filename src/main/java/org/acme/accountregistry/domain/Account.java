@@ -3,7 +3,6 @@ package org.acme.accountregistry.domain;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Embedded;
@@ -126,15 +125,15 @@ public class Account extends AbstractIdentityEntity {
 
         final var that = (Account) other;
 
-        if (getId() == null || that.getId() == null) {
+        if (getPrincipal() == null || that.getPrincipal() == null) {
             return false;
         }
 
-        return getId().equals(that.getId());
+        return getPrincipal().equals(that.getPrincipal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return getPrincipal().hashCode();
     }
 }
