@@ -5,12 +5,13 @@ import java.util.Currency;
 import java.util.Objects;
 
 import com.neovisionaries.i18n.CountryCode;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
@@ -30,8 +31,9 @@ public class BankAccount extends AbstractIdentityEntity {
     @Convert(converter = IbanConverter.class)
     private Iban iban;
 
-    @NotNull(message = "The account type is mandatory")
     @Enumerated(STRING)
+    @Column(columnDefinition = "VARCHAR")
+    @NotNull(message = "The account type is mandatory")
     private Type type;
 
     @NotNull(message = "The account currency is mandatory")
@@ -41,16 +43,14 @@ public class BankAccount extends AbstractIdentityEntity {
     private BigDecimal balance;
 
     @OneToOne
+    @JoinColumn(name = "account_id")
     private Account accountHolder;
 
-    @Builder
-    public BankAccount(final Account accountHolder,
-                       final Type type,
-                       final BigDecimal initialBalance) {
+    public BankAccount(final Account accountHolder, final Type type) {
         this.accountHolder = accountHolder;
         this.accountHolder.setBankAccount(this);
         this.type = type;
-        this.balance = initialBalance;
+        this.balance = BigDecimal.ZERO;
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
         this.iban = Iban.random(getByCode(accountCountry.getAlpha2()));
         this.currency = accountCountry.getCurrency();

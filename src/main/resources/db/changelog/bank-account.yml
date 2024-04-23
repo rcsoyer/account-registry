@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: bankaccountv1
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: bank_account
+            remarks: Represents one of the User's BankAccount details in the system
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bank_account_id
+                    references: account(id)
+              - column:
+                  name: iban
+                  type: varchar(34)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: The IBAN of the Bank Account
+              - column:
+                  name: type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The Bank Account type
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+                  remarks: The currency of the Bank Account
+              - column:
+                  name: balance
+                  type: decimal(16, 2)
+                  constraints:
+                    nullable: false
+                  remarks: The current balance in the Bank Account
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this BankAccount was created
+              - column:
+                  name: date_modified
+                  type: datetime(6)
+                  remarks: The date time of when this BankAccount was last modified
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  remarks: The user that created this BankAccount
+              - column:
+                  name: modified_by
+                  type: varchar(50)
+                  remarks: The user that last modified this BankAccount
