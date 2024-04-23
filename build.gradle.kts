@@ -24,6 +24,7 @@ repositories {
 val commonsTextVersion by extra { "1.12.0" }
 val iban4JVersion by extra { "3.2.7-RELEASE" }
 val i18nVersion by extra { "1.29" }
+val mapStructVersion by extra { "1.5.5.Final" }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -36,6 +37,10 @@ dependencies {
     implementation("org.apache.commons:commons-text:$commonsTextVersion")
     implementation("org.iban4j:iban4j:$iban4JVersion")
     implementation("com.neovisionaries:nv-i18n:$i18nVersion")
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")
@@ -50,8 +55,17 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
+
+    testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.withType<JavaCompile>() {
+    options.compilerArgs.add("-Amapstruct.defaultComponentModel=spring")
+    options.compilerArgs.add("-Amapstruct.unmappedTargetPolicy=IGNORE")
+}
+
+springBoot.buildInfo()
