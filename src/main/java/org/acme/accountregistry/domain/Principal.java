@@ -18,12 +18,12 @@ import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 @NoArgsConstructor(access = PROTECTED)
 public class Principal {
 
-    @Size(max = 50)
     @NotBlank(message = "The Account username is mandatory")
+    @Size(max = 50, message = "The username must be 50 characters or less")
     private String username;
 
-    @Size(max = 150)
     @NotBlank(message = "The account password is mandatory")
+    @Size(max = 150)
     private String password;
 
     public Principal(final String username, final String password) {

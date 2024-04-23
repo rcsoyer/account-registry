@@ -9,6 +9,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,14 +30,15 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 public class Address extends AbstractIdEntity {
 
     @NotBlank(message = "The street is mandatory")
+    @Size(max = 100, message = "The street must be 100 characters or less")
     private String street;
 
     @NotBlank(message = "The city name is mandatory")
+    @Size(max = 60, message = "The city name must be 60 characters or less")
     private String city;
 
-    //TODO consider validation of zip code format per country
-    @Column(name = "zip_code")
     @NotBlank(message = "Zip Code is mandatory")
+    @Size(max = 30, message = "The zip code must be 30 characters or less")
     private String zipCode;
 
     @Enumerated(STRING)

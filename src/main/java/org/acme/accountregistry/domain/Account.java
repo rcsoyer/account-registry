@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -12,6 +11,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,13 +38,12 @@ public class Account extends AbstractIdentityEntity {
     @NotNull(message = "A person's name is mandatory")
     private PersonName name;
 
-    @Column(name = "birth_date")
     @Past(message = "The birthdate must be in the past")
     @NotNull(message = "A person's birthdate is mandatory")
     private LocalDate birthDate;
 
+    @Size(max = 150, message = "The ID document must be 150 characters or less")
     @NotBlank(message = "A person's ID document is mandatory")
-    @Column(name = "id_document")
     private String idDocument;
 
     @Valid
@@ -57,6 +56,7 @@ public class Account extends AbstractIdentityEntity {
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
 
+    @Valid
     @OneToOne(mappedBy = "accountHolder", cascade = ALL, fetch = LAZY)
     private BankAccount bankAccount;
 

@@ -22,16 +22,16 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 @NoArgsConstructor(access = PROTECTED)
 public class PersonName {
 
-    @Size(max = 10)
     @NotBlank(message = "The name initials are mandatory")
+    @Size(max = 10, message = "The name initials must be 10 characters or less")
     private String initials;
 
-    @Size(max = 60)
     @NotBlank(message = "The first name is mandatory")
+    @Size(max = 60, message = "The first name must be 60 characters or less")
     private String firstName;
 
-    @Size(max = 60)
     @NotBlank(message = "The last name is mandatory")
+    @Size(max = 60, message = "The last name must be 60 characters or less")
     private String lastName;
 
     @Builder
