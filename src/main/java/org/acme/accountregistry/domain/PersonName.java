@@ -8,10 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.apache.commons.lang3.StringUtils.upperCase;
-import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
  * A person's name.
@@ -46,10 +46,10 @@ public class PersonName {
     }
 
     private void setFirstName(final String firstName) {
-        this.firstName = capitalizeFully(normalizeSpace(firstName));
+        this.firstName = capitalize(normalizeSpace(firstName));
     }
 
     public void setLastName(final String lastName) {
-        this.lastName = capitalizeFully(normalizeSpace(lastName));
+        this.lastName = capitalize(normalizeSpace(lastName));
     }
 }

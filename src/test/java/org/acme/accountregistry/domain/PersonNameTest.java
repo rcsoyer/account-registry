@@ -9,14 +9,14 @@ class PersonNameTest {
     @Test
     void testConstructor(){
         final var name = PersonName.builder()
-                                   .initials("    j      r")
-                                   .firstName("  jOhn   ")
-                                   .lastName("  doE")
+                                   .initials(" v d ")
+                                   .firstName("  van  der  ")
+                                   .lastName("  madeweg ")
                                    .build();
 
-        assertEquals("JR", name.getInitials());
-        assertEquals("John", name.getFirstName());
-        assertEquals("Doe", name.getLastName());
+        assertEquals("VD", name.getInitials());
+        assertEquals("Van der", name.getFirstName());
+        assertEquals("Madeweg", name.getLastName());
     }
 
 }
