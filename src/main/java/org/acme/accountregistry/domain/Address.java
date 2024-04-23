@@ -27,6 +27,13 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.apache.commons.lang3.StringUtils.upperCase;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+/**
+ * The representation of a person's Address and its intrinsically related details.
+ * <br/> The mapping in the database is such that each {@link Address} record is associated with only one
+ * {@link Account} record.
+ * <br/> Therefore, this also allow for further optimizations in the database schema, that the {@link Address} table
+ * has as primary key the same value as the {@link Account#getId()}.
+ */
 @Getter
 @Entity
 @ToString
