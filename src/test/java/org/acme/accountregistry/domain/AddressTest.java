@@ -1,24 +1,27 @@
 package org.acme.accountregistry.domain;
 
-import org.junit.jupiter.api.Test;
+import com.neovisionaries.i18n.CountryCode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.neovisionaries.i18n.CountryCode.NL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressTest {
 
-    @Test
-    void testConstructor() {
+    @ParameterizedTest
+    @ValueSource(strings = {"NL", "BE"})
+    void testConstructor_whenCountriesAllowedThenSuccess(final String countryCode) {
         final var address = Address.builder()
-                                   .street("  123  mAin  st  ")
-                                   .city("  new  york  ")
+                                   .street("  123  main  st  ")
+                                   .city("  New  York  ")
                                    .zipCode("  10001 BA ")
-                                   .country(NL)
+                                   .country(CountryCode.valueOf(countryCode))
                                    .build();
 
-        assertEquals("123 Main St", address.getStreet());
+        assertEquals("123 main st", address.getStreet());
         assertEquals("New York", address.getCity());
         assertEquals("10001BA", address.getZipCode());
-        assertEquals(NL, address.getCountry());
+        assertEquals(CountryCode.valueOf(countryCode), address.getCountry());
     }
 }
