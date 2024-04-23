@@ -14,14 +14,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.server.ResponseStatusException;
 
+import static com.neovisionaries.i18n.CountryCode.BE;
+import static com.neovisionaries.i18n.CountryCode.NL;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.apache.commons.lang3.StringUtils.upperCase;
-import static org.apache.commons.text.WordUtils.capitalizeFully;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Getter
 @Entity
@@ -43,7 +47,7 @@ public class Address extends AbstractIdEntity {
 
     @Enumerated(STRING)
     @Column(columnDefinition = "VARCHAR")
-    @NotBlank(message = "The country is mandatory")
+    @NotNull(message = "The country is mandatory")
     private CountryCode country;
 
     @MapsId
@@ -60,19 +64,29 @@ public class Address extends AbstractIdEntity {
         setStreet(street);
         setCity(city);
         setZipCode(zipCode);
-        this.country = country;
+        setCountry(country);
     }
 
     private void setStreet(final String street) {
-        this.street = capitalizeFully(normalizeSpace(street));
+        this.street = capitalize(normalizeSpace(street));
     }
 
     private void setCity(final String city) {
-        this.city = capitalizeFully(normalizeSpace(city));
+        this.city = capitalize(normalizeSpace(city));
     }
 
     private void setZipCode(final String zipCode) {
         this.zipCode = upperCase(deleteWhitespace(zipCode));
+    }
+
+    private void setCountry(final CountryCode country) {
+        if (country != null
+              && country != NL
+              && country != BE) {
+            throw new ResponseStatusException(BAD_REQUEST, "Only people from the Netherlands or Belgium can open an account");
+        }
+
+        this.country = country;
     }
 
     /**
