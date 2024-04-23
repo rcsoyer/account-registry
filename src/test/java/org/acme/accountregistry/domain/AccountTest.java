@@ -65,6 +65,8 @@ class AccountTest {
 
     @Test
     void getBankAccounts() {
+        assertThrows(UnsupportedOperationException.class,
+                     () -> account().getBankAccounts().clear());
     }
 
     private Principal principal() {
