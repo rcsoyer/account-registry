@@ -56,7 +56,6 @@ databaseChangeLog:
                   type: varchar(150)
                   constraints:
                     nullable: false
-                    unique: true
                   remarks: an ID Document of a person
               - column:
                   name: date_created
