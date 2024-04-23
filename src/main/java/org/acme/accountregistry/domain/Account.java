@@ -2,13 +2,17 @@ package org.acme.accountregistry.domain;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -56,9 +60,9 @@ public class Account extends AbstractIdentityEntity {
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
     private Address address;
 
-    @Valid
-    @OneToOne(mappedBy = "accountHolder", cascade = ALL, fetch = LAZY)
-    private BankAccount bankAccount;
+    @NotEmpty(message = "The account must have at least one bank account")
+    @OneToMany(mappedBy = "accountHolder", cascade = ALL, fetch = LAZY, orphanRemoval = true)
+    private Set<@Valid BankAccount> bankAccounts;
 
     @Builder
     private Account(final PersonName name,
@@ -72,6 +76,7 @@ public class Account extends AbstractIdentityEntity {
         this.principal = principal;
         this.address = address;
         this.address.setAccount(this);
+        this.bankAccounts = HashSet.newHashSet(1);
     }
 
     private void setBirthDate(final LocalDate birthDate) {
@@ -91,8 +96,17 @@ public class Account extends AbstractIdentityEntity {
         this.idDocument = deleteWhitespace(idDocument);
     }
 
-    void setBankAccount(final BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
+    void addBankAccount(final BankAccount bankAccount) {
+        this.bankAccounts.add(bankAccount);
+    }
+
+    /**
+     * Unmodifiable set of the person's bank accounts.
+     * <br/> To modify the underlying collection, use the available API methods exposed by this {@link Account}.
+     * @see #addBankAccount(BankAccount)
+     */
+    public Set<BankAccount> getBankAccounts() {
+        return Set.copyOf(bankAccounts);
     }
 
     @Override

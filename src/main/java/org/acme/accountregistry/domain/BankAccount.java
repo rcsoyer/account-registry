@@ -10,7 +10,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,18 +50,25 @@ public class BankAccount extends AbstractIdentityEntity {
     @NotNull(message = "The account balance is mandatory")
     private BigDecimal balance;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account accountHolder;
 
     public BankAccount(final Account accountHolder, final Type type) {
-        this.accountHolder = accountHolder;
-        this.accountHolder.setBankAccount(this);
+        setAccountHolder(accountHolder);
         this.type = type;
         this.balance = BigDecimal.ZERO;
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
         this.iban = Iban.random(getByCode(accountCountry.getAlpha2()));
         this.currency = accountCountry.getCurrency();
+    }
+
+    /**
+     * @implNote This setter must be kept private because there should not be a way to change the account holder.
+     */
+    private void setAccountHolder(final Account accountHolder) {
+        this.accountHolder = accountHolder;
+        this.accountHolder.addBankAccount(this);
     }
 
     @Override
