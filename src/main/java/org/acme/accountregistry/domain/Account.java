@@ -74,9 +74,13 @@ public class Account extends AbstractIdentityEntity {
         setBirthDate(birthDate);
         setIdDocument(idDocument);
         this.principal = principal;
+        setAddress(address);
+        this.bankAccounts = HashSet.newHashSet(1);
+    }
+
+    private void setAddress(final Address address) {
         this.address = address;
         this.address.setAccount(this);
-        this.bankAccounts = HashSet.newHashSet(1);
     }
 
     private void setBirthDate(final LocalDate birthDate) {
@@ -103,6 +107,7 @@ public class Account extends AbstractIdentityEntity {
     /**
      * Unmodifiable set of the person's bank accounts.
      * <br/> To modify the underlying collection, use the available API methods exposed by this {@link Account}.
+     *
      * @see #addBankAccount(BankAccount)
      */
     public Set<BankAccount> getBankAccounts() {
