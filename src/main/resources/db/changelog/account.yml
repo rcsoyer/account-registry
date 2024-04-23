@@ -15,11 +15,23 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(80)
+                  name: first_name
+                  type: varchar(60)
                   constraints:
                     nullable: false
-                  remarks: The name of the person
+                  remarks: The first name of a person
+              - column:
+                  name: last_name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+                  remarks: The last name of a person
+              - column:
+                  name: initials
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The initials of a Person's name
               - column:
                   name: username
                   type: varchar(50)
@@ -44,6 +56,7 @@ databaseChangeLog:
                   type: varchar(150)
                   constraints:
                     nullable: false
+                    unique: true
                   remarks: an ID Document of a person
               - column:
                   name: date_created

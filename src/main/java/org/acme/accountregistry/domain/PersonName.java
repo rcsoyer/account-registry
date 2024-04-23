@@ -2,6 +2,7 @@ package org.acme.accountregistry.domain;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,15 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 @NoArgsConstructor(access = PROTECTED)
 public class PersonName {
 
+    @Size(max = 10)
+    @NotBlank(message = "The name initials are mandatory")
     private String initials;
 
+    @Size(max = 60)
     @NotBlank(message = "The first name is mandatory")
     private String firstName;
 
+    @Size(max = 60)
     @NotBlank(message = "The last name is mandatory")
     private String lastName;
 
