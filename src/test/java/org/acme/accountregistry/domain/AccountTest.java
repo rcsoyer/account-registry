@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
 import static com.neovisionaries.i18n.CountryCode.NL;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -54,6 +55,12 @@ class AccountTest {
 
     @Test
     void addBankAccount() {
+        final Account accountHolder = account();
+        final var bankAccount = new BankAccount(accountHolder, BankAccount.Type.PAYMENTS);
+
+        assertThat(accountHolder.getBankAccounts())
+          .containsExactly(bankAccount);
+        assertEquals(accountHolder, bankAccount.getAccountHolder());
     }
 
     @Test
@@ -81,6 +88,16 @@ class AccountTest {
                  .firstName("Van der")
                  .lastName("Madeweg")
                  .build();
+    }
+
+    private Account account() {
+        return Account.builder()
+                      .birthDate(LocalDate.now().minusYears(18))
+                      .idDocument("1234567890ETG")
+                      .principal(principal())
+                      .address(address())
+                      .name(personName())
+                      .build();
     }
 
 }
