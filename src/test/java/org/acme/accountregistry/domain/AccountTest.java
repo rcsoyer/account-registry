@@ -19,20 +19,19 @@ class AccountTest {
         @Test
         void testConstructor_whenLegalAgeThenSuccess() {
             final var legalAge = LocalDate.now().minusYears(18);
-            final var idDocument = "1234567890ETG";
             final Principal principal = principal();
             final Address address = address();
             final PersonName personName = personName();
             final var account = Account.builder()
                                        .birthDate(legalAge)
-                                       .idDocument(idDocument)
+                                       .idDocument("  1234567  890ETG  ")
                                        .principal(principal)
                                        .address(address)
                                        .name(personName)
                                        .build();
 
             assertEquals(legalAge, account.getBirthDate());
-            assertEquals(idDocument, account.getIdDocument());
+            assertEquals("1234567890ETG", account.getIdDocument());
             assertEquals(principal, account.getPrincipal());
             assertEquals(address, account.getAddress());
             assertEquals(account, address.getAccount());
