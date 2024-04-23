@@ -2,6 +2,7 @@ package org.acme.accountregistry.domain;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,9 +18,11 @@ import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 @NoArgsConstructor(access = PROTECTED)
 public class Principal {
 
+    @Size(max = 50)
     @NotBlank(message = "The Account username is mandatory")
     private String username;
 
+    @Size(max = 150)
     @NotBlank(message = "The account password is mandatory")
     private String password;
 
