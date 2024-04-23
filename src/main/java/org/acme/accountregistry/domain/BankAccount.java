@@ -21,6 +21,11 @@ import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static org.iban4j.CountryCode.getByCode;
 
+/**
+ * The representation of a Bank Account and its intrinsically related details.
+ * <br/> The account number is here represented by a random generated IBAN.
+ * <br/> An Account Holder {@link Account} may have many Bank Accounts in the platform.
+ */
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
@@ -36,6 +41,9 @@ public class BankAccount extends AbstractIdentityEntity {
     @NotNull(message = "The account type is mandatory")
     private Type type;
 
+    /**
+     * Currency is inferred from the account holder's country.
+     */
     @NotNull(message = "The account currency is mandatory")
     private Currency currency;
 
