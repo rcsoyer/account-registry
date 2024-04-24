@@ -2,12 +2,15 @@ package org.acme.accountregistry.web.errorhandling;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
@@ -44,4 +47,19 @@ class ExceptionHandlerAdvice implements ProblemHandling {
                  .body(problem.build());
     }
 
+    @Override
+    @ExceptionHandler({ResponseStatusException.class})
+    public ResponseEntity<Problem> handleResponseStatusException(
+      @Nonnull final ResponseStatusException error, @Nonnull final NativeWebRequest request) {
+        log.warn("There was an error in the application", error);
+        final var status = Status.valueOf(error.getStatusCode().value());
+        final var problem = Problem.builder()
+                                   .withStatus(status)
+                                   .withDetail(error.getReason())
+                                   .withTitle(status.getReasonPhrase())
+                                   .build();
+        return ResponseEntity
+                 .status(error.getStatusCode())
+                 .body(problem);
+    }
 }
