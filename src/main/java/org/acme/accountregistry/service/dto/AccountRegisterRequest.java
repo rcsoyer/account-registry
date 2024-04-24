@@ -23,8 +23,8 @@ public record AccountRegisterRequest(@NotBlank(message = "The Account username i
                                      @Size(max = 150, message = "The ID document must be 150 characters or less")
                                      @NotBlank(message = "A person's ID document is mandatory")
                                      String idDocument,
-                                     @Valid AddressDto address,
-                                     @Valid PersonNameDto personName) {
+                                     @NotNull @Valid AddressDto address,
+                                     @NotNull @Valid PersonNameDto personName) {
 
     public AccountRegisterRequest(final String username,
                                   final LocalDate birthDate,
