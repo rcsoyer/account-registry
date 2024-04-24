@@ -44,7 +44,7 @@ public final class DataUtils {
                       .idDocument("1234567890ETG")
                       .principal(principal())
                       .address(address())
-                      .name(personName())
+                      .personName(personName())
                       .build();
     }
 

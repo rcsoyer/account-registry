@@ -39,7 +39,7 @@ public class Account extends AbstractIdentityEntity {
     @Valid
     @Embedded
     @NotNull(message = "A person's name is mandatory")
-    private PersonName name;
+    private PersonName personName;
 
     @Past(message = "The birthdate must be in the past")
     @NotNull(message = "A person's birthdate is mandatory")
@@ -64,12 +64,12 @@ public class Account extends AbstractIdentityEntity {
     private Set<@Valid BankAccount> bankAccounts;
 
     @Builder
-    private Account(final PersonName name,
+    private Account(final PersonName personName,
                     final LocalDate birthDate,
                     final String idDocument,
                     final Principal principal,
                     final Address address) {
-        this.name = name;
+        this.personName = personName;
         setBirthDate(birthDate);
         setIdDocument(idDocument);
         this.principal = principal;

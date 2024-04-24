@@ -31,7 +31,7 @@ class AccountTest {
                                        .idDocument("  1234567  890ETG  ")
                                        .principal(principal)
                                        .address(address)
-                                       .name(personName)
+                                       .personName(personName)
                                        .build();
 
             assertEquals(legalAge, account.getBirthDate());
@@ -39,7 +39,7 @@ class AccountTest {
             assertEquals(principal, account.getPrincipal());
             assertEquals(address, account.getAddress());
             assertEquals(account, address.getAccount());
-            assertEquals(personName, account.getName());
+            assertEquals(personName, account.getPersonName());
         }
 
         @Test
@@ -51,7 +51,7 @@ class AccountTest {
                                       .idDocument("1234567890ETG")
                                       .principal(principal())
                                       .address(address())
-                                      .name(personName())
+                                      .personName(personName())
                                       .build());
         }
     }
