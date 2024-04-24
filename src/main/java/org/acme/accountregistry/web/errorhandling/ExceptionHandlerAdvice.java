@@ -62,7 +62,7 @@ class ExceptionHandlerAdvice implements ProblemHandling {
         final HttpStatusCode statusCode = error.getStatusCode();
         final var status = Status.valueOf(statusCode.value());
         final var problem = Problem.builder()
-                                   .withStatus(Status.valueOf(statusCode.value()))
+                                   .withStatus(status)
                                    .withDetail(error.getReason())
                                    .withTitle(status.getReasonPhrase())
                                    .build();
