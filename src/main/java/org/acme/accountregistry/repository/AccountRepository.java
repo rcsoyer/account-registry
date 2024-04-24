@@ -20,4 +20,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
              "FROM Account account " +
              "WHERE account.principal.username = ?1")
     Optional<UserDetails> getPrincipalBy(String username);
+
+    boolean existsAccountByPrincipalUsername(String username);
 }

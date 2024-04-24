@@ -13,6 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Slf4j
 @Service
@@ -26,6 +29,7 @@ public class AccountService {
 
     public AccountRegisterResponse openAccount(final AccountRegisterRequest request) {
         log.debug("Registering a new User's Account with default opening Payments Bank Account");
+        checkUsernameAvailability(request.username());
         final String rawPassword = PasswordUtils.generateRandomPassword();
         final String encodedPassword = passwordEncoder.encode(rawPassword);
         final Account account = mapper.toEntity(request, encodedPassword);
@@ -33,6 +37,12 @@ public class AccountService {
         setSecurityContext(account);
         repository.save(account);
         return mapper.toResponse(account, rawPassword);
+    }
+
+    private void checkUsernameAvailability(final String username) {
+        if (repository.existsAccountByPrincipalUsername(username)) {
+            throw new ResponseStatusException(CONFLICT, "The username is already in use");
+        }
     }
 
     private void setSecurityContext(final Account account) {
