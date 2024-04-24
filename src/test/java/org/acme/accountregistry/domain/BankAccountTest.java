@@ -43,6 +43,7 @@ class BankAccountTest {
             final var bankAccount2 = new BankAccount(accountHolder, BankAccount.Type.PAYMENTS);
             ReflectionTestUtils.setField(bankAccount2, "iban", bankAccount1.getIban());
 
+            assertEquals(bankAccount1.getIban(), bankAccount2.getIban());
             assertEquals(bankAccount1, bankAccount2);
             assertEquals(bankAccount1.hashCode(), bankAccount2.hashCode());
         }
@@ -53,6 +54,7 @@ class BankAccountTest {
             final var bankAccount1 = new BankAccount(accountHolder, BankAccount.Type.SAVINGS);
             final var bankAccount2 = new BankAccount(accountHolder, BankAccount.Type.SAVINGS);
 
+            assertNotEquals(bankAccount1.getIban(), bankAccount2.getIban());
             assertNotEquals(bankAccount1, bankAccount2);
             assertNotEquals(bankAccount1.hashCode(), bankAccount2.hashCode());
         }
