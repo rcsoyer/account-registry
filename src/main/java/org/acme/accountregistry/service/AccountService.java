@@ -24,7 +24,7 @@ public class AccountService {
     private final AccountMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
-    public AccountRegisterResponse createPaymentsAccount(final AccountRegisterRequest request) {
+    public AccountRegisterResponse openAccount(final AccountRegisterRequest request) {
         log.debug("Registering a new User's Account with default opening Payments Bank Account");
         final String rawPassword = PasswordUtils.generateRandomPassword();
         final String encodedPassword = passwordEncoder.encode(rawPassword);
