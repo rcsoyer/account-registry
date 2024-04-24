@@ -39,16 +39,14 @@ dependencies {
     implementation("com.neovisionaries:nv-i18n:$i18nVersion")
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
-
-    runtimeOnly("org.liquibase:liquibase-core")
-    runtimeOnly("com.mysql:mysql-connector-j")
-
     compileOnly("org.projectlombok:lombok")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
     annotationProcessor("org.projectlombok:lombok")
+
+    runtimeOnly("org.liquibase:liquibase-core")
+    runtimeOnly("com.mysql:mysql-connector-j")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
