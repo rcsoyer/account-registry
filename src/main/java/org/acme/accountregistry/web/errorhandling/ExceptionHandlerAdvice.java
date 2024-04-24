@@ -17,6 +17,12 @@ import org.zalando.problem.spring.web.advice.ProblemHandling;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 
+/**
+ * Handles exceptions thrown by the application and wraps then with Problem details data structure.
+ * <br/> Mostly, the exception handlers are already implemented by the {@link ProblemHandling} interface.
+ *
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc9457">Problem Details</a>
+ */
 @Slf4j
 @RestControllerAdvice
 class ExceptionHandlerAdvice implements ProblemHandling {
