@@ -41,12 +41,14 @@ public class AccountService {
     }
 
     private void checkUsernameAvailability(final String username) {
+        log.debug("Check if the username is available");
         if (repository.existsAccountByPrincipalUsername(username)) {
             throw new ResponseStatusException(CONFLICT, "The username is already in use");
         }
     }
 
     private void setSecurityContext(final Account account) {
+        log.debug("Setting the Security Context for the new Account");
         final String username = account.getPrincipal().getUsername();
         final String password = account.getPrincipal().getPassword();
         SecurityContextHolder
