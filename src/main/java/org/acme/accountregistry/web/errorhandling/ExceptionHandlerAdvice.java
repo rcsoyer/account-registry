@@ -6,7 +6,6 @@ import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -59,15 +58,14 @@ class ExceptionHandlerAdvice implements ProblemHandling {
     public ResponseEntity<Problem> handleResponseStatusException(
       @Nonnull final ResponseStatusException error, @Nonnull final NativeWebRequest request) {
         log.warn("There was an error in the application", error);
-        final HttpStatusCode statusCode = error.getStatusCode();
-        final var status = Status.valueOf(statusCode.value());
+        final var status = Status.valueOf(error.getStatusCode().value());
         final var problem = Problem.builder()
                                    .withStatus(status)
                                    .withDetail(error.getReason())
                                    .withTitle(status.getReasonPhrase())
                                    .build();
         return ResponseEntity
-                 .status(statusCode)
+                 .status(status.getStatusCode())
                  .body(problem);
     }
 }
