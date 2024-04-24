@@ -28,8 +28,11 @@ class AccountRepositoryTest extends BaseRepositoryTest {
 
     @Test
     void getPrincipalBy() {
-        final Optional<UserDetails> result = repository.getPrincipalBy(defaultAccount.getPrincipal().getUsername());
+        final String username = defaultAccount.getPrincipal().getUsername();
+        final Optional<UserDetails> result = repository.getPrincipalBy(username);
 
-        assertThat(result).isPresent();
+        assertThat(result)
+          .get()
+          .matches(userDetails -> userDetails.getUsername().equals(username));
     }
 }
