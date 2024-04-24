@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import static org.acme.accountregistry.service.PasswordUtils.generateRandomPassword;
 import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Slf4j
@@ -30,7 +31,7 @@ public class AccountService {
     public AccountRegisterResponse openAccount(final AccountRegisterRequest request) {
         log.debug("Registering a new User's Account with default opening Payments Bank Account");
         checkUsernameAvailability(request.username());
-        final String rawPassword = PasswordUtils.generateRandomPassword();
+        final String rawPassword = generateRandomPassword();
         final String encodedPassword = passwordEncoder.encode(rawPassword);
         final Account account = mapper.toEntity(request, encodedPassword);
         new BankAccount(account, BankAccount.Type.PAYMENTS);

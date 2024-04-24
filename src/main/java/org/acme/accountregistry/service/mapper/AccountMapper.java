@@ -11,8 +11,7 @@ import org.mapstruct.Mapping;
         imports = {Principal.class})
 public interface AccountMapper {
 
-    @Mapping(target = "principal",
-             expression = "java(new Principal(request.username(), password))")
+    @Mapping(target = "principal", expression = "java(new Principal(request.username(), password))")
     Account toEntity(AccountRegisterRequest request, String password);
 
     @Mapping(target = "username", source = "account.principal.username")
