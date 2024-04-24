@@ -28,6 +28,6 @@ class AccountController {
     @ResponseStatus(CREATED)
     AccountRegisterResponse register(@RequestBody @Valid final AccountRegisterRequest request) {
         log.debug("Rest API call to register a new Account");
-        return service.createAccount(request);
+        return service.createPaymentsAccount(request);
     }
 }
