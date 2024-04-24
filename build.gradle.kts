@@ -44,7 +44,6 @@ dependencies {
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
-    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")
