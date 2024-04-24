@@ -19,7 +19,10 @@ class BankAccountTest {
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
 
         assertEquals(accountHolder, bankAccount.getAccountHolder());
-        assertThat(accountHolder.getBankAccounts()).containsExactly(bankAccount);
+
+        assertThat(accountHolder.getBankAccounts())
+          .containsExactly(bankAccount);
+
         assertEquals(accountType, bankAccount.getType());
         assertEquals(BigDecimal.ZERO, bankAccount.getBalance());
 
