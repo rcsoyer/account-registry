@@ -26,7 +26,7 @@ val commonsTextVersion by extra { "1.12.0" }
 val iban4JVersion by extra { "3.2.7-RELEASE" }
 val i18nVersion by extra { "1.29" }
 val mapStructVersion by extra { "1.5.5.Final" }
-val lombokMapStructVersion by extra { "0.2.0" }
+val passWayVersion by extra { "1.6.4" }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -40,9 +40,11 @@ dependencies {
     implementation("org.iban4j:iban4j:$iban4JVersion")
     implementation("com.neovisionaries:nv-i18n:$i18nVersion")
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    implementation("org.passay:passay:$passWayVersion")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")
