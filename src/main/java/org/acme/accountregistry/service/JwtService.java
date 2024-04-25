@@ -9,12 +9,17 @@ import javax.crypto.SecretKey;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.MacAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+
+@Slf4j
 @Service
 public class JwtService {
 
@@ -40,7 +45,18 @@ public class JwtService {
                    .expiration(Date.from(jwtExpiration))
                    .signWith(secretKey, SIGN_ALG)
                    .issuer("acme.org")
-                   .claim("AUTHORITIES", principal.getAuthorities())
                    .compact();
+    }
+
+    public void validateJwt(final String jwt) {
+        try {
+            Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parse(jwt);
+        } catch (final Exception jwtError) {
+            log.error("Invalid JWT was passed to the application", jwtError);
+            throw new ResponseStatusException(UNAUTHORIZED, "Invalid JWT token", jwtError);
+        }
     }
 }
