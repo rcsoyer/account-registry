@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
+import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 
@@ -25,7 +26,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
  */
 @Slf4j
 @RestControllerAdvice
-class ExceptionHandlerAdvice implements ProblemHandling {
+class ExceptionHandlerAdvice implements ProblemHandling, SecurityAdviceTrait {
 
     /**
      * Handles exceptions related to data integrity violations that may happen concurrently.
