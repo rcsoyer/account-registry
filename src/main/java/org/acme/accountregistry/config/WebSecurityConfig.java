@@ -22,10 +22,9 @@ import static org.springframework.http.HttpMethod.POST;
 @RequiredArgsConstructor
 class WebSecurityConfig {
 
-    private final LoginSuccessHandler loginSuccessHandler;
-
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity securityBuilder) throws Exception {
+    SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity securityBuilder,
+                                                   final LoginSuccessHandler loginSuccessHandler) throws Exception {
         return securityBuilder
                  .csrf(AbstractHttpConfigurer::disable)
                  .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated())
