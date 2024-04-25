@@ -46,12 +46,12 @@ class WebSecurityConfig {
         return securityBuilder
                  .csrf(AbstractHttpConfigurer::disable)
                  .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated())
-                 .formLogin(customizeLogin(loginSuccessHandler))
+                 .formLogin(customizeLogin())
                  .exceptionHandling(customizer -> customizer.accessDeniedHandler(problemSupport))
                  .build();
     }
 
-    private Customizer<FormLoginConfigurer<HttpSecurity>> customizeLogin(final LoginSuccessHandler loginSuccessHandler) {
+    private Customizer<FormLoginConfigurer<HttpSecurity>> customizeLogin() {
         return customizer -> customizer
                                .failureHandler(problemSupport)
                                .successHandler(loginSuccessHandler)
