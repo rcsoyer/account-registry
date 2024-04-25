@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.MacAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,7 @@ public class JwtService {
         return Jwts.builder()
                    .id(UUID.randomUUID().toString())
                    .subject((principal.getUsername()))
+                   .claim("roles", principal.getAuthorities())
                    .issuedAt(new Date())
                    .expiration(Date.from(jwtExpiration))
                    .signWith(secretKey, SIGN_ALG)
@@ -48,12 +51,12 @@ public class JwtService {
                    .compact();
     }
 
-    public void validateJwt(final String jwt) {
+    public Jws<Claims> decodeJwt(final String jwt) {
         try {
-            Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parse(jwt);
+            return Jwts.parser()
+                       .verifyWith(secretKey)
+                       .build()
+                       .parseSignedClaims(jwt);
         } catch (final Exception jwtError) {
             log.error("Invalid JWT was passed to the application", jwtError);
             throw new ResponseStatusException(UNAUTHORIZED, "Invalid JWT token", jwtError);
