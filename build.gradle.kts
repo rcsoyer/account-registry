@@ -29,6 +29,7 @@ val mapStructVersion by extra { "1.5.5.Final" }
 val passWayVersion by extra { "1.6.4" }
 val problemVersion by extra { "0.29.1" }
 val problemJacksonVersion by extra { "0.27.1" }
+val jjwtVersion by extra { "0.12.5" }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -45,12 +46,15 @@ dependencies {
     implementation("org.passay:passay:$passWayVersion")
     implementation("org.zalando:problem-spring-web:$problemVersion")
     implementation("org.zalando:jackson-datatype-problem:$problemJacksonVersion")
+    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
     runtimeOnly("org.liquibase:liquibase-core")
     runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")

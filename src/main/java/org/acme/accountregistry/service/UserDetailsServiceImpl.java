@@ -31,6 +31,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
                  .map(userDetails ->
                         User.withUsername(userDetails.getUsername())
                             .password(userDetails.getPassword())
+                            .authorities("ROLE_ACCOUNT_HOLDER")
                             .build()
                  )
                  .orElseThrow(() -> {

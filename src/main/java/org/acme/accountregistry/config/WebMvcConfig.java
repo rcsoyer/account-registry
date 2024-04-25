@@ -1,6 +1,9 @@
 package org.acme.accountregistry.config;
 
+import javax.crypto.SecretKey;
+
 import com.neovisionaries.i18n.CountryCode;
+import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.Nullable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +20,16 @@ class WebMvcConfig {
             @Override
             public CountryCode convert(@Nullable final String source) {
                 return isNotBlank(source) ? CountryCode.getByCode(source) : null;
+            }
+        };
+    }
+
+    @Bean
+    Converter<String, SecretKey> secretKeyConverter() {
+        return new Converter<>() {
+            @Override
+            public SecretKey convert(@Nullable final String source) {
+                return isNotBlank(source) ? Keys.hmacShaKeyFor(source.getBytes()) : null;
             }
         };
     }

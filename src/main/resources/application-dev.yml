@@ -17,3 +17,7 @@ logging:
     #org.springframework.orm.jpa: INFO
     #org.springframework.jdbc.core: DEBUG
     org.springframework.transaction: INFO
+
+security:
+  jwt:
+    secret-key: DXG2B1EsyvPChpB2Y7zBTQMKAz1u+fOrIAtdkTe8QIn6oFvOIYtOurwQwE3yd/qHiMROOxqT6Eue5RKeRHHySQ==
