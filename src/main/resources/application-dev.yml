@@ -21,3 +21,4 @@ logging:
 security:
   jwt:
     secret-key: DXG2B1EsyvPChpB2Y7zBTQMKAz1u+fOrIAtdkTe8QIn6oFvOIYtOurwQwE3yd/qHiMROOxqT6Eue5RKeRHHySQ==
+    expiration-hours: 12
