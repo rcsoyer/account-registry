@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    public LoginSuccessHandler() {
-        super();
-    }
-
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request,
                                         final HttpServletResponse response,
