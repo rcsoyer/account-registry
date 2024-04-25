@@ -3,9 +3,11 @@ package org.acme.accountregistry.config;
 import org.acme.accountregistry.web.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,8 +24,13 @@ class WebSecurityConfig {
                                                    final LoginSuccessHandler loginSuccessHandler) throws Exception {
         return securityBuilder
                  .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated())
-                 .formLogin(customizer -> customizer.successHandler(loginSuccessHandler))
+                 .formLogin(customizeLogin(loginSuccessHandler))
                  .build();
+    }
+
+    private Customizer<FormLoginConfigurer<HttpSecurity>> customizeLogin(final LoginSuccessHandler loginSuccessHandler) {
+        return customizer -> customizer
+                               .successHandler(loginSuccessHandler);
     }
 
     @Bean
