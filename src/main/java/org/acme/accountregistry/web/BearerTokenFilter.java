@@ -45,8 +45,8 @@ public class BearerTokenFilter extends OncePerRequestFilter {
               .getContext()
               .setAuthentication(new UsernamePasswordAuthenticationToken(username, null, List.of()));
         };
-        jwtService
-          .decodeJwt(jwt)
-          .ifPresentOrElse(setAuthentication, SecurityContextHolder::clearContext);
+
+        jwtService.decodeJwt(jwt)
+                  .ifPresentOrElse(setAuthentication, SecurityContextHolder::clearContext);
     }
 }
