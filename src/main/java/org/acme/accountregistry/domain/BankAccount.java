@@ -51,7 +51,7 @@ public class BankAccount extends AbstractIdentityEntity {
     private BigDecimal balance;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id", updatable = false)
     private Account accountHolder;
 
     public BankAccount(final Account accountHolder, final Type type) {
