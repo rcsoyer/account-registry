@@ -1,14 +1,19 @@
 package org.acme.accountregistry.service;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.Account;
 import org.acme.accountregistry.domain.BankAccount;
 import org.acme.accountregistry.repository.AccountRepository;
+import org.acme.accountregistry.repository.BankAccountRepository;
+import org.acme.accountregistry.repository.projection.AccountOverview;
 import org.acme.accountregistry.service.dto.AccountRegisterRequest;
 import org.acme.accountregistry.service.dto.AccountRegisterResponse;
 import org.acme.accountregistry.service.mapper.AccountMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,9 +29,17 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 @RequiredArgsConstructor
 public class AccountService {
 
-    private final AccountRepository repository;
+    private final AccountRepository accountRepository;
     private final AccountMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final BankAccountRepository bankAccountRepository;
+
+    @Transactional(readOnly = true)
+    public List<AccountOverview> getAccountOverview(final Authentication authentication) {
+        log.debug("Retrieving the Account Overview");
+        return bankAccountRepository
+                 .findByUsername(authentication.getName());
+    }
 
     public AccountRegisterResponse openAccount(final AccountRegisterRequest request) {
         log.debug("Registering a new User's Account with default opening Payments Bank Account");
@@ -36,13 +49,13 @@ public class AccountService {
         final Account account = mapper.toEntity(request, encodedPassword);
         new BankAccount(account, BankAccount.Type.PAYMENTS);
         setSecurityContext(account);
-        repository.save(account);
+        accountRepository.save(account);
         return mapper.toResponse(account, rawPassword);
     }
 
     private void checkUsernameAvailability(final String username) {
         log.debug("Check if the username is available");
-        if (repository.existsAccountByPrincipalUsername(username)) {
+        if (accountRepository.existsAccountByPrincipalUsername(username)) {
             throw new ResponseStatusException(CONFLICT, "The username is already in use");
         }
     }
