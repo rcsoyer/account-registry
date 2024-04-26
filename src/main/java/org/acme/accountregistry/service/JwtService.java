@@ -13,8 +13,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.convert.converter.Converter;
+import org.acme.accountregistry.binding.SecurityJwtProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -27,11 +26,9 @@ public class JwtService {
     private final int jwtExpirationHours;
     private final JwtParser jwtParser;
 
-    public JwtService(@Value("${security.jwt.secret-key}") final String secretKey,
-                      @Value("${security.jwt.expiration-hours}") final int expirationHours,
-                      final Converter<String, SecretKey> secretKeyConverter) {
-        this.secretKey = secretKeyConverter.convert(secretKey);
-        this.jwtExpirationHours = expirationHours;
+    public JwtService(final SecurityJwtProperties securityJwtProperties) {
+        this.secretKey = securityJwtProperties.getSecretKey();
+        this.jwtExpirationHours = securityJwtProperties.getExpirationHours();
         this.jwtParser = Jwts.parser().verifyWith(this.secretKey).build();
     }
 
