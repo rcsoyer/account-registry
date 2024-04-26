@@ -78,3 +78,13 @@ management:
       enabled: true
     readinessstate:
       enabled: true
+
+springdoc:
+  swagger-ui:
+    useRootPath: true
+    path: /swagger-ui.html
+    display-request-duration: true
+    disable-swagger-default-url: true
+    operationsSorter: method
+  default-consumes-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}
+  default-produces-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}

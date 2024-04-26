@@ -40,7 +40,12 @@ class WebSecurityConfig {
                                     "/health",
                                     "/health/liveness",
                                     "/health/readiness",
-                                    "/info")
+                                    "/info",
+                                    "/swagger-ui.html",
+                                    "/swagger-ui/**",
+                                    "/v3/api-docs",
+                                    "/swagger-resources/**",
+                                    "/webjars/**")
                    .requestMatchers(POST, "/accounts");
     }
 
