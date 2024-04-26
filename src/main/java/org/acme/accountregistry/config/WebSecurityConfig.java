@@ -20,6 +20,7 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +49,7 @@ class WebSecurityConfig {
                                                    final BearerTokenFilter bearerTokenFilter) throws Exception {
         return securityBuilder
                  .csrf(AbstractHttpConfigurer::disable)
+                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(STATELESS))
                  .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated())
                  .formLogin(customizeLogin())
                  .exceptionHandling(customizer -> customizer.accessDeniedHandler(problemSupport))
