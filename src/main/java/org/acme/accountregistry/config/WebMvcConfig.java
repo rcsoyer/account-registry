@@ -7,7 +7,9 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.Nullable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.support.DefaultFormattingConversionService;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -33,4 +35,13 @@ class WebMvcConfig {
             }
         };
     }
+
+    @Bean
+    ConversionService conversionService() {
+        final var conversionService = new DefaultFormattingConversionService();
+        conversionService.addConverter(countryConverter());
+        conversionService.addConverter(secretKeyConverter());
+        return conversionService;
+    }
+
 }
