@@ -74,7 +74,12 @@ public class Account extends AbstractIdentityEntity {
         setIdDocument(idDocument);
         this.principal = principal;
         setAddress(address);
+        openingBankAccount();
+    }
+
+    private void openingBankAccount() {
         this.bankAccounts = HashSet.newHashSet(1);
+        this.bankAccounts.add(new BankAccount(this, BankAccount.Type.PAYMENTS));
     }
 
     private void setAddress(final Address address) {

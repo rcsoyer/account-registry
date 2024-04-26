@@ -1,12 +1,13 @@
 package org.acme.accountregistry.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.acme.accountregistry.fixtures.DataUtils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
+import static org.acme.accountregistry.domain.BankAccount.Type.PAYMENTS;
 import static org.acme.accountregistry.fixtures.DataUtils.account;
 import static org.acme.accountregistry.fixtures.DataUtils.address;
 import static org.acme.accountregistry.fixtures.DataUtils.personName;
@@ -40,6 +41,13 @@ class AccountTest {
             assertEquals(address, account.getAddress());
             assertEquals(account, address.getAccount());
             assertEquals(personName, account.getPersonName());
+
+            assertThat(account.getBankAccounts())
+              .hasSize(1)
+              .first()
+              .matches(bankAccount -> bankAccount.getType() == PAYMENTS)
+              .matches(bankAccount -> bankAccount.getBalance().equals(BigDecimal.ZERO))
+              .matches(bankAccount -> bankAccount.getAccountHolder().equals(account));
         }
 
         @Test
@@ -59,7 +67,7 @@ class AccountTest {
     @Test
     void addBankAccount() {
         final Account accountHolder = account();
-        final var bankAccount = DataUtils.bankAccount(accountHolder);
+        final var bankAccount = accountHolder.getBankAccounts().iterator().next();
 
         assertThat(accountHolder.getBankAccounts())
           .containsExactly(bankAccount);

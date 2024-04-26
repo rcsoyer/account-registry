@@ -17,8 +17,7 @@ class BankAccountTest {
     @Test
     void testConstructor() {
         final Account accountHolder = account();
-        final var accountType = BankAccount.Type.PAYMENTS;
-        final var bankAccount = new BankAccount(accountHolder, accountType);
+        final var bankAccount = accountHolder.getBankAccounts().iterator().next();
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
 
         assertEquals(accountHolder, bankAccount.getAccountHolder());
@@ -26,7 +25,7 @@ class BankAccountTest {
         assertThat(accountHolder.getBankAccounts())
           .containsExactly(bankAccount);
 
-        assertEquals(accountType, bankAccount.getType());
+        assertEquals(BankAccount.Type.PAYMENTS, bankAccount.getType());
         assertEquals(BigDecimal.ZERO, bankAccount.getBalance());
 
         assertEquals(accountCountry.getCurrency(), bankAccount.getCurrency());

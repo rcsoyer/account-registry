@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.Account;
-import org.acme.accountregistry.domain.BankAccount;
 import org.acme.accountregistry.repository.AccountRepository;
 import org.acme.accountregistry.repository.BankAccountRepository;
 import org.acme.accountregistry.repository.projection.AccountOverview;
@@ -46,7 +45,6 @@ public class AccountService {
         final String rawPassword = generateRandomPassword();
         final String encodedPassword = passwordEncoder.encode(rawPassword);
         final Account account = mapper.toEntity(request, encodedPassword);
-        new BankAccount(account, BankAccount.Type.PAYMENTS);
         setSecurityContext(account);
         accountRepository.save(account);
         return mapper.toResponse(account, rawPassword);

@@ -55,20 +55,12 @@ public class BankAccount extends AbstractIdentityEntity {
     private Account accountHolder;
 
     public BankAccount(final Account accountHolder, final Type type) {
-        setAccountHolder(accountHolder);
+        this.accountHolder = accountHolder;
         this.type = type;
         this.balance = BigDecimal.ZERO;
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
         this.iban = Iban.random(getByCode(accountCountry.getAlpha2()));
         this.currency = accountCountry.getCurrency();
-    }
-
-    /**
-     * @implNote This setter must be kept private because there should not be a way to change the account holder.
-     */
-    private void setAccountHolder(final Account accountHolder) {
-        this.accountHolder = accountHolder;
-        this.accountHolder.addBankAccount(this);
     }
 
     @Override
@@ -82,11 +74,6 @@ public class BankAccount extends AbstractIdentityEntity {
         }
 
         final var that = (BankAccount) other;
-
-        if (getIban() == null || that.getIban() == null) {
-            return false;
-        }
-
         return getIban().equals(that.getIban());
     }
 
