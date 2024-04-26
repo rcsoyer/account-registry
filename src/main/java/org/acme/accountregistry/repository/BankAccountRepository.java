@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccount, Long> {
 
-    @Query("SELECT bankAccount.iban AS accountNumber," +
-             "bankAccount.type AS accountType," +
-             "bankAccount.balance AS balance," +
+    @Query("SELECT bankAccount.iban AS accountNumber, " +
+             "bankAccount.type AS accountType, " +
+             "bankAccount.balance AS balance, " +
              "bankAccount.currency AS currency " +
              "FROM BankAccount bankAccount " +
              "JOIN Account accountHolder ON bankAccount.accountHolder = accountHolder " +
