@@ -87,9 +87,7 @@ public class Address extends AbstractIdEntity {
     }
 
     private void setCountry(final CountryCode country) {
-        if (country != null
-              && country != NL
-              && country != BE) {
+        if (country != NL && country != BE) {
             throw new ResponseStatusException(BAD_REQUEST, "Only people from the Netherlands or Belgium can open an account");
         }
 
