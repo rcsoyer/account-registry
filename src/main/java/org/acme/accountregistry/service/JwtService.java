@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +53,6 @@ public class JwtService {
             return Optional.of(jwtParser.parseSignedClaims(jwt));
         } catch (final Exception jwtError) {
             log.error("Invalid JWT was passed to the application", jwtError);
-            SecurityContextHolder.clearContext();
             return Optional.empty();
         }
     }
