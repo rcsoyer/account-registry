@@ -1,6 +1,7 @@
 package org.acme.accountregistry.config;
 
 import lombok.RequiredArgsConstructor;
+import org.acme.accountregistry.web.BearerTokenFilter;
 import org.acme.accountregistry.web.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.FormLoginC
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import static org.springframework.http.HttpMethod.GET;
@@ -42,12 +44,14 @@ class WebSecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity securityBuilder) throws Exception {
+    SecurityFilterChain defaultSecurityFilterChain(final HttpSecurity securityBuilder,
+                                                   final BearerTokenFilter bearerTokenFilter) throws Exception {
         return securityBuilder
                  .csrf(AbstractHttpConfigurer::disable)
                  .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated())
                  .formLogin(customizeLogin())
                  .exceptionHandling(customizer -> customizer.accessDeniedHandler(problemSupport))
+                 .addFilterBefore(bearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
                  .build();
     }
 
