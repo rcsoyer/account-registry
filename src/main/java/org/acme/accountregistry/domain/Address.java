@@ -60,7 +60,7 @@ public class Address extends AbstractIdEntity {
     @MapsId
     @NotNull
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", updatable = false)
     private Account account;
 
     @Builder
