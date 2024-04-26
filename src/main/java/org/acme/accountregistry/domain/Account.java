@@ -5,7 +5,6 @@ import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -37,7 +36,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class Account extends AbstractIdentityEntity {
 
     @Valid
-    @Embedded
     @NotNull(message = "A person's name is mandatory")
     private PersonName personName;
 
@@ -50,7 +48,6 @@ public class Account extends AbstractIdentityEntity {
     private String idDocument;
 
     @Valid
-    @Embedded
     @NotNull(message = "The account credentials are mandatory")
     private Principal principal;
 
