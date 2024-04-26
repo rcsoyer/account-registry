@@ -37,8 +37,7 @@ public class AccountService {
     @Transactional(readOnly = true)
     public List<AccountOverview> getAccountOverview(final Authentication authentication) {
         log.debug("Retrieving the Account Overview");
-        return bankAccountRepository
-                 .findByUsername(authentication.getName());
+        return bankAccountRepository.findByUsername(authentication.getName());
     }
 
     public AccountRegisterResponse openAccount(final AccountRegisterRequest request) {
