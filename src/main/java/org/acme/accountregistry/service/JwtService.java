@@ -43,7 +43,6 @@ public class JwtService {
         return Jwts.builder()
                    .id(UUID.randomUUID().toString())
                    .subject((principal.getUsername()))
-                   .claim("roles", principal.getAuthorities())
                    .issuedAt(new Date())
                    .expiration(Date.from(jwtExpiration))
                    .signWith(secretKey, SIGN_ALG)
