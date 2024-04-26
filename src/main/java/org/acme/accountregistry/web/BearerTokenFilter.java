@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 @RequiredArgsConstructor
-public class BearerTokenFilter extends OncePerRequestFilter {
+class BearerTokenFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
