@@ -81,10 +81,11 @@ management:
 
 springdoc:
   swagger-ui:
-    useRootPath: true
     path: /swagger-ui.html
     display-request-duration: true
     disable-swagger-default-url: true
     operationsSorter: method
+    url: /v3/api-docs
+    config-url: /v3/api-docs/swagger-config
   default-consumes-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}
   default-produces-media-type: ${spring.mvc.contentnegotiation.media-types.defaultContentType}
