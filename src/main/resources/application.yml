@@ -80,6 +80,7 @@ management:
       enabled: true
 
 springdoc:
+  show-login-endpoint: true
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
