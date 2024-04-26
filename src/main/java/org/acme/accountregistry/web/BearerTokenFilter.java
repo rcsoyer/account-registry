@@ -3,7 +3,6 @@ package org.acme.accountregistry.web;
 import java.io.IOException;
 import java.util.List;
 
-import io.jsonwebtoken.Claims;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,10 +36,13 @@ public class BearerTokenFilter extends OncePerRequestFilter {
     }
 
     private void setSecurityContext(final String jwt) {
-        final Claims claims = jwtService.decodeJwt(jwt).getPayload();
-        final String username = claims.getSubject();
-        SecurityContextHolder
-          .getContext()
-          .setAuthentication(new UsernamePasswordAuthenticationToken(username, null, List.of()));
+        jwtService
+          .decodeJwt(jwt)
+          .ifPresent(jwsClaims -> {
+              final String username = jwsClaims.getPayload().getSubject();
+              SecurityContextHolder
+                .getContext()
+                .setAuthentication(new UsernamePasswordAuthenticationToken(username, null, List.of()));
+          });
     }
 }
