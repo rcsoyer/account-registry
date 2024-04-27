@@ -2,6 +2,9 @@ package org.acme.accountregistry.web;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,13 @@ class AccountController {
 
     @PostMapping
     @ResponseStatus(CREATED)
+    @Operation(summary = "Register a new account",
+               description = "This operation registers a new unique client's Account into the system. " +
+                               "<br/> This automatically creates a new Payments Bank Account with a default balance of 0.00")
+    @ApiResponse(responseCode = "201", description = "Account successfully registered")
+    @ApiResponse(responseCode = "400", description = "Invalid input data",
+                 content = @Content(mediaType = "application/problem+json"))
+    @ApiResponse(responseCode = "409", description = "Account username already exists")
     AccountRegisterResponse register(@RequestBody @Valid final AccountRegisterRequest request) {
         log.debug("Rest API call to register a new Account");
         return service.openAccount(request);
