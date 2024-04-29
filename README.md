@@ -70,10 +70,19 @@ The application provides an OpenAPI documentation for better integration with ot
     - Upon successful registration, a default random secure password is generated and returned to
       the user;
     - No authentication is required to register;
-- Login - ````POST /login````
+- Login 
+  - ```GET /login```
+    - via browser its possible to access the login UI page: http://localhost:8080/login
+    - this is the ``formLogin`` feature automatically provided by Spring Security;
+    - upon successful login, the user receives their `JWT` that allows them to access protected
+      resources;
+  - ````POST /login````
     - http://localhost:8080/swagger-ui/index.html#/login-endpoint/post_login
     - Existing clients can login with their username and password;
     - A `JWT` is generated upon successfully authenticated client;
+    - This endpoint is generated automatically by Spring Security and connects to a custom 
+      success handler that generates the `JWT`;
+    - This is the same endpoint used by the `formLogin` feature;
 - Account Overview listing - ````GET /accounts````
     - http://localhost:8080/swagger-ui/index.html#/account-controller/getAccountOverview
     - List all the client's Bank Accounts;
