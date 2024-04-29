@@ -5,6 +5,8 @@ A 24/7 web service that allows users to manage their banking details.
 The application provides REST APIs for users to: register, login, and manage their account 
 details.
 
+The resources are secured with JWT authentication.
+
 ## Setup local development environment
 The minimum requirements to run the application are:
 - ``Java 21``
@@ -21,9 +23,8 @@ The minimum requirements to run the application are:
 The application can be built via gradle on your IDE.
 
 Or you can build the application via the command line in terminal:
-````
-./gradlew clean build
-````
+
+````./gradlew clean build````
 
 ## Running the application
 
