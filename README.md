@@ -35,7 +35,7 @@ This project uses GitHub Actions for CI/CD pipeline: [gradle build](.github/work
 The pipeline is triggered on every push to the `master` branch.
 
 The pipeline runs the following steps:
-- Checkout the code
+- Git checkout the code
 - Setup Java 21
 - Build the application
   - Run the unit tests
