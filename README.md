@@ -76,6 +76,7 @@ The application provides an OpenAPI documentation for better integration with ot
     - this is the ``formLogin`` feature automatically provided by Spring Security;
     - upon successful login, the user receives their `JWT` that allows them to access protected
       resources;
+    - *Reference*: https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html
   - ````POST /login````
     - http://localhost:8080/swagger-ui/index.html#/login-endpoint/post_login
     - Existing clients can login with their username and password;
