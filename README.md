@@ -102,3 +102,21 @@ The application provides an OpenAPI documentation for better integration with ot
     - This is a secured endpoint that requires a valid `JWT` for access;
     - If a valid `JWT` is provided, the client's banking details associated with the token are
       fetched and returned;
+
+### Actuator
+
+The application provides the Spring Boot Actuator endpoints for monitoring and management.
+
+- info ```GET /info```
+  - http://localhost:8080/swagger-ui/index.html#/Actuator/info
+  - Provides general information about the running application;
+  - http://localhost:8080/info
+  - Provides general information about the application;
+- health ```GET /health```
+  - http://localhost:8080/swagger-ui/index.html#/Actuator/health
+  - Provides metrics about the health of the application;
+- liveness ```GET /health/liveness```
+  - http://localhost:8080/health/liveness
+- readiness ```GET /health/readiness```
+  - http://localhost:8080/health/readiness
+  - Provides metrics about the readiness of the application;
