@@ -43,6 +43,15 @@ The application then can be run in two ways:
   - ```./gradlew bootRun --args='--spring.profiles.active=dev'```
 
 ## Features
+
+### OpenAPI documentation
+The application provides an OpenAPI documentation for better integration with other services.
+
+- The Swagger UI can be accessed via:
+  - http://localhost:8080/swagger-ui.html
+- The OpenAPI yaml can be downloaded via:
+  - http://localhost:8080/v3/api-docs.yaml
+
 ## Register an account 
 via POST /accounts
 - 
