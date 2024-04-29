@@ -5,7 +5,7 @@ A 24/7 web service that allows users to manage their banking details.
 The application provides REST APIs for users to: register, login, and manage their account 
 details.
 
-The resources are secured with JWT authentication.
+The resources are secured with JWT, Bearer Token, authentication.
 
 ## Setup local development environment
 The minimum requirements to run the application are:
