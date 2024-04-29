@@ -29,6 +29,18 @@ Or you can build the application via the command line in terminal:
 
 ````./gradlew clean build````
 
+### CI/CD pipeline
+This project uses GitHub Actions for CI/CD pipeline: [gradle build](.github/workflows/gradle.yml).
+
+The pipeline is triggered on every push to the `master` branch.
+
+The pipeline runs the following steps:
+- Checkout the code
+- Setup Java 21
+- Build the application
+  - Run the unit tests
+  - Run the integration tests
+
 ## Running the application
 
 The project provides an easy to use ``dev`` Spring profile:
