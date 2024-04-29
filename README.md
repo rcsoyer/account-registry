@@ -63,7 +63,7 @@ The application then can be run in two ways:
 ### Security
 Unless specified, all the endpoints require authentication to access.
 
-If the client is not authenticated the application may redirect the client to the login page.
+If the client is not authenticated the application may redirect the client to the `login` page.
 
 ### OpenAPI documentation
 
