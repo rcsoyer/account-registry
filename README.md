@@ -112,11 +112,15 @@ The application provides the Spring Boot Actuator endpoints for monitoring and m
   - Provides general information about the running application;
   - http://localhost:8080/info
   - Provides general information about the application;
+  - No authentication is required;
 - health ```GET /health```
   - http://localhost:8080/swagger-ui/index.html#/Actuator/health
   - Provides metrics about the health of the application;
+  - No authentication is required;
 - liveness ```GET /health/liveness```
   - http://localhost:8080/health/liveness
+  - No authentication is required;
 - readiness ```GET /health/readiness```
   - http://localhost:8080/health/readiness
   - Provides metrics about the readiness of the application;
+  - No authentication is required;
