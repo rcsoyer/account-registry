@@ -12,11 +12,11 @@ The minimum requirements to run the application are:
 - ``Java 21``
   - any ``JDK 21`` distro should work: Eclipse Temurin, OpenJDK, Oracle JDK..etc
 - ``Docker engine``
-  - the integration tests need a Docker engine to run MySQL in a container;
-  - Docker Desktop is an easy way to get Docker on your OS;
+  - the integration tests need a Docker engine to run `MySQL` in a container;
+  - `Docker Desktop` is an easy way to get Docker on your OS;
     - https://docs.docker.com/desktop/
-- If you run the application through an IDE, such as IntelliJ IDEA, you may need to enable 
-  annotation processing to support Lombok and MapStruct.
+- If you run the application through an `IDE`, such as `IntelliJ IDEA`, you may need to enable 
+  annotation processing to support `Lombok` and `MapStruct`.
 - Local ``MySQL`` database instance with an empty schema named ``account_registry``.
 
 ## Building the application
