@@ -60,6 +60,11 @@ The application then can be run in two ways:
 
 ## Features
 
+### Security
+Unless specified, all the endpoints require authentication to access.
+
+If the client is not authenticated the application may redirect the client to the login page.
+
 ### OpenAPI documentation
 
 The application provides an OpenAPI documentation for better integration with other services.
