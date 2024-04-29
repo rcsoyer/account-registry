@@ -16,6 +16,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
+      maximumPoolSize: 2
       data-source-properties:
         useConfigs: maxPerformance-8-0
         tlsVersions: TLSv1.3
