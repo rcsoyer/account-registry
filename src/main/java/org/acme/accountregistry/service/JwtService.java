@@ -15,7 +15,6 @@ import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.binding.SecurityJwtProperties;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -33,11 +32,10 @@ public class JwtService {
     }
 
     public String generateJwt(final Authentication authentication) {
-        final var principal = (UserDetails) authentication.getPrincipal();
         final Instant jwtExpiration = LocalDateTime.now().plusHours(jwtExpirationHours).toInstant(ZoneOffset.UTC);
         return Jwts.builder()
                    .id(UUID.randomUUID().toString())
-                   .subject((principal.getUsername()))
+                   .subject((authentication.getName()))
                    .issuedAt(new Date())
                    .expiration(Date.from(jwtExpiration))
                    .signWith(secretKey, Jwts.SIG.HS512)
