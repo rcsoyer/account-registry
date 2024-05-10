@@ -22,7 +22,6 @@ repositories {
     mavenCentral()
 }
 
-val commonsTextVersion by extra { "1.12.0" }
 val iban4JVersion by extra { "3.2.7-RELEASE" }
 val i18nVersion by extra { "1.29" }
 val mapStructVersion by extra { "1.5.5.Final" }
@@ -39,7 +38,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.apache.commons:commons-lang3")
-    implementation("org.apache.commons:commons-text:$commonsTextVersion")
     implementation("org.iban4j:iban4j:$iban4JVersion")
     implementation("com.neovisionaries:nv-i18n:$i18nVersion")
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
