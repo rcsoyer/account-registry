@@ -23,6 +23,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         final HttpServletResponse response,
                                         final Authentication authentication) throws IOException {
         log.info("User has been successfully authenticated");
-        response.getWriter().write(jwtService.generateJwt(authentication));
+        final String jwt = jwtService.generateJwt(authentication);
+        response.getWriter().write(jwt);
     }
 }
