@@ -17,6 +17,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.acme.accountregistry.domain.BankAccount.Type;
 import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -76,7 +77,7 @@ public class Account extends AbstractIdentityEntity {
 
     private void openingBankAccount() {
         this.bankAccounts = HashSet.newHashSet(1);
-        this.bankAccounts.add(new BankAccount(this, BankAccount.Type.PAYMENTS));
+        this.bankAccounts.add(new BankAccount(this, Type.PAYMENTS));
     }
 
     private void setAddress(final Address address) {
