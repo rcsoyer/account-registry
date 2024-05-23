@@ -25,6 +25,8 @@ spring:
         useUnbufferedInput: false
         useCursorFetch: true
         defaultFetchSize: 200
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
