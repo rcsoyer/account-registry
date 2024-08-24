@@ -1,5 +1,8 @@
 package org.acme.accountregistry.infrastructure.config;
 
+import static java.lang.Long.parseLong;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +17,17 @@ class EventsConfig {
 
     /** Set up for the Spring framework to publish and handle events asynchronously */
     @Bean
-    ApplicationEventMulticaster asyncApplicationEventMulticaster() {
+    ApplicationEventMulticaster asyncApplicationEventMulticaster(
+            @Value("${spring.lifecycle.timeout-per-shutdown-phase}")
+                    final String timeOutPerShutDown) {
+        final var asyncTaskExecutor = new SimpleAsyncTaskExecutor();
+        asyncTaskExecutor.setVirtualThreads(true);
+        final long taskTerminationTimeOut = parseLong(timeOutPerShutDown.replaceAll("[^0-9]", ""));
+        asyncTaskExecutor.setTaskTerminationTimeout(taskTerminationTimeOut);
+
         final var eventMulticaster = new SimpleApplicationEventMulticaster();
-        eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
+        eventMulticaster.setTaskExecutor(asyncTaskExecutor);
+
         return eventMulticaster;
     }
 
