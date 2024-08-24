@@ -1,8 +1,8 @@
 plugins {
     java
     id("org.springframework.boot") version "3.3.3"
-    id("io.spring.dependency-management") version "1.1.4"
-    id("io.freefair.lombok") version "8.6"
+    id("io.spring.dependency-management") version "1.1.6"
+    id("io.freefair.lombok") version "8.10"
 }
 
 group = "org.acme"
@@ -22,14 +22,14 @@ repositories {
     mavenCentral()
 }
 
-val iban4JVersion by extra { "3.2.7-RELEASE" }
+val iban4JVersion by extra { "3.2.9-RELEASE" }
 val i18nVersion by extra { "1.29" }
-val mapStructVersion by extra { "1.5.5.Final" }
+val mapStructVersion by extra { "1.6.0" }
 val passWayVersion by extra { "1.6.4" }
 val problemVersion by extra { "0.29.1" }
 val problemJacksonVersion by extra { "0.27.1" }
-val jjwtVersion by extra { "0.12.5" }
-val springdocVersion by extra { "2.5.0" }
+val jjwtVersion by extra { "0.12.6" }
+val springdocVersion by extra { "2.6.0" }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
