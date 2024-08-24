@@ -1,4 +1,4 @@
-package org.acme.accountregistry.config;
+package org.acme.accountregistry.infrastructure.config;
 
 import java.io.IOException;
 
