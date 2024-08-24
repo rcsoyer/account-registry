@@ -1,4 +1,4 @@
-package org.acme.accountregistry.infrastructure.repository.projection;
+package org.acme.accountregistry.domain.dto.query;
 
 import java.math.BigDecimal;
 import java.util.Currency;

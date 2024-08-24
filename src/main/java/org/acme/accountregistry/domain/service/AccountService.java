@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
-import org.acme.accountregistry.infrastructure.repository.projection.AccountOverview;
+import org.acme.accountregistry.domain.dto.query.AccountOverview;
 import org.acme.accountregistry.domain.dto.command.AccountRegisterRequest;
 import org.acme.accountregistry.domain.dto.command.AccountRegisterResponse;
 import org.acme.accountregistry.domain.service.mapper.AccountMapper;
