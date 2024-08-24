@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain.dto;
+package org.acme.accountregistry.domain.dto.command;
 
 import java.time.LocalDate;
 
@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.acme.accountregistry.domain.dto.AddressDto;
+import org.acme.accountregistry.domain.dto.PersonNameDto;
 
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 

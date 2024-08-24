@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain.dto;
+package org.acme.accountregistry.domain.dto.command;
 
 import jakarta.validation.constraints.NotNull;
 
