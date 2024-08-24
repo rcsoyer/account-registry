@@ -49,7 +49,6 @@ spring:
       media-types:
         defaultContentType:
           application/json
-    throw-exception-if-no-handler-found: true
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 
