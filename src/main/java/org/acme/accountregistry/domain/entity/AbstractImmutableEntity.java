@@ -4,10 +4,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 import static lombok.AccessLevel.PROTECTED;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -23,6 +20,7 @@ import java.time.Instant;
 
 @Getter
 @ToString
+@MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 abstract class AbstractImmutableEntity {

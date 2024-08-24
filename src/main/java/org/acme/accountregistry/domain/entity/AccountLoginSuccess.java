@@ -1,17 +1,13 @@
 package org.acme.accountregistry.domain.entity;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
-public class AccountLoginSuccess extends AbstractImmutableEntity {
-}
+@Getter
+@Entity
+@NoArgsConstructor(access = PROTECTED)
+public class AccountLoginSuccess extends AbstractImmutableEntity {}

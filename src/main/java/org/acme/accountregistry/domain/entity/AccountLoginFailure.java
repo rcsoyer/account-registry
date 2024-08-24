@@ -1,11 +1,13 @@
 package org.acme.accountregistry.domain.entity;
 
-import jakarta.persistence.EntityListeners;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import static lombok.AccessLevel.PROTECTED;
 
+import jakarta.persistence.Entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Entity
+@NoArgsConstructor(access = PROTECTED)
 public class AccountLoginFailure extends AbstractImmutableEntity {}
