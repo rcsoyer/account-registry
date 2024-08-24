@@ -1,8 +1,8 @@
 package org.acme.accountregistry.config;
 
 import lombok.RequiredArgsConstructor;
-import org.acme.accountregistry.web.BearerTokenFilter;
-import org.acme.accountregistry.web.LoginSuccessHandler;
+import org.acme.accountregistry.application.web.BearerTokenFilter;
+import org.acme.accountregistry.application.web.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

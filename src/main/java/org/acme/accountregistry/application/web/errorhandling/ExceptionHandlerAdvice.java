@@ -1,4 +1,4 @@
-package org.acme.accountregistry.web.errorhandling;
+package org.acme.accountregistry.application.web.errorhandling;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 

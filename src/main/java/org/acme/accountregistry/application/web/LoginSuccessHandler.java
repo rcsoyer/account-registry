@@ -1,4 +1,4 @@
-package org.acme.accountregistry.web;
+package org.acme.accountregistry.application.web;
 
 import java.io.IOException;
 
