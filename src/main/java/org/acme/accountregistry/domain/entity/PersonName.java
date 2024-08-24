@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain;
+package org.acme.accountregistry.domain.entity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package org.acme.accountregistry.service.mapper;
 
-import org.acme.accountregistry.domain.Account;
-import org.acme.accountregistry.domain.Principal;
+import org.acme.accountregistry.domain.entity.Account;
+import org.acme.accountregistry.domain.entity.Principal;
 import org.acme.accountregistry.service.dto.AccountRegisterRequest;
 import org.acme.accountregistry.service.dto.AccountRegisterResponse;
 import org.mapstruct.Mapper;

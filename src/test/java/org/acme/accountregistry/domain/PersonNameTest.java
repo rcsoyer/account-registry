@@ -1,5 +1,6 @@
 package org.acme.accountregistry.domain;
 
+import org.acme.accountregistry.domain.entity.PersonName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

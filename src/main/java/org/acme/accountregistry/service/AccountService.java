@@ -4,7 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.domain.Account;
+import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
 import org.acme.accountregistry.infrastructure.repository.projection.AccountOverview;

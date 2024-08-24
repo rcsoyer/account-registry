@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain;
+package org.acme.accountregistry.domain.entity;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;

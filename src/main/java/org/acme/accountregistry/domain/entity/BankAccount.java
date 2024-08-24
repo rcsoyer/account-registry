@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain;
+package org.acme.accountregistry.domain.entity;
 
 import java.math.BigDecimal;
 import java.util.Currency;

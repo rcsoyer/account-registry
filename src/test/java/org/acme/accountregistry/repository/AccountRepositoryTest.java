@@ -2,7 +2,7 @@ package org.acme.accountregistry.repository;
 
 import java.util.Optional;
 
-import org.acme.accountregistry.domain.Account;
+import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -3,6 +3,7 @@ package org.acme.accountregistry.domain;
 import java.util.stream.Stream;
 
 import com.neovisionaries.i18n.CountryCode;
+import org.acme.accountregistry.domain.entity.Address;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

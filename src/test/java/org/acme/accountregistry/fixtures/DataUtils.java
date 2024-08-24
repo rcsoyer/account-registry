@@ -2,11 +2,11 @@ package org.acme.accountregistry.fixtures;
 
 import java.time.LocalDate;
 
-import org.acme.accountregistry.domain.Account;
-import org.acme.accountregistry.domain.Address;
-import org.acme.accountregistry.domain.BankAccount;
-import org.acme.accountregistry.domain.PersonName;
-import org.acme.accountregistry.domain.Principal;
+import org.acme.accountregistry.domain.entity.Account;
+import org.acme.accountregistry.domain.entity.Address;
+import org.acme.accountregistry.domain.entity.BankAccount;
+import org.acme.accountregistry.domain.entity.PersonName;
+import org.acme.accountregistry.domain.entity.Principal;
 
 import static com.neovisionaries.i18n.CountryCode.NL;
 

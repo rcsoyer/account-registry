@@ -3,6 +3,8 @@ package org.acme.accountregistry.domain;
 import java.math.BigDecimal;
 
 import com.neovisionaries.i18n.CountryCode;
+import org.acme.accountregistry.domain.entity.Account;
+import org.acme.accountregistry.domain.entity.BankAccount;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;

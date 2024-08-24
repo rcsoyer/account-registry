@@ -3,11 +3,15 @@ package org.acme.accountregistry.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.acme.accountregistry.domain.entity.Account;
+import org.acme.accountregistry.domain.entity.Address;
+import org.acme.accountregistry.domain.entity.PersonName;
+import org.acme.accountregistry.domain.entity.Principal;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
-import static org.acme.accountregistry.domain.BankAccount.Type.PAYMENTS;
+import static org.acme.accountregistry.domain.entity.BankAccount.Type.PAYMENTS;
 import static org.acme.accountregistry.fixtures.DataUtils.account;
 import static org.acme.accountregistry.fixtures.DataUtils.address;
 import static org.acme.accountregistry.fixtures.DataUtils.personName;

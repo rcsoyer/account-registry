@@ -1,5 +1,6 @@
 package org.acme.accountregistry.domain;
 
+import org.acme.accountregistry.domain.entity.Principal;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

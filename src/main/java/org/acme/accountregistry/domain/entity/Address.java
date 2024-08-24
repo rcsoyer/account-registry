@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain;
+package org.acme.accountregistry.domain.entity;
 
 import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.Column;

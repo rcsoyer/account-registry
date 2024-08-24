@@ -1,4 +1,4 @@
-package org.acme.accountregistry.domain;
+package org.acme.accountregistry.domain.entity;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.acme.accountregistry.domain.BankAccount.Type;
+import org.acme.accountregistry.domain.entity.BankAccount.Type;
 import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.CascadeType.ALL;
