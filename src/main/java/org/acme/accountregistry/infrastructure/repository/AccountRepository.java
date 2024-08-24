@@ -1,4 +1,4 @@
-package org.acme.accountregistry.repository;
+package org.acme.accountregistry.infrastructure.repository;
 
 import java.util.Optional;
 

@@ -13,7 +13,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.binding.SecurityJwtProperties;
+import org.acme.accountregistry.infrastructure.binding.SecurityJwtProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 

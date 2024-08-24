@@ -1,4 +1,4 @@
-package org.acme.accountregistry.repository.projection;
+package org.acme.accountregistry.infrastructure.repository.projection;
 
 import java.math.BigDecimal;
 import java.util.Currency;

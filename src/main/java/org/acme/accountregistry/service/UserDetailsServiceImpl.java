@@ -2,7 +2,7 @@ package org.acme.accountregistry.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.repository.AccountRepository;
+import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

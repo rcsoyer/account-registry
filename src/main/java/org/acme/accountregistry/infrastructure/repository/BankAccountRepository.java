@@ -1,9 +1,9 @@
-package org.acme.accountregistry.repository;
+package org.acme.accountregistry.infrastructure.repository;
 
 import java.util.List;
 
 import org.acme.accountregistry.domain.BankAccount;
-import org.acme.accountregistry.repository.projection.AccountOverview;
+import org.acme.accountregistry.infrastructure.repository.projection.AccountOverview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

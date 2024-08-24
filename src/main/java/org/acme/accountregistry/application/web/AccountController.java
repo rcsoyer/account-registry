@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.repository.projection.AccountOverview;
+import org.acme.accountregistry.infrastructure.repository.projection.AccountOverview;
 import org.acme.accountregistry.service.AccountService;
 import org.acme.accountregistry.service.dto.AccountRegisterRequest;
 import org.acme.accountregistry.service.dto.AccountRegisterResponse;

@@ -1,4 +1,4 @@
-package org.acme.accountregistry.repository;
+package org.acme.accountregistry.infrastructure.repository;
 
 import org.acme.accountregistry.domain.Address;
 import org.springframework.data.jpa.repository.JpaRepository;

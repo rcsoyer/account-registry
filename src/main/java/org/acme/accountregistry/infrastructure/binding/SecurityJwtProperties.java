@@ -1,4 +1,4 @@
-package org.acme.accountregistry.binding;
+package org.acme.accountregistry.infrastructure.binding;
 
 import javax.crypto.SecretKey;
 
