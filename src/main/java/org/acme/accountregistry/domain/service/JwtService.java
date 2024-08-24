@@ -1,4 +1,4 @@
-package org.acme.accountregistry.service;
+package org.acme.accountregistry.domain.service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

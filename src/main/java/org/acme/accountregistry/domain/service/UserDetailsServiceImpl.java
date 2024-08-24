@@ -1,4 +1,4 @@
-package org.acme.accountregistry.service;
+package org.acme.accountregistry.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

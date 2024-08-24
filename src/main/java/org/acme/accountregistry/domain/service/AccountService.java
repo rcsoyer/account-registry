@@ -1,4 +1,4 @@
-package org.acme.accountregistry.service;
+package org.acme.accountregistry.domain.service;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
 import org.acme.accountregistry.infrastructure.repository.projection.AccountOverview;
-import org.acme.accountregistry.service.dto.AccountRegisterRequest;
-import org.acme.accountregistry.service.dto.AccountRegisterResponse;
-import org.acme.accountregistry.service.mapper.AccountMapper;
+import org.acme.accountregistry.domain.service.dto.AccountRegisterRequest;
+import org.acme.accountregistry.domain.service.dto.AccountRegisterResponse;
+import org.acme.accountregistry.domain.service.mapper.AccountMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import static org.acme.accountregistry.service.PasswordUtils.generateRandomPassword;
+import static org.acme.accountregistry.domain.service.PasswordUtils.generateRandomPassword;
 import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Slf4j

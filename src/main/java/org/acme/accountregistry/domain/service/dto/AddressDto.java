@@ -1,4 +1,4 @@
-package org.acme.accountregistry.service.dto;
+package org.acme.accountregistry.domain.service.dto;
 
 import com.neovisionaries.i18n.CountryCode;
 import jakarta.validation.constraints.NotBlank;
