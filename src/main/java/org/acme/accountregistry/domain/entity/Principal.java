@@ -1,16 +1,19 @@
 package org.acme.accountregistry.domain.entity;
 
-import java.util.Objects;
+import static lombok.AccessLevel.PROTECTED;
+
+import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.NaturalId;
 
-import static lombok.AccessLevel.PROTECTED;
-import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
+import java.util.Objects;
 
 /**
  * User's credentials.
@@ -56,6 +59,6 @@ public class Principal {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getUsername());
+        return Objects.hashCode(getUsername().toUpperCase());
     }
 }
