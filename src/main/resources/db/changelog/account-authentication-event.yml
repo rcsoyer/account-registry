@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: account-authentication-event.yml
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: account
+            remarks: Represents an Account authentication event, such as login
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account_id
+                    references: account(id)
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when the authentication event happened
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                  remarks: The Account that has authenticated login into the platform

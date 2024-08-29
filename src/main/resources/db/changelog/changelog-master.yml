@@ -5,3 +5,5 @@ databaseChangeLog:
       file: classpath:db/changelog/address.yml
   - include:
       file: classpath:db/changelog/bank-account.yml
+  - include:
+      file: classpath:db/changelog/account-authentication-event.yml
