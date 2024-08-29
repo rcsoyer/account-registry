@@ -1,6 +1,7 @@
 package org.acme.accountregistry.domain.entity;
 
 import static jakarta.persistence.EnumType.STRING;
+
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.*;
