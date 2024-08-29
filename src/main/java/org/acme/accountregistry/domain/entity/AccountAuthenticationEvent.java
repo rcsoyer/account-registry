@@ -2,9 +2,7 @@ package org.acme.accountregistry.domain.entity;
 
 import static lombok.AccessLevel.PROTECTED;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,25 +13,37 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import java.time.Instant;
 
 @Getter
-// @Entity
+@Entity
 @NoArgsConstructor(access = PROTECTED)
-public class AccountLoginSuccess extends AbstractImmutableEntity {
+public class AccountAuthenticationEvent extends AbstractImmutableEntity {
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "account_id", updatable = false)
     private Account account;
 
-    private Instant loginEventTimestamp;
+    private Instant authenticationTimestamp;
 
     @Embedded private WebAuthenticationDetails authenticationDetails;
 
+    @Enumerated(EnumType.STRING)
+    private AuthenticationEventType eventType;
+
     @Builder
-    private AccountLoginSuccess(
+    private AccountAuthenticationEvent(
             final Account account,
             final long loginEventTimestamp,
-            final WebAuthenticationDetails authenticationDetails) {
+            final WebAuthenticationDetails authenticationDetails,
+            final AuthenticationEventType eventType) {
         this.account = account;
-        this.loginEventTimestamp = Instant.ofEpochMilli(loginEventTimestamp);
+        this.authenticationTimestamp = Instant.ofEpochMilli(loginEventTimestamp);
         this.authenticationDetails = authenticationDetails;
+        this.eventType = eventType;
+    }
+
+    enum AuthenticationEventType {
+        SUCCESS,
+        FAILURE,
+        FAILURE_BAD_CREDENTIALS,
+        FAILURE_USER_NOT_FOUND
     }
 }
