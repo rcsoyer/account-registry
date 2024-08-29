@@ -3,6 +3,8 @@ package org.acme.accountregistry.domain.entity;
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -21,10 +23,11 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @JoinColumn(name = "account_id", updatable = false)
     private Account account;
 
-    private Instant authenticationTimestamp;
+    @NotNull @PastOrPresent private Instant authenticationTimestamp;
 
-    @Embedded private WebAuthenticationDetails authenticationDetails;
+    private String remoteAddress;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private AuthenticationEventType eventType;
 
@@ -36,7 +39,7 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
             final AuthenticationEventType eventType) {
         this.account = account;
         this.authenticationTimestamp = Instant.ofEpochMilli(loginEventTimestamp);
-        this.authenticationDetails = authenticationDetails;
+        this.remoteAddress = authenticationDetails.getRemoteAddress();
         this.eventType = eventType;
     }
 

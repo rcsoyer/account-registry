@@ -4,7 +4,7 @@ databaseChangeLog:
       author: rcsoyer
       changes:
         - createTable:
-            tableName: account
+            tableName: account_authentication_event
             remarks: Represents an Account authentication event, such as login
             columns:
               - column:
@@ -19,7 +19,7 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_account_id
+                    foreignKeyName: fk_account_auth_event_id
                     references: account(id)
               - column:
                   name: date_created
@@ -34,17 +34,17 @@ databaseChangeLog:
                     nullable: false
                   remarks: The Account that has authenticated login into the platform
               - column:
-                  name: authentication-timestamp
+                  name: authentication_timestamp
                   type: datetime(6)
                   constraints:
                     nullable: false
                   remarks: The date time of when the authentication event happened
               - column:
-                  name: remote-address
+                  name: remote_address
                   type: varchar(45)
                   remarks: The ip address of the client used for authentication
               - column:
-                  name: eventType
+                  name: event_type
                   type: varchar(10)
                   constraints:
                     nullable: false
