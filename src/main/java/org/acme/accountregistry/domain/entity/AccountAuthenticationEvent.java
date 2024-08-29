@@ -1,5 +1,6 @@
 package org.acme.accountregistry.domain.entity;
 
+import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.*;
@@ -28,7 +29,7 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     private String remoteAddress;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private AuthenticationEventType eventType;
 
     @Builder
