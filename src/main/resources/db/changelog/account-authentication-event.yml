@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: account-authentication-event.yml
+      id: account-authentication-event.v1
       author: rcsoyer
       changes:
         - createTable:
@@ -18,7 +18,6 @@ databaseChangeLog:
                   name: account_id
                   type: bigint
                   constraints:
-                    nullable: false
                     foreignKeyName: fk_account_auth_event_id
                     references: account(id)
               - column:
