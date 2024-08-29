@@ -26,10 +26,26 @@ databaseChangeLog:
                   type: datetime(6)
                   constraints:
                     nullable: false
-                  remarks: The date time of when the authentication event happened
+                  remarks: The date time of when this record was created
               - column:
                   name: created_by
                   type: varchar(50)
                   constraints:
                     nullable: false
                   remarks: The Account that has authenticated login into the platform
+              - column:
+                  name: authentication-timestamp
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when the authentication event happened
+              - column:
+                  name: remote-address
+                  type: varchar(45)
+                  remarks: The ip address of the client used for authentication
+              - column:
+                  name: eventType
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The Authentication event type
