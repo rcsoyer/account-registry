@@ -1,30 +1,34 @@
 package org.acme.accountregistry.domain.entity;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Objects;
+import static jakarta.persistence.EnumType.STRING;
+
+import static lombok.AccessLevel.PROTECTED;
+
+import static org.iban4j.CountryCode.getByCode;
 
 import com.neovisionaries.i18n.CountryCode;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.NaturalId;
 import org.iban4j.Iban;
 
-import static jakarta.persistence.EnumType.STRING;
-import static lombok.AccessLevel.PROTECTED;
-import static org.iban4j.CountryCode.getByCode;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Objects;
 
 /**
- * The representation of a Bank Account and its intrinsically related details.
- * <br/> The account number is here represented by a random generated IBAN.
- * <br/> An Account Holder {@link Account} may have many Bank Accounts in the platform.
+ * The representation of a Bank Account and its intrinsically related details. <br>
+ * The account number is here represented by a random generated IBAN. <br>
+ * An Account Holder {@link Account} may have many Bank Accounts in the platform.
  */
 @Getter
 @Entity
@@ -33,7 +37,6 @@ public class BankAccount extends AbstractIdentityEntity {
 
     @NaturalId
     @NotNull(message = "The account IBAN is mandatory")
-    @Convert(converter = IbanConverter.class)
     private Iban iban;
 
     @Enumerated(STRING)
@@ -41,9 +44,7 @@ public class BankAccount extends AbstractIdentityEntity {
     @NotNull(message = "The account type is mandatory")
     private Type type;
 
-    /**
-     * Currency is inferred from the account holder's country.
-     */
+    /** Currency is inferred from the account holder's country. */
     @NotNull(message = "The account currency is mandatory")
     private Currency currency;
 
@@ -83,6 +84,8 @@ public class BankAccount extends AbstractIdentityEntity {
     }
 
     public enum Type {
-        PAYMENTS, SAVINGS, FIXED_DEPOSIT
+        PAYMENTS,
+        SAVINGS,
+        FIXED_DEPOSIT
     }
 }

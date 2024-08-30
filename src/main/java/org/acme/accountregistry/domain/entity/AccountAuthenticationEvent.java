@@ -4,6 +4,9 @@ import static jakarta.persistence.EnumType.STRING;
 
 import static lombok.AccessLevel.PROTECTED;
 
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_BAD_CREDENTIALS;
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.SUCCESS;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -11,6 +14,10 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -35,18 +42,26 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
 
     @Builder
     private AccountAuthenticationEvent(
-            final Account account,
-            final long authenticationTimestamp,
-            final String remoteAddress,
-            final AuthenticationEventType eventType) {
+            final Account account, final AuthenticationSuccessEvent event) {
         this.account = account;
-        this.authenticationTimestamp = Instant.ofEpochMilli(authenticationTimestamp);
-        setRemoteAddress(remoteAddress);
-        this.eventType = eventType;
+        this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
+        setRemoteAddress(event);
+        this.eventType = SUCCESS;
     }
 
-    private void setRemoteAddress(final String remoteAddress) {
+    @Builder
+    private AccountAuthenticationEvent(
+            final Account account, final AuthenticationFailureBadCredentialsEvent event) {
+        this.account = account;
+        this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
+        this.eventType = FAILURE_BAD_CREDENTIALS;
+    }
+
+    private void setRemoteAddress(final AuthenticationSuccessEvent event) {
         try {
+            final String remoteAddress =
+                    ((WebAuthenticationDetails) event.getAuthentication().getDetails())
+                            .getRemoteAddress();
             this.remoteAddress = InetAddress.getByAddress(remoteAddress.getBytes());
         } catch (final UnknownHostException notIpAddressError) {
             throw new IllegalArgumentException(

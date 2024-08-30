@@ -1,10 +1,11 @@
-package org.acme.accountregistry.domain.entity;
+package org.acme.accountregistry.infrastructure.repository.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+
 import org.iban4j.Iban;
 
-@Converter
+@Converter(autoApply = true)
 class IbanConverter implements AttributeConverter<Iban, String> {
 
     @Override
