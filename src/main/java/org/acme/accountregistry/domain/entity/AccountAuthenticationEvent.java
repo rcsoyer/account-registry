@@ -11,10 +11,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -40,21 +40,24 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @Enumerated(STRING)
     private AuthenticationEventType eventType;
 
-    @Builder
     private AccountAuthenticationEvent(
-            final Account account, final AuthenticationSuccessEvent event) {
+            final Account account,
+            final AbstractAuthenticationEvent event,
+            final AuthenticationEventType eventType) {
         this.account = account;
         this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
-        setRemoteAddress(event);
-        this.eventType = SUCCESS;
+        this.eventType = eventType;
     }
 
-    @Builder
-    private AccountAuthenticationEvent(
+    public AccountAuthenticationEvent(
+            final Account account, final AuthenticationSuccessEvent event) {
+        this(account, event, SUCCESS);
+        setRemoteAddress(event);
+    }
+
+    public AccountAuthenticationEvent(
             final Account account, final AuthenticationFailureBadCredentialsEvent event) {
-        this.account = account;
-        this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
-        this.eventType = FAILURE_BAD_CREDENTIALS;
+        this(account, event, FAILURE_BAD_CREDENTIALS);
     }
 
     private void setRemoteAddress(final AuthenticationSuccessEvent event) {

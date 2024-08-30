@@ -3,7 +3,7 @@ package org.acme.accountregistry.domain.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.acme.accountregistry.domain.service.mapper.AccountAuthenticationEventMapper;
+import org.acme.accountregistry.domain.entity.AccountAuthenticationEvent;
 import org.acme.accountregistry.infrastructure.repository.AccountAuthenticationEventRepository;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -20,13 +20,12 @@ public class AccountAuthenticationEventService {
 
     private final AccountAuthenticationEventRepository eventRepository;
     private final AccountRepository accountRepository;
-    private final AccountAuthenticationEventMapper mapper;
 
     public void createSuccessEvent(final AuthenticationSuccessEvent event) {
         final String username = event.getAuthentication().getName();
         accountRepository
                 .findAccountByPrincipalUsername(username)
-                .map(account -> mapper.sucessAccountAuthenticationEvent(account, event))
+                .map(account -> new AccountAuthenticationEvent(account, event))
                 .map(eventRepository::save)
                 .orElseThrow(errorAccountNotFound(username));
     }
