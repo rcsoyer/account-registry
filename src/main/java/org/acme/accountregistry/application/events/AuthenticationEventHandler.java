@@ -2,7 +2,6 @@ package org.acme.accountregistry.application.events;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.acme.accountregistry.domain.service.AccountAuthenticationEventService;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,9 +25,8 @@ class AuthenticationEventHandler {
     void onSuccess(final AuthenticationSuccessEvent loginSuccessEvent) {
         final Authentication authentication = loginSuccessEvent.getAuthentication();
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        log.debug(
-                "Account successfully authenticated. And user set to the security context. username={}",
-                authentication.getName());
+        log.debug("Account successfully authenticated. And user set to the security context. username={}",
+          authentication.getName());
         service.createSuccessEvent(loginSuccessEvent);
     }
 
@@ -38,10 +36,8 @@ class AuthenticationEventHandler {
         final AuthenticationException failureError = loginFailureEvent.getException();
 
         switch (failureError) {
-            case UsernameNotFoundException usernameNotFound ->
-                    log.warn("Username not found", usernameNotFound);
-            case BadCredentialsException badCredentials ->
-                    log.warn("Bad credentials provided", badCredentials);
+            case UsernameNotFoundException usernameNotFound -> log.warn("Username not found", usernameNotFound);
+            case BadCredentialsException badCredentials -> log.warn("Bad credentials provided", badCredentials);
             default -> log.error("Unexpected Authentication error", failureError);
         }
     }
