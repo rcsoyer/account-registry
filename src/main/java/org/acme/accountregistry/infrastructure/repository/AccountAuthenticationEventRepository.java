@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountAuthenticationEventRepository
-        extends JpaRepository<AccountAuthenticationEvent, Long> {}
+  extends JpaRepository<AccountAuthenticationEvent, Long> {
+}
