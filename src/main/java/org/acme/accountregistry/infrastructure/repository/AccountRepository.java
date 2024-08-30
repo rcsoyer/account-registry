@@ -22,4 +22,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<UserDetails> getPrincipalBy(String username);
 
     boolean existsAccountByPrincipalUsername(String username);
+
+    Optional<Account> findAccountByPrincipalUsername(String username);
 }
