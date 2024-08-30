@@ -12,8 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.Instant;
 
 @Getter
@@ -27,7 +27,7 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
 
     @NotNull @PastOrPresent private Instant authenticationTimestamp;
 
-    private String remoteAddress;
+    private InetAddress remoteAddress;
 
     @NotNull
     @Enumerated(STRING)
@@ -36,16 +36,26 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @Builder
     private AccountAuthenticationEvent(
             final Account account,
-            final long loginEventTimestamp,
-            final WebAuthenticationDetails authenticationDetails,
+            final long authenticationTimestamp,
+            final String remoteAddress,
             final AuthenticationEventType eventType) {
         this.account = account;
-        this.authenticationTimestamp = Instant.ofEpochMilli(loginEventTimestamp);
-        this.remoteAddress = authenticationDetails.getRemoteAddress();
+        this.authenticationTimestamp = Instant.ofEpochMilli(authenticationTimestamp);
+        setRemoteAddress(remoteAddress);
         this.eventType = eventType;
     }
 
-    enum AuthenticationEventType {
+    private void setRemoteAddress(final String remoteAddress) {
+        try {
+            this.remoteAddress = InetAddress.getByAddress(remoteAddress.getBytes());
+        } catch (final UnknownHostException notIpAddressError) {
+            throw new IllegalArgumentException(
+                    "Invalid IP Address propagated by Spring Security Authentication Event",
+                    notIpAddressError);
+        }
+    }
+
+    public enum AuthenticationEventType {
         SUCCESS,
         FAILURE,
         FAILURE_BAD_CREDENTIALS,
