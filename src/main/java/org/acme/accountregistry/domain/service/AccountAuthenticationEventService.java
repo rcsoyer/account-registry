@@ -20,7 +20,8 @@ public class AccountAuthenticationEventService {
     private final AccountRepository accountRepository;
 
     public void createSuccessEvent(final AuthenticationSuccessEvent event) {
-        log.debug("Persisting Account Authentication success event published by spring's security context");
+        log.debug("Persisting Account Authentication success event published by spring's security context. "
+                    + "AuthenticationSuccessEvent={}", event);
         final String username = event.getAuthentication().getName();
         accountRepository
           .findAccountByPrincipalUsername(username)
