@@ -3,7 +3,6 @@ package org.acme.accountregistry.domain.service;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.entity.AccountAuthenticationEvent;
 import org.acme.accountregistry.infrastructure.repository.AccountAuthenticationEventRepository;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
@@ -39,13 +38,8 @@ public class AccountAuthenticationEventService {
         accountRepository
           .findAccountByPrincipalUsername(username)
           .ifPresentOrElse(
-            account -> createFailureWithAccount(account, event),
+            account -> eventRepository.save(new AccountAuthenticationEvent(account, event)),
             () -> eventRepository.save(new AccountAuthenticationEvent(event)));
-    }
-
-    private void createFailureWithAccount(final Account account, final AbstractAuthenticationFailureEvent event) {
-        final var accountAuthenticationEvent = new AccountAuthenticationEvent(account, event);
-        eventRepository.save(accountAuthenticationEvent);
     }
 
     private Supplier<IllegalStateException> errorAccountNotFound(final String username) {
