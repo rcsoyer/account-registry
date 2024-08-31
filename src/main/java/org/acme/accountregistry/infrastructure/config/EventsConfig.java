@@ -15,11 +15,12 @@ import org.springframework.security.authentication.DefaultAuthenticationEventPub
 @Configuration
 class EventsConfig {
 
-    /** Set up for the Spring framework to publish and handle events asynchronously */
+    /**
+     * Set up for the Spring framework to publish and handle events asynchronously
+     */
     @Bean
-    ApplicationEventMulticaster asyncApplicationEventMulticaster(
-            @Value("${spring.lifecycle.timeout-per-shutdown-phase}")
-                    final String timeOutPerShutDown) {
+    ApplicationEventMulticaster applicationEventMulticaster(
+      @Value("${spring.lifecycle.timeout-per-shutdown-phase}") final String timeOutPerShutDown) {
         final var asyncTaskExecutor = new SimpleAsyncTaskExecutor();
         asyncTaskExecutor.setVirtualThreads(true);
         final long taskTerminationTimeOut = parseLong(timeOutPerShutDown.replaceAll("[^0-9]", ""));
@@ -32,8 +33,7 @@ class EventsConfig {
     }
 
     @Bean
-    AuthenticationEventPublisher authenticationEventPublisher(
-            final ApplicationEventPublisher applicationEventPublisher) {
+    AuthenticationEventPublisher authenticationEventPublisher(final ApplicationEventPublisher applicationEventPublisher) {
         return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
     }
 }
