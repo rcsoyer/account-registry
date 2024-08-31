@@ -67,12 +67,12 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
                                       final AbstractAuthenticationFailureEvent event) {
         this(account, (AbstractAuthenticationEvent) event);
 
-        switch (event) {
-            case AuthenticationFailureBadCredentialsEvent ignored -> eventType = FAILURE_BAD_CREDENTIALS;
-            case AuthenticationFailureCredentialsExpiredEvent ignored -> eventType = FAILURE_CREDENTIALS_EXPIRED;
-            case AuthenticationFailureLockedEvent ignored -> eventType = FAILURE_LOCKED_ACCOUNT;
-            default -> eventType = FAILURE;
-        }
+        this.eventType = switch (event) {
+            case AuthenticationFailureBadCredentialsEvent ignored -> FAILURE_BAD_CREDENTIALS;
+            case AuthenticationFailureCredentialsExpiredEvent ignored -> FAILURE_CREDENTIALS_EXPIRED;
+            case AuthenticationFailureLockedEvent ignored -> FAILURE_LOCKED_ACCOUNT;
+            default -> FAILURE;
+        };
     }
 
     public AccountAuthenticationEvent(final AbstractAuthenticationFailureEvent event) {
