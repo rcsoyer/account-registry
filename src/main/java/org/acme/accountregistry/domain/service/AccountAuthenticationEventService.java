@@ -33,7 +33,7 @@ public class AccountAuthenticationEventService {
 
     public void createFailureEvent(final AbstractAuthenticationFailureEvent event) {
         log.warn("Persisting Account Authentication failure event published by spring's security context. "
-                   + "AbstractAuthenticationFailureEvent={}", event);
+                   + "AuthenticationFailureEvent={}", event);
         final String username = event.getAuthentication().getName();
         accountRepository
           .findAccountByPrincipalUsername(username)
