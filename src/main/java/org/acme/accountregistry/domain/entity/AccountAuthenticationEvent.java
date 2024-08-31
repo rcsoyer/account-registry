@@ -1,27 +1,25 @@
 package org.acme.accountregistry.domain.entity;
 
 import static jakarta.persistence.EnumType.STRING;
-
 import static lombok.AccessLevel.PROTECTED;
-
 import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_BAD_CREDENTIALS;
 import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.SUCCESS;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.Instant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.time.Instant;
 
 @Getter
 @Entity
@@ -32,7 +30,9 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @JoinColumn(name = "account_id", updatable = false)
     private Account account;
 
-    @NotNull @PastOrPresent private Instant authenticationTimestamp;
+    @NotNull
+    @PastOrPresent
+    private Instant authenticationTimestamp;
 
     private InetAddress remoteAddress;
 
@@ -41,35 +41,35 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     private AuthenticationEventType eventType;
 
     private AccountAuthenticationEvent(
-            final Account account,
-            final AbstractAuthenticationEvent event,
-            final AuthenticationEventType eventType) {
+      final Account account,
+      final AbstractAuthenticationEvent event,
+      final AuthenticationEventType eventType) {
         this.account = account;
         this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
         this.eventType = eventType;
     }
 
     public AccountAuthenticationEvent(
-            final Account account, final AuthenticationSuccessEvent event) {
+      final Account account, final AuthenticationSuccessEvent event) {
         this(account, event, SUCCESS);
         setRemoteAddress(event);
     }
 
     public AccountAuthenticationEvent(
-            final Account account, final AuthenticationFailureBadCredentialsEvent event) {
+      final Account account, final AuthenticationFailureBadCredentialsEvent event) {
         this(account, event, FAILURE_BAD_CREDENTIALS);
     }
 
     private void setRemoteAddress(final AuthenticationSuccessEvent event) {
         try {
             final String remoteAddress =
-                    ((WebAuthenticationDetails) event.getAuthentication().getDetails())
-                            .getRemoteAddress();
-            this.remoteAddress = InetAddress.getByAddress(remoteAddress.getBytes());
+              ((WebAuthenticationDetails) event.getAuthentication().getDetails())
+                .getRemoteAddress();
+            this.remoteAddress = InetAddress.getByName(remoteAddress);
         } catch (final UnknownHostException notIpAddressError) {
             throw new IllegalArgumentException(
-                    "Invalid IP Address propagated by Spring Security Authentication Event",
-                    notIpAddressError);
+              "Invalid IP Address propagated by Spring Security Authentication Event",
+              notIpAddressError);
         }
     }
 
