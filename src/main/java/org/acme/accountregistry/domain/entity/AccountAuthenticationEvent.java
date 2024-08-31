@@ -47,16 +47,20 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @Enumerated(STRING)
     private AuthenticationEventType eventType;
 
+    private AccountAuthenticationEvent(final AbstractAuthenticationEvent event) {
+        setAuthenticationTimestamp(event);
+        setRemoteAddress(event);
+    }
+
     private AccountAuthenticationEvent(final Account account,
                                        final AbstractAuthenticationEvent event) {
+        this(event);
         this.account = account;
-        setAuthenticationTimestamp(event);
     }
 
     public AccountAuthenticationEvent(final Account account, final AuthenticationSuccessEvent event) {
         this(account, (AbstractAuthenticationEvent) event);
         this.eventType = SUCCESS;
-        setRemoteAddress(event);
     }
 
     public AccountAuthenticationEvent(final Account account,
@@ -72,11 +76,11 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     }
 
     public AccountAuthenticationEvent(final AbstractAuthenticationFailureEvent event) {
-        setAuthenticationTimestamp(event);
+        this((AbstractAuthenticationEvent) event);
         eventType = FAILURE_USER_NOT_FOUND;
     }
 
-    private void setRemoteAddress(final AuthenticationSuccessEvent event) {
+    private void setRemoteAddress(final AbstractAuthenticationEvent event) {
         try {
             final String remoteAddress =
               ((WebAuthenticationDetails) event.getAuthentication().getDetails())
