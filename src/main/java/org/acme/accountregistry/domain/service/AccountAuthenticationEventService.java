@@ -3,9 +3,11 @@ package org.acme.accountregistry.domain.service;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.entity.AccountAuthenticationEvent;
 import org.acme.accountregistry.infrastructure.repository.AccountAuthenticationEventRepository;
 import org.acme.accountregistry.infrastructure.repository.AccountRepository;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +32,28 @@ public class AccountAuthenticationEventService {
           .orElseThrow(errorAccountNotFound(username));
     }
 
+    public void createFailureEvent(final AbstractAuthenticationFailureEvent event) {
+        log.warn("Persisting Account Authentication failure event published by spring's security context. "
+                   + "AbstractAuthenticationFailureEvent={}", event);
+        final String username = event.getAuthentication().getName();
+        accountRepository
+          .findAccountByPrincipalUsername(username)
+          .ifPresentOrElse(
+            account -> createFailureWithAccount(account, event),
+            () -> eventRepository.save(new AccountAuthenticationEvent(event)));
+    }
+
+    private void createFailureWithAccount(final Account account, final AbstractAuthenticationFailureEvent event) {
+        final var accountAuthenticationEvent = new AccountAuthenticationEvent(account, event);
+        eventRepository.save(accountAuthenticationEvent);
+    }
+
     private Supplier<IllegalStateException> errorAccountNotFound(final String username) {
         return () -> {
             log.error("Unexpected error that shouldn't happen. "
                         + "The Spring's Security context published an authentication success event "
                         + "that the username doesn't exists in the system. username={}",
-              username);
+                      username);
             return new IllegalStateException("Account not found");
         };
     }

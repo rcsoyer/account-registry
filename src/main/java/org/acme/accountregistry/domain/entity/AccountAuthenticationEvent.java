@@ -51,7 +51,7 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     private AccountAuthenticationEvent(final Account account,
                                        final AbstractAuthenticationEvent event) {
         this.account = account;
-        this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
+        setAuthenticationTimestamp(event);
     }
 
     private AccountAuthenticationEvent(final Account account,
@@ -79,6 +79,18 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
         }
     }
 
+    public AccountAuthenticationEvent(final AbstractAuthenticationFailureEvent event) {
+        setAuthenticationTimestamp(event);
+
+        switch (event) {
+            case AuthenticationFailureBadCredentialsEvent ignored -> eventType = FAILURE_BAD_CREDENTIALS;
+            case AuthenticationFailureProviderNotFoundEvent ignored -> eventType = FAILURE_USER_NOT_FOUND;
+            case AuthenticationFailureCredentialsExpiredEvent ignored -> eventType = FAILURE_CREDENTIALS_EXPIRED;
+            case AuthenticationFailureLockedEvent ignored -> eventType = FAILURE_LOCKED_ACCOUNT;
+            default -> eventType = FAILURE;
+        }
+    }
+
     private void setRemoteAddress(final AuthenticationSuccessEvent event) {
         try {
             final String remoteAddress =
@@ -90,6 +102,10 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
               "Invalid IP Address propagated by Spring Security Authentication Event",
               notIpAddressError);
         }
+    }
+
+    private void setAuthenticationTimestamp(final AbstractAuthenticationEvent event) {
+        this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
     }
 
     public enum AuthenticationEventType {
