@@ -39,7 +39,8 @@ public class AccountAuthenticationEventService {
           .findAccountByPrincipalUsername(username)
           .ifPresentOrElse(
             account -> eventRepository.save(new AccountAuthenticationEvent(account, event)),
-            () -> eventRepository.save(new AccountAuthenticationEvent(event)));
+            () -> eventRepository.save(new AccountAuthenticationEvent(event))
+          );
     }
 
     private Supplier<IllegalStateException> errorAccountNotFound(final String username) {
