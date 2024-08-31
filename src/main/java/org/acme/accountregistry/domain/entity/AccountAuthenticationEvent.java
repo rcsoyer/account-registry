@@ -2,7 +2,11 @@ package org.acme.accountregistry.domain.entity;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE;
 import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_BAD_CREDENTIALS;
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_CREDENTIALS_EXPIRED;
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_LOCKED_ACCOUNT;
+import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.FAILURE_USER_NOT_FOUND;
 import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.AuthenticationEventType.SUCCESS;
 
 import jakarta.persistence.Entity;
@@ -17,7 +21,11 @@ import java.time.Instant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationFailureCredentialsExpiredEvent;
+import org.springframework.security.authentication.event.AuthenticationFailureLockedEvent;
+import org.springframework.security.authentication.event.AuthenticationFailureProviderNotFoundEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
@@ -40,24 +48,35 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
     @Enumerated(STRING)
     private AuthenticationEventType eventType;
 
-    private AccountAuthenticationEvent(
-      final Account account,
-      final AbstractAuthenticationEvent event,
-      final AuthenticationEventType eventType) {
+    private AccountAuthenticationEvent(final Account account,
+                                       final AbstractAuthenticationEvent event) {
         this.account = account;
         this.authenticationTimestamp = Instant.ofEpochMilli(event.getTimestamp());
+    }
+
+    private AccountAuthenticationEvent(final Account account,
+                                       final AbstractAuthenticationEvent event,
+                                       final AuthenticationEventType eventType) {
+        this(account, event);
         this.eventType = eventType;
     }
 
-    public AccountAuthenticationEvent(
-      final Account account, final AuthenticationSuccessEvent event) {
+    public AccountAuthenticationEvent(final Account account, final AuthenticationSuccessEvent event) {
         this(account, event, SUCCESS);
         setRemoteAddress(event);
     }
 
-    public AccountAuthenticationEvent(
-      final Account account, final AuthenticationFailureBadCredentialsEvent event) {
-        this(account, event, FAILURE_BAD_CREDENTIALS);
+    public AccountAuthenticationEvent(final Account account,
+                                      final AbstractAuthenticationFailureEvent event) {
+        this(account, (AbstractAuthenticationEvent) event);
+
+        switch (event) {
+            case AuthenticationFailureBadCredentialsEvent ignored -> eventType = FAILURE_BAD_CREDENTIALS;
+            case AuthenticationFailureProviderNotFoundEvent ignored -> eventType = FAILURE_USER_NOT_FOUND;
+            case AuthenticationFailureCredentialsExpiredEvent ignored -> eventType = FAILURE_CREDENTIALS_EXPIRED;
+            case AuthenticationFailureLockedEvent ignored -> eventType = FAILURE_LOCKED_ACCOUNT;
+            default -> eventType = FAILURE;
+        }
     }
 
     private void setRemoteAddress(final AuthenticationSuccessEvent event) {
@@ -77,6 +96,8 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
         SUCCESS,
         FAILURE,
         FAILURE_BAD_CREDENTIALS,
-        FAILURE_USER_NOT_FOUND
+        FAILURE_USER_NOT_FOUND,
+        FAILURE_CREDENTIALS_EXPIRED,
+        FAILURE_LOCKED_ACCOUNT
     }
 }
