@@ -42,7 +42,7 @@ databaseChangeLog:
                   remarks: The ip address of the client used for authentication
               - column:
                   name: event_type
-                  type: varchar(10)
+                  type: varchar(30)
                   constraints:
                     nullable: false
                   remarks: The Authentication event type
