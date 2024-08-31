@@ -165,7 +165,7 @@
     <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
     <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
     <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
-    <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+    <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
     <option name="ALIGN_MULTILINE_RESOURCES" value="false" />
     <option name="ALIGN_MULTILINE_FOR" value="false" />
     <option name="SPACE_AROUND_MULTIPLICATIVE_OPERATORS" value="false" />
