@@ -54,15 +54,9 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
         setAuthenticationTimestamp(event);
     }
 
-    private AccountAuthenticationEvent(final Account account,
-                                       final AbstractAuthenticationEvent event,
-                                       final AuthenticationEventType eventType) {
-        this(account, event);
-        this.eventType = eventType;
-    }
-
     public AccountAuthenticationEvent(final Account account, final AuthenticationSuccessEvent event) {
-        this(account, event, SUCCESS);
+        this(account, (AbstractAuthenticationEvent) event);
+        this.eventType = SUCCESS;
         setRemoteAddress(event);
     }
 
@@ -81,14 +75,7 @@ public class AccountAuthenticationEvent extends AbstractImmutableEntity {
 
     public AccountAuthenticationEvent(final AbstractAuthenticationFailureEvent event) {
         setAuthenticationTimestamp(event);
-
-        switch (event) {
-            case AuthenticationFailureBadCredentialsEvent ignored -> eventType = FAILURE_BAD_CREDENTIALS;
-            case AuthenticationFailureProviderNotFoundEvent ignored -> eventType = FAILURE_USER_NOT_FOUND;
-            case AuthenticationFailureCredentialsExpiredEvent ignored -> eventType = FAILURE_CREDENTIALS_EXPIRED;
-            case AuthenticationFailureLockedEvent ignored -> eventType = FAILURE_LOCKED_ACCOUNT;
-            default -> eventType = FAILURE;
-        }
+        eventType = FAILURE_USER_NOT_FOUND;
     }
 
     private void setRemoteAddress(final AuthenticationSuccessEvent event) {
