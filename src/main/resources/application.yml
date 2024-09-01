@@ -31,6 +31,7 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         maintainTimeStats: false
+        useLocalTransactionState: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
