@@ -1,6 +1,7 @@
 package org.acme.accountregistry.infrastructure.config;
 
 import static java.lang.Long.parseLong;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,7 +25,7 @@ class EventsConfig {
         final var asyncTaskExecutor = new SimpleAsyncTaskExecutor();
         asyncTaskExecutor.setVirtualThreads(true);
         final long taskTerminationTimeOut = parseLong(timeOutPerShutDown.replaceAll("[^0-9]", ""));
-        asyncTaskExecutor.setTaskTerminationTimeout(taskTerminationTimeOut);
+        asyncTaskExecutor.setTaskTerminationTimeout(SECONDS.toMillis(taskTerminationTimeOut));
 
         final var eventMulticaster = new SimpleApplicationEventMulticaster();
         eventMulticaster.setTaskExecutor(asyncTaskExecutor);
