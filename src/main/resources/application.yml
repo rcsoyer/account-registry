@@ -30,6 +30,7 @@ spring:
         defaultFetchSize: 200
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
+        maintainTimeStats: false
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
