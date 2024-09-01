@@ -1,9 +1,6 @@
 package org.acme.accountregistry.infrastructure.config;
 
-import static java.lang.Long.parseLong;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.context.LifecycleProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +17,11 @@ class EventsConfig {
      * Set up for the Spring framework to publish and handle events asynchronously
      */
     @Bean
-    ApplicationEventMulticaster applicationEventMulticaster(
-      @Value("${spring.lifecycle.timeout-per-shutdown-phase}") final String timeOutPerShutDown) {
+    ApplicationEventMulticaster applicationEventMulticaster(final LifecycleProperties lifecycleProperties) {
         final var asyncTaskExecutor = new SimpleAsyncTaskExecutor();
         asyncTaskExecutor.setVirtualThreads(true);
-        final long taskTerminationTimeOut = parseLong(timeOutPerShutDown.replaceAll("[^0-9]", ""));
-        asyncTaskExecutor.setTaskTerminationTimeout(SECONDS.toMillis(taskTerminationTimeOut));
+        final long taskTerminationTimeOut = lifecycleProperties.getTimeoutPerShutdownPhase().toMillis();
+        asyncTaskExecutor.setTaskTerminationTimeout(taskTerminationTimeOut);
 
         final var eventMulticaster = new SimpleApplicationEventMulticaster();
         eventMulticaster.setTaskExecutor(asyncTaskExecutor);
