@@ -54,7 +54,7 @@ public class Account extends AbstractIdentityEntity {
 
     @Valid
     @NotNull(message = "The account address is mandatory")
-    @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY)
+    @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY, optional = false)
     private Address address;
 
     @NotEmpty(message = "The account must have at least one bank account")
