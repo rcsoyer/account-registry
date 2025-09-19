@@ -27,7 +27,8 @@ public class BearerTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@Nonnull final HttpServletRequest request,
                                     @Nonnull final HttpServletResponse response,
-                                    @Nonnull final FilterChain filterChain) throws ServletException, IOException {
+                                    @Nonnull final FilterChain filterChain)
+      throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
 
