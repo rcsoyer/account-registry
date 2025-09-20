@@ -19,6 +19,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
+      minimum-idle: 10
+      maximum-pool-size: 30
       data-source-properties:
         useConfigs: maxPerformance-8-0
         tlsVersions: TLSv1.3
@@ -41,6 +43,8 @@ spring:
     properties:
       hibernate:
         order_updates: true
+        query:
+          in_clause_parameter_padding: true
         jdbc:
           batch_size: 30
           fetch_size: 200
