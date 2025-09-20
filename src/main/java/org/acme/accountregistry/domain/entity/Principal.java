@@ -11,6 +11,7 @@ import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.NaturalId;
 
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.ObjectUtils.anyNull;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 
 /**
@@ -50,7 +51,7 @@ public class Principal {
 
         final var that = (Principal) other;
 
-        if (getUsername() == null || that.getUsername() == null) {
+        if (anyNull(getUsername(), that.getUsername())) {
             return false;
         }
 
