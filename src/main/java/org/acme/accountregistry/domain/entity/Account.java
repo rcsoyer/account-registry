@@ -1,6 +1,7 @@
 package org.acme.accountregistry.domain.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
@@ -17,6 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.acme.accountregistry.domain.entity.BankAccount.Type;
+import org.hibernate.annotations.Immutable;
 import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -49,8 +51,11 @@ public class Account extends AbstractIdentityEntity {
     private String idDocument;
 
     @Valid
+    @Immutable
+    @JoinColumn(name = "account_user_id", updatable = false)
+    @OneToOne(cascade = ALL, optional = false)
     @NotNull(message = "The account credentials are mandatory")
-    private Principal principal;
+    private User user;
 
     @Valid
     @NotNull(message = "The account address is mandatory")
@@ -65,12 +70,12 @@ public class Account extends AbstractIdentityEntity {
     private Account(final PersonName personName,
                     final LocalDate birthDate,
                     final String idDocument,
-                    final Principal principal,
+                    final User user,
                     final Address address) {
         this.personName = personName;
         setBirthDate(birthDate);
         setIdDocument(idDocument);
-        this.principal = principal;
+        this.user = user;
         setAddress(address);
         openingBankAccount();
     }
@@ -129,15 +134,15 @@ public class Account extends AbstractIdentityEntity {
 
         final var that = (Account) other;
 
-        if (anyNull(getPrincipal(), that.getPrincipal())) {
+        if (anyNull(getUser(), that.getUser())) {
             return false;
         }
 
-        return getPrincipal().equals(that.getPrincipal());
+        return getUser().equals(that.getUser());
     }
 
     @Override
     public int hashCode() {
-        return getPrincipal().hashCode();
+        return getUser().hashCode();
     }
 }

@@ -1,12 +1,11 @@
 package org.acme.accountregistry.fixtures;
 
 import java.time.LocalDate;
-
 import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.entity.Address;
 import org.acme.accountregistry.domain.entity.BankAccount;
 import org.acme.accountregistry.domain.entity.PersonName;
-import org.acme.accountregistry.domain.entity.Principal;
+import org.acme.accountregistry.domain.entity.User;
 
 import static com.neovisionaries.i18n.CountryCode.NL;
 
@@ -15,8 +14,8 @@ public final class DataUtils {
     private DataUtils() {
     }
 
-    public static Principal principal() {
-        return new Principal("username", "password");
+    public static User user() {
+        return new User("user@gmail.com", "password");
     }
 
     public static Address address() {
@@ -42,7 +41,7 @@ public final class DataUtils {
         return Account.builder()
                       .birthDate(LocalDate.now().minusYears(18))
                       .idDocument("1234567890ETG")
-                      .principal(principal())
+                      .user(user())
                       .address(address())
                       .personName(personName())
                       .build();

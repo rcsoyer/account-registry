@@ -17,6 +17,6 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Long> 
              "bankAccount.currency AS currency " +
              "FROM BankAccount bankAccount " +
              "JOIN Account accountHolder ON bankAccount.accountHolder = accountHolder " +
-             "WHERE accountHolder.principal.username = ?1")
+             "WHERE accountHolder.user.username = ?1")
     List<AccountOverview> findByUsername(String username);
 }

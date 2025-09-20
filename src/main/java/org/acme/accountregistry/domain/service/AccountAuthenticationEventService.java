@@ -25,7 +25,7 @@ public class AccountAuthenticationEventService {
                     + "AuthenticationSuccessEvent={}", event);
         final String username = event.getAuthentication().getName();
         accountRepository
-          .findAccountByPrincipalUsername(username)
+          .findAccountByUserUsername(username)
           .map(account -> new AccountAuthenticationEvent(account, event))
           .map(eventRepository::save)
           .orElseThrow(errorAccountNotFound(username));
@@ -36,7 +36,7 @@ public class AccountAuthenticationEventService {
                    + "AuthenticationFailureEvent={}", event);
         final String username = event.getAuthentication().getName();
         accountRepository
-          .findAccountByPrincipalUsername(username)
+          .findAccountByUserUsername(username)
           .ifPresentOrElse(
             account -> eventRepository.save(new AccountAuthenticationEvent(account, event)),
             () -> eventRepository.save(new AccountAuthenticationEvent(event))

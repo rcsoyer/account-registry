@@ -2,11 +2,10 @@ package org.acme.accountregistry.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.entity.Address;
 import org.acme.accountregistry.domain.entity.PersonName;
-import org.acme.accountregistry.domain.entity.Principal;
+import org.acme.accountregistry.domain.entity.User;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,7 +14,7 @@ import static org.acme.accountregistry.domain.entity.BankAccount.Type.PAYMENTS;
 import static org.acme.accountregistry.fixtures.DataUtils.account;
 import static org.acme.accountregistry.fixtures.DataUtils.address;
 import static org.acme.accountregistry.fixtures.DataUtils.personName;
-import static org.acme.accountregistry.fixtures.DataUtils.principal;
+import static org.acme.accountregistry.fixtures.DataUtils.user;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,20 +27,20 @@ class AccountTest {
         @Test
         void testConstructor_whenLegalAgeThenSuccess() {
             final var legalAge = LocalDate.now().minusYears(18);
-            final Principal principal = principal();
+            final User user = user();
             final Address address = address();
             final PersonName personName = personName();
             final var account = Account.builder()
                                        .birthDate(legalAge)
                                        .idDocument("  1234567  890ETG  ")
-                                       .principal(principal)
+                                       .user(user)
                                        .address(address)
                                        .personName(personName)
                                        .build();
 
             assertEquals(legalAge, account.getBirthDate());
             assertEquals("1234567890ETG", account.getIdDocument());
-            assertEquals(principal, account.getPrincipal());
+            assertEquals(user, account.getUser());
             assertEquals(address, account.getAddress());
             assertEquals(account, address.getAccount());
             assertEquals(personName, account.getPersonName());
@@ -61,7 +60,7 @@ class AccountTest {
                          () -> Account.builder()
                                       .birthDate(notLegalAge)
                                       .idDocument("1234567890ETG")
-                                      .principal(principal())
+                                      .user(user())
                                       .address(address())
                                       .personName(personName())
                                       .build());

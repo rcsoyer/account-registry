@@ -1,16 +1,15 @@
 package org.acme.accountregistry.domain.service;
 
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.domain.entity.Account;
-import org.acme.accountregistry.infrastructure.repository.AccountRepository;
-import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
-import org.acme.accountregistry.domain.dto.query.AccountOverview;
 import org.acme.accountregistry.domain.dto.command.AccountRegisterRequest;
 import org.acme.accountregistry.domain.dto.command.AccountRegisterResponse;
+import org.acme.accountregistry.domain.dto.query.AccountOverview;
+import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.service.mapper.AccountMapper;
+import org.acme.accountregistry.infrastructure.repository.AccountRepository;
+import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,15 +51,15 @@ public class AccountService {
 
     private void checkUsernameAvailability(final String username) {
         log.debug("Check if the username is available");
-        if (accountRepository.existsAccountByPrincipalUsername(username)) {
+        if (accountRepository.existsAccountByUserUsername(username)) {
             throw new ResponseStatusException(CONFLICT, "The username is already in use");
         }
     }
 
     private void setSecurityContext(final Account account) {
         log.debug("Setting the Security Context for the new Account");
-        final String username = account.getPrincipal().getUsername();
-        final String password = account.getPrincipal().getPassword();
+        final String username = account.getUser().getUsername();
+        final String password = account.getUser().getPassword();
         SecurityContextHolder
           .getContext()
           .setAuthentication(new UsernamePasswordAuthenticationToken(username, password));

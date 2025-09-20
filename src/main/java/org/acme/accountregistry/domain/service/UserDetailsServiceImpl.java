@@ -2,8 +2,7 @@ package org.acme.accountregistry.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.acme.accountregistry.infrastructure.repository.AccountRepository;
-import org.springframework.security.core.userdetails.User;
+import org.acme.accountregistry.infrastructure.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,18 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
-    //TODO store all the data from UserDetails into the database
     @Override
     public UserDetails loadUserByUsername(final String username) {
-        return accountRepository
-                 .getPrincipalBy(username)
-                 .map(userDetails ->
-                        User.withUsername(userDetails.getUsername())
-                            .password(userDetails.getPassword())
-                            .build()
-                 )
+        return userRepository
+                 .findByUsername(username)
                  .orElseThrow(() -> {
                      log.warn("User with username={} is not registered in the platform", username);
                      return new UsernameNotFoundException("User is not registered in the platform");

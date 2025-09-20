@@ -29,7 +29,7 @@ databaseChangeLog:
                   remarks: the encrypted password of the user's account
               - column:
                   name: enabled
-                  type: boolean
+                  type: tinyint(1)
                   constraints:
                     nullable: false
                   remarks: whether this User is active or not in the platform

@@ -33,19 +33,6 @@ databaseChangeLog:
                     nullable: false
                   remarks: The initials of a Person's name
               - column:
-                  name: username
-                  type: varchar(50)
-                  constraints:
-                    unique: true
-                    nullable: false
-                  remarks: unique username of an user in the platform
-              - column:
-                  name: password
-                  type: varchar(150)
-                  constraints:
-                    nullable: false
-                  remarks: the encrypted password of the user's account
-              - column:
                   name: birth_date
                   type: date
                   constraints:
@@ -77,3 +64,11 @@ databaseChangeLog:
                   name: modified_by
                   type: varchar(50)
                   remarks: The user that last modified this Account
+              - column:
+                  name: account_user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_account_id
+                    references: application_user(id)
+                    unique: true
+                    nullable: false
