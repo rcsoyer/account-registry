@@ -1,5 +1,6 @@
 package org.acme.accountregistry.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,6 +24,7 @@ public class Principal {
 
     @NaturalId
     @Immutable
+    @Column(updatable = false)
     @NotBlank(message = "The Account username is mandatory")
     @Size(max = 50, message = "The username must be 50 characters or less")
     private String username;
