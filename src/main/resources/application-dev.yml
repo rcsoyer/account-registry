@@ -17,6 +17,9 @@ logging:
     #org.springframework.orm.jpa: INFO
     #org.springframework.jdbc.core: DEBUG
     org.springframework.transaction: INFO
+    org:
+      hibernate:
+        stat: DEBUG
 
 security:
   jwt:
