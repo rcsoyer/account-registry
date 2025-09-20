@@ -1,10 +1,5 @@
 package org.acme.accountregistry.domain.entity;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -14,6 +9,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -88,10 +87,11 @@ public class Account extends AbstractIdentityEntity {
     private void setBirthDate(final LocalDate birthDate) {
         if (birthDate != null) {
             final int personsAge = Period.between(birthDate, now()).getYears();
-            final boolean isAdult = personsAge >= 18;
+            final boolean isNotAdult = personsAge < 18;
 
-            if (!isAdult) {
-                throw new ResponseStatusException(BAD_REQUEST, "The person must be an adult to open an account");
+            if (isNotAdult) {
+                throw new ResponseStatusException(BAD_REQUEST,
+                                                  "The person must be an adult to open an account");
             }
         }
 
