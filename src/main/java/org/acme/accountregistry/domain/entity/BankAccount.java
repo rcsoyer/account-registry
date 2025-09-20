@@ -1,29 +1,24 @@
 package org.acme.accountregistry.domain.entity;
 
-import static jakarta.persistence.EnumType.STRING;
-
-import static lombok.AccessLevel.PROTECTED;
-
-import static org.iban4j.CountryCode.getByCode;
-
 import com.neovisionaries.i18n.CountryCode;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import org.hibernate.annotations.NaturalId;
-import org.iban4j.Iban;
-
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.NaturalId;
+import org.iban4j.Iban;
+
+import static jakarta.persistence.EnumType.STRING;
+import static lombok.AccessLevel.PROTECTED;
+import static org.iban4j.CountryCode.getByCode;
 
 /**
  * The representation of a Bank Account and its intrinsically related details. <br>
@@ -36,15 +31,22 @@ import java.util.Objects;
 public class BankAccount extends AbstractIdentityEntity {
 
     @NaturalId
+    @Immutable
+    @Column(updatable = false)
     @NotNull(message = "The account IBAN is mandatory")
     private Iban iban;
 
+    @Immutable
     @Enumerated(STRING)
-    @Column(columnDefinition = "VARCHAR")
+    @Column(columnDefinition = "VARCHAR", updatable = false)
     @NotNull(message = "The account type is mandatory")
     private Type type;
 
-    /** Currency is inferred from the account holder's country. */
+    /**
+     * Currency is inferred from the account holder's country.
+     */
+    @Immutable
+    @Column(updatable = false)
     @NotNull(message = "The account currency is mandatory")
     private Currency currency;
 
@@ -52,6 +54,7 @@ public class BankAccount extends AbstractIdentityEntity {
     private BigDecimal balance;
 
     @ManyToOne
+    @Immutable
     @JoinColumn(name = "account_id", updatable = false)
     private Account accountHolder;
 
