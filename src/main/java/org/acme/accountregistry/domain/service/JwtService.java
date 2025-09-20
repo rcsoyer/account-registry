@@ -1,5 +1,9 @@
 package org.acme.accountregistry.domain.service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -7,11 +11,6 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import javax.crypto.SecretKey;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.infrastructure.binding.SecurityJwtProperties;
 import org.springframework.security.core.Authentication;
@@ -32,7 +31,9 @@ public class JwtService {
     }
 
     public String generateJwt(final Authentication authentication) {
-        final Instant jwtExpiration = LocalDateTime.now().plusHours(jwtExpirationHours).toInstant(ZoneOffset.UTC);
+        final Instant jwtExpiration = LocalDateTime.now()
+                                                   .plusHours(jwtExpirationHours)
+                                                   .toInstant(ZoneOffset.UTC);
         return Jwts.builder()
                    .id(UUID.randomUUID().toString())
                    .subject((authentication.getName()))
