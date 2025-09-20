@@ -1,0 +1,12 @@
+services:
+
+  db:
+    image: mysql
+    restart: always
+    hostname: localhost
+    container_name: account_registry-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: account-registry
+    ports:
+      - "3306:3306"
