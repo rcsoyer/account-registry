@@ -1,19 +1,16 @@
 package org.acme.accountregistry.domain.entity;
 
-import static lombok.AccessLevel.PROTECTED;
-
-import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
-
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
+import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.NaturalId;
 
-import java.util.Objects;
+import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 
 /**
  * User's credentials.
@@ -25,12 +22,13 @@ import java.util.Objects;
 public class Principal {
 
     @NaturalId
+    @Immutable
     @NotBlank(message = "The Account username is mandatory")
     @Size(max = 50, message = "The username must be 50 characters or less")
     private String username;
 
-    @NotBlank(message = "The account password is mandatory")
     @Size(max = 150)
+    @NotBlank(message = "The account password is mandatory")
     private String password;
 
     public Principal(final String username, final String password) {
