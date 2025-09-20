@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.PasswordGenerator;
+import org.passay.Rule;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.passay.DigestDictionaryRule.ERROR_CODE;
@@ -15,12 +16,12 @@ import static org.passay.EnglishCharacterData.UpperCase;
 final class PasswordUtils {
 
     private static final PasswordGenerator GEN = new PasswordGenerator();
-    private static final CharacterRule SPECIAL_CHARS_RULE = specialCharsRule();
-    private static final CharacterRule LOWER_CASE_RULE = new CharacterRule(LowerCase, 2);
-    private static final CharacterRule UPPER_CASE_RULE = new CharacterRule(UpperCase, 2);
-    private static final CharacterRule DIGIT_RULE = new CharacterRule(Digit, 2);
+    private static final Rule SPECIAL_CHARS_RULE = specialCharsRule();
+    private static final Rule LOWER_CASE_RULE = new CharacterRule(LowerCase, 2);
+    private static final Rule UPPER_CASE_RULE = new CharacterRule(UpperCase, 2);
+    private static final Rule DIGIT_RULE = new CharacterRule(Digit, 2);
 
-    private static CharacterRule specialCharsRule() {
+    private static Rule specialCharsRule() {
         final var specialChars = new CharacterData() {
             public String getErrorCode() {
                 return ERROR_CODE;
