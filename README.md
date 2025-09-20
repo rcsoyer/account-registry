@@ -20,6 +20,8 @@ The minimum requirements to run the application are:
 - If you run the application through an `IDE`, such as `IntelliJ IDEA`, you may need to enable
   annotation processing to support `Lombok` and `MapStruct`.
 - Local ``MySQL`` database instance with an empty schema named ``account_registry``.
+- Local ``MySQL`` database instance can be easily created by running the [docker-compose.yml](dev/docker-compose.yml)
+  - This will also require to have locally, the Docker Desktop installed.
 
 ## Building the application
 
