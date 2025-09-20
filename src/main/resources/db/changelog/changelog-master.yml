@@ -1,5 +1,7 @@
 databaseChangeLog:
   - include:
+      file: classpath:db/changelog/user.yml
+  - include:
       file: classpath:db/changelog/account.yml
   - include:
       file: classpath:db/changelog/address.yml
