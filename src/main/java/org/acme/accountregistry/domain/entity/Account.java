@@ -23,6 +23,7 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.LAZY;
 import static java.time.LocalDate.now;
 import static lombok.AccessLevel.PROTECTED;
+import static org.apache.commons.lang3.ObjectUtils.anyNull;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -128,7 +129,7 @@ public class Account extends AbstractIdentityEntity {
 
         final var that = (Account) other;
 
-        if (getPrincipal() == null || that.getPrincipal() == null) {
+        if (anyNull(getPrincipal(), that.getPrincipal())) {
             return false;
         }
 
