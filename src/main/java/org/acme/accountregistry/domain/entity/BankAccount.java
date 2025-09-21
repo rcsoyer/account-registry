@@ -8,17 +8,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.NaturalId;
 import org.iban4j.Iban;
+import org.springframework.web.server.ResponseStatusException;
 
 import static jakarta.persistence.EnumType.STRING;
 import static java.math.BigDecimal.ZERO;
 import static lombok.AccessLevel.PROTECTED;
 import static org.iban4j.CountryCode.getByCode;
+import static org.springframework.http.HttpStatus.CONFLICT;
 
 /**
  * The representation of a Bank Account and its intrinsically related details. <br>
@@ -76,6 +79,23 @@ public class BankAccount extends BaseIdentityEntity {
     @Override
     public int hashCode() {
         return Objects.hashCode(getIban());
+    }
+
+    /**
+     * Debits the account balance by the given amount.
+     *
+     * @throws ResponseStatusException with 409 status code, if the account balance is not enough.
+     */
+    void debitMoney(final Money money) {
+        if (!hasEnoughBalance(money.getAmount())) {
+            throw new ResponseStatusException(CONFLICT, "Insufficient balance to send money");
+        }
+
+        balance.subtract(money);
+    }
+
+    private boolean hasEnoughBalance(final BigDecimal amount) {
+        return getBalance().getAmount().compareTo(amount) >= 0;
     }
 
     public enum Type {

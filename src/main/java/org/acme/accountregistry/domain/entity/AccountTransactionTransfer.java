@@ -33,18 +33,26 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
     @NotNull(message = "The other account in this transfer is mandatory")
     private TransferAccount transferAccount;
 
+    @Valid
+    @NotNull(message = "The transfer amount is mandatory")
+    private Money amount;
+
     private AccountTransactionTransfer(final TransferType type,
                                        final BankAccount bankAccount,
-                                       final TransferAccount transferAccount) {
+                                       final TransferAccount transferAccount,
+                                       final Money amount) {
         super(TransactionType.TRANSFER);
         this.type = type;
         this.bankAccount = bankAccount;
         this.transferAccount = transferAccount;
+        this.amount = amount;
     }
 
     public static AccountTransactionTransfer moneyOut(final BankAccount bankAccount,
-                                                      final TransferAccount transferAccount) {
-        return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount);
+                                                      final TransferAccount transferAccount,
+                                                      final Money amount) {
+        bankAccount.debitMoney(amount);
+        return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount, amount);
     }
 
     /**

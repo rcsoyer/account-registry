@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
 import org.acme.accountregistry.domain.entity.AccountTransactionTransfer;
 import org.acme.accountregistry.domain.entity.BankAccount;
+import org.acme.accountregistry.domain.entity.Money;
 import org.acme.accountregistry.domain.entity.TransferAccount;
 import org.acme.accountregistry.infrastructure.repository.AccountTransactionTransferRepository;
 import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
@@ -44,7 +45,9 @@ public class AccountTransactionTransferService {
         return bankAccount -> {
             final var transferAccount = new TransferAccount(request.recipientIban(),
                                                             request.recipientName());
-            final var moneyOut = AccountTransactionTransfer.moneyOut(bankAccount, transferAccount);
+            final var money = new Money(request.amount(), request.currency());
+            final var moneyOut =
+              AccountTransactionTransfer.moneyOut(bankAccount, transferAccount, money);
             repository.save(moneyOut);
         };
     }
