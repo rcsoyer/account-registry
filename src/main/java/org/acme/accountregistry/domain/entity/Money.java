@@ -1,5 +1,6 @@
 package org.acme.accountregistry.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.util.Currency;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Immutable;
 import org.springframework.web.server.ResponseStatusException;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -22,6 +24,8 @@ public class Money {
     @NotNull(message = "The amount of money is mandatory")
     private BigDecimal amount;
 
+    @Immutable
+    @Column(updatable = false)
     @NotNull(message = "The currency of the money is mandatory")
     private Currency currency;
 
