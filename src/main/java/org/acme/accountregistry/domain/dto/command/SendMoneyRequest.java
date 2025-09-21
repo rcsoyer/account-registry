@@ -23,7 +23,7 @@ public record SendMoneyRequest(@NotNull(message = "The amount is mandatory")
                                @NotBlank(message = "The recipient name is mandatory")
                                String recipientName,
 
-                               @PathVariable("bank-account")
+                               @PathVariable("bank-account-id")
                                @Positive(message = "The sender bank account ID must be positive")
                                long senderBankAccountId)
   implements Serializable {

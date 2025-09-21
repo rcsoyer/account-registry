@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
+import org.acme.accountregistry.domain.dto.command.TopUpMoneyRequest;
 import org.acme.accountregistry.domain.service.AccountTransactionTransferService;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +30,7 @@ class BankAccountController {
 
     private final AccountTransactionTransferService service;
 
-    @PostMapping("{bank-account}")
+    @PostMapping("/send-funds/{bank-account-id}")
     @ResponseStatus(CREATED)
     @Operation(summary = "Transfer funds, send money from a bank account in this system to another bank account")
     @ApiResponse(responseCode = "201", description = "Funds successfully transferred")
@@ -43,5 +44,20 @@ class BankAccountController {
                    final Authentication authentication) {
         log.debug("Rest API call to send money from one bank account to another");
         service.sendMoney(request, authentication);
+    }
+
+    @PostMapping("topup")
+    @ResponseStatus(CREATED)
+    @Operation(summary = "Topup money into a bank account in this system")
+    @ApiResponse(responseCode = "201", description = "Funds successfully transferred")
+    @ApiResponse(responseCode = "400", description = "Invalid input data",
+      content = @Content(mediaType = "application/problem+json",
+        schema = @Schema(implementation = Problem.class)))
+    @ApiResponse(responseCode = "404", description = "Unknown Bank Account",
+      content = @Content(mediaType = "application/problem+json",
+        schema = @Schema(implementation = Problem.class)))
+    void topUpMoney(@RequestBody @Valid final TopUpMoneyRequest request) {
+        log.debug("Rest API call to topup money to an account in this application");
+        service.topUp(request);
     }
 }
