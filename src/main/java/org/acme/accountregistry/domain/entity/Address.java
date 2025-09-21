@@ -38,7 +38,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Entity
 @ToString(exclude = "account")
 @NoArgsConstructor(access = PROTECTED)
-public class Address extends AbstractIdentityEntity {
+public class Address extends BaseIdentityEntity {
 
     @NotBlank(message = "The street is mandatory")
     @Size(max = 100, message = "The street must be 100 characters or less")

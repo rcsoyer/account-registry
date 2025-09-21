@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 @Entity
 @Table(name = "application_user")
 @NoArgsConstructor(access = PROTECTED)
-public class User extends AbstractIdentityEntity
+public class User extends BaseIdentityEntity
   implements UserDetails, CredentialsContainer {
 
     @Serial

@@ -28,7 +28,7 @@ import static org.iban4j.CountryCode.getByCode;
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class BankAccount extends AbstractIdentityEntity {
+public class BankAccount extends BaseIdentityEntity {
 
     @NaturalId
     @Immutable

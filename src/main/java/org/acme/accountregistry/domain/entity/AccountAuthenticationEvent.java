@@ -33,7 +33,7 @@ import static org.acme.accountregistry.domain.entity.AccountAuthenticationEvent.
 @Entity
 @Immutable
 @NoArgsConstructor(access = PROTECTED)
-public class AccountAuthenticationEvent extends AbstractImmutableEntity {
+public class AccountAuthenticationEvent extends BaseImmutableEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id", updatable = false)

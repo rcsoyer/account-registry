@@ -21,7 +21,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-abstract class AbstractImmutableEntity {
+abstract class BaseImmutableEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
