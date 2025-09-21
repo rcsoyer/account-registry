@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 import static lombok.AccessLevel.PROTECTED;
+import static org.acme.accountregistry.domain.entity.AccountTransactionTransfer.TransferType.MONEY_OUT;
 
 @Entity
 @Getter
@@ -32,13 +33,18 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
     @NotNull(message = "The other account in this transfer is mandatory")
     private TransferAccount transferAccount;
 
-    public AccountTransactionTransfer(final TransferType type,
-                                      final BankAccount bankAccount,
-                                      final TransferAccount transferAccount) {
+    private AccountTransactionTransfer(final TransferType type,
+                                       final BankAccount bankAccount,
+                                       final TransferAccount transferAccount) {
         super(TransactionType.TRANSFER);
         this.type = type;
         this.bankAccount = bankAccount;
         this.transferAccount = transferAccount;
+    }
+
+    public static AccountTransactionTransfer moneyOut(final BankAccount bankAccount,
+                                                      final TransferAccount transferAccount) {
+        return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount);
     }
 
     /**
