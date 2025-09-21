@@ -37,15 +37,37 @@ databaseChangeLog:
                   type: varchar(34)
                   constraints:
                     nullable: false
-                    unique: true
                   remarks: The IBAN of the other bank account involved in the transfer
               - column:
                   name: transfer_account_holder_name
                   type: varchar(50)
                   constraints:
                     nullable: false
-                    unique: true
                   remarks: The name of the account holder of the other bank account involved in the transfer
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+                  remarks: The currency used on this transaction
+              - column:
+                  name: amount
+                  type: decimal(16, 2)
+                  constraints:
+                    nullable: false
+                  remarks: The amount of money used in this transaction
+              - column:
+                  name: balance_before_transaction
+                  type: decimal(16, 2)
+                  constraints:
+                    nullable: false
+                  remarks: The balance of the account before the transaction
+              - column:
+                  name: balance_after_transaction
+                  type: decimal(16, 2)
+                  constraints:
+                    nullable: false
+                  remarks: The balance of the account after the transaction
               - column:
                   name: date_created
                   type: datetime(6)

@@ -7,11 +7,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 import static lombok.AccessLevel.PROTECTED;
+import static org.acme.accountregistry.domain.entity.AccountTransaction.TransactionType.TRANSFER;
 import static org.acme.accountregistry.domain.entity.AccountTransactionTransfer.TransferType.MONEY_OUT;
 
 @Entity
@@ -40,8 +42,9 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
     private AccountTransactionTransfer(final TransferType type,
                                        final BankAccount bankAccount,
                                        final TransferAccount transferAccount,
-                                       final Money amount) {
-        super(TransactionType.TRANSFER);
+                                       final Money amount,
+                                       final BigDecimal balanceBeforeTransaction) {
+        super(TRANSFER, balanceBeforeTransaction, bankAccount.getBalance().getAmount());
         this.type = type;
         this.bankAccount = bankAccount;
         this.transferAccount = transferAccount;
@@ -51,8 +54,10 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
     public static AccountTransactionTransfer moneyOut(final BankAccount bankAccount,
                                                       final TransferAccount transferAccount,
                                                       final Money amount) {
+        final BigDecimal balanceBefore = bankAccount.getBalance().getAmount();
         bankAccount.debitMoney(amount);
-        return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount, amount);
+        return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount, amount,
+                                              balanceBefore);
     }
 
     /**
