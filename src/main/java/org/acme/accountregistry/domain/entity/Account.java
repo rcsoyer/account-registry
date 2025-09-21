@@ -62,6 +62,7 @@ public class Account extends BaseIdentityEntity {
     @OneToOne(mappedBy = "account", cascade = ALL, fetch = LAZY, optional = false)
     private Address address;
 
+    @Size(max = 5, message = "The account cannot have more than 5 bank accounts")
     @NotEmpty(message = "The account must have at least one bank account")
     @OneToMany(mappedBy = "accountHolder", cascade = ALL, fetch = LAZY, orphanRemoval = true)
     private Set<@Valid BankAccount> bankAccounts;
