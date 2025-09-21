@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -87,15 +86,17 @@ public class BankAccount extends BaseIdentityEntity {
      * @throws ResponseStatusException with 409 status code, if the account balance is not enough.
      */
     void debitMoney(final Money money) {
-        if (!hasEnoughBalance(money.getAmount())) {
+        final boolean dontHaveEnoughBalance =
+          balance.getAmount().compareTo(money.getAmount()) < 0;
+        if (dontHaveEnoughBalance) {
             throw new ResponseStatusException(CONFLICT, "Insufficient balance to send money");
         }
 
         balance.subtract(money);
     }
 
-    private boolean hasEnoughBalance(final BigDecimal amount) {
-        return getBalance().getAmount().compareTo(amount) >= 0;
+    void topUp(final Money money) {
+        balance.add(money);
     }
 
     public enum Type {
