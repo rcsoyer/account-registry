@@ -2,6 +2,7 @@ package org.acme.accountregistry.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.PostLoad;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -30,8 +31,17 @@ public class Money {
     private Currency currency;
 
     public Money(final BigDecimal amount, final Currency currency) {
-        this.amount = amount.setScale(2, RoundingMode.HALF_UP);
+        this.amount = setDefaultScale(amount);
         this.currency = currency;
+    }
+
+    @PostLoad
+    private void postLoadSetUp() {
+        amount = setDefaultScale(amount);
+    }
+
+    private BigDecimal setDefaultScale(final BigDecimal amount) {
+        return amount.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void add(final Money money) {

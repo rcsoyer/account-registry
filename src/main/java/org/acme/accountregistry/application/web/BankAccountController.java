@@ -30,7 +30,7 @@ class BankAccountController {
 
     private final AccountTransactionTransferService service;
 
-    @PostMapping("/send-funds/{bank-account-id}")
+    @PostMapping("{bank-account-id}/send-funds")
     @ResponseStatus(CREATED)
     @Operation(summary = "Transfer funds, send money from a bank account in this system to another bank account")
     @ApiResponse(responseCode = "201", description = "Funds successfully transferred")
