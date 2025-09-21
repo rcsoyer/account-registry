@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
 import org.acme.accountregistry.domain.service.AccountTransactionTransferService;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,8 +39,9 @@ class BankAccountController {
     @ApiResponse(responseCode = "404", description = "Unknown Bank Account",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    void sendMoney(@RequestBody @Valid final SendMoneyRequest request) {
+    void sendMoney(@RequestBody @Valid final SendMoneyRequest request,
+                   final Authentication authentication) {
         log.debug("Rest API call to send money from one bank account to another");
-        service.sendMoney(request);
+        service.sendMoney(request, authentication);
     }
 }

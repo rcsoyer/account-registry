@@ -10,6 +10,7 @@ import org.acme.accountregistry.domain.entity.Money;
 import org.acme.accountregistry.domain.entity.TransferAccount;
 import org.acme.accountregistry.infrastructure.repository.AccountTransactionTransferRepository;
 import org.acme.accountregistry.infrastructure.repository.BankAccountRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,11 +26,11 @@ public class AccountTransactionTransferService {
     private final AccountTransactionTransferRepository repository;
     private final BankAccountRepository bankAccountRepository;
 
-    public void sendMoney(final SendMoneyRequest request) {
+    public void sendMoney(final SendMoneyRequest request, final Authentication authentication) {
         log.debug("Sending money request: {}", request);
 
         bankAccountRepository
-          .findById(request.senderBankAccountId())
+          .findBy(request.senderBankAccountId(), authentication.getName())
           .ifPresentOrElse(recordMoneyOut(request), errorBankAccountNotFound(request));
     }
 
