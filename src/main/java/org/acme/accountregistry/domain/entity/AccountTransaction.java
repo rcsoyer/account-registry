@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PROTECTED;
 
+/**
+ * Base class for financial transactions.
+ */
 @Getter
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
