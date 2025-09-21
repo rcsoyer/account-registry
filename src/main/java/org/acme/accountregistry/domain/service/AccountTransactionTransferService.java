@@ -56,7 +56,8 @@ public class AccountTransactionTransferService {
 
     private Runnable errorBankAccountNotFound(final Object request) {
         return () -> {
-            log.warn("Sender bank account not found. Invalid data from the given payload: {}",
+            log.warn("This bank account don't exist in this system. "
+                       + "Invalid data from the given payload: {}",
                      request);
             throw new ResponseStatusException(NOT_FOUND, "Bank account not found in this application");
         };
