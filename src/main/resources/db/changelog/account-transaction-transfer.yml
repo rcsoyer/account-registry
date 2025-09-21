@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: account-transaction-transfer.v1
+      author: rcsoyer
+      changes:
+        - createTable:
+            tableName: account_transaction_transfer
+            remarks: Represents an Account transfer transaction
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: bank_account_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_bank_account_transaction_transfer_id
+                    references: bank_account(id)
+              - column:
+                  name: type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The type of the transaction transfer
+              - column:
+                  name: transaction_type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+                  remarks: The type of the transaction
+              - column:
+                  name: transfer_account_number
+                  type: varchar(34)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: The IBAN of the other bank account involved in the transfer
+              - column:
+                  name: transfer_account_holder_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: The name of the account holder of the other bank account involved in the transfer
+              - column:
+                  name: date_created
+                  type: datetime(6)
+                  constraints:
+                    nullable: false
+                  remarks: The date time of when this record was created
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  remarks: The Account that has authenticated login into the platform

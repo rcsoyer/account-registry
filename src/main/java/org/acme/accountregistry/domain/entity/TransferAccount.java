@@ -21,11 +21,11 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 @NoArgsConstructor(access = PROTECTED)
 public class TransferAccount {
 
-    @Column(updatable = false)
+    @Column(name = "transfer_account_number", updatable = false)
     @NotNull(message = "The account IBAN is mandatory")
     private Iban accountNumber;
 
-    @Column(updatable = false)
+    @Column(name = "transfer_account_holder_name", updatable = false)
     @NotBlank(message = "The account holder name is mandatory")
     @Size(max = 50, message = "The account holder name must be 50 characters or less")
     private String accountHolderName;
