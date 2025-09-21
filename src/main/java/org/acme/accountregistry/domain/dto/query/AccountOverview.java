@@ -1,13 +1,13 @@
 package org.acme.accountregistry.domain.dto.query;
 
+import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
-
-import jakarta.validation.constraints.NotNull;
 import org.acme.accountregistry.domain.entity.BankAccount;
 import org.iban4j.Iban;
 
-public interface AccountOverview {
+public interface AccountOverview extends Serializable {
 
     @NotNull
     Iban getAccountNumber();
