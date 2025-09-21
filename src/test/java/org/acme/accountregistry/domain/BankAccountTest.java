@@ -1,8 +1,7 @@
 package org.acme.accountregistry.domain;
 
-import java.math.BigDecimal;
-
 import com.neovisionaries.i18n.CountryCode;
+import java.math.BigDecimal;
 import org.acme.accountregistry.domain.entity.Account;
 import org.acme.accountregistry.domain.entity.BankAccount;
 import org.junit.jupiter.api.Nested;
@@ -28,9 +27,9 @@ class BankAccountTest {
           .containsExactly(bankAccount);
 
         assertEquals(BankAccount.Type.PAYMENTS, bankAccount.getType());
-        assertEquals(BigDecimal.ZERO, bankAccount.getBalance());
+        assertEquals(BigDecimal.ZERO.setScale(2), bankAccount.getBalance().getAmount());
 
-        assertEquals(accountCountry.getCurrency(), bankAccount.getCurrency());
+        assertEquals(accountCountry.getCurrency(), bankAccount.getBalance().getCurrency());
         assertEquals(accountCountry.getAlpha2(), bankAccount.getIban().getCountryCode().getAlpha2());
     }
 

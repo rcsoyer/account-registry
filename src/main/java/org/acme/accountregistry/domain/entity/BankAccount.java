@@ -6,9 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,7 @@ import org.hibernate.annotations.NaturalId;
 import org.iban4j.Iban;
 
 import static jakarta.persistence.EnumType.STRING;
+import static java.math.BigDecimal.ZERO;
 import static lombok.AccessLevel.PROTECTED;
 import static org.iban4j.CountryCode.getByCode;
 
@@ -42,16 +42,9 @@ public class BankAccount extends AbstractIdentityEntity {
     @NotNull(message = "The account type is mandatory")
     private Type type;
 
-    /**
-     * Currency is inferred from the account holder's country.
-     */
-    @Immutable
-    @Column(updatable = false)
-    @NotNull(message = "The account currency is mandatory")
-    private Currency currency;
-
+    @Valid
     @NotNull(message = "The account balance is mandatory")
-    private BigDecimal balance;
+    private Money balance;
 
     @ManyToOne
     @Immutable
@@ -61,10 +54,9 @@ public class BankAccount extends AbstractIdentityEntity {
     public BankAccount(final Account accountHolder, final Type type) {
         this.accountHolder = accountHolder;
         this.type = type;
-        this.balance = BigDecimal.ZERO;
         final CountryCode accountCountry = accountHolder.getAddress().getCountry();
+        this.balance = new Money(ZERO, accountCountry.getCurrency());
         this.iban = Iban.random(getByCode(accountCountry.getAlpha2()));
-        this.currency = accountCountry.getCurrency();
     }
 
     @Override

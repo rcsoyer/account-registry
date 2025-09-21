@@ -45,11 +45,13 @@ class AccountTest {
             assertEquals(account, address.getAccount());
             assertEquals(personName, account.getPersonName());
 
+            final BigDecimal zero = BigDecimal.ZERO.setScale(2);
+
             assertThat(account.getBankAccounts())
               .hasSize(1)
               .first()
               .matches(bankAccount -> bankAccount.getType() == PAYMENTS)
-              .matches(bankAccount -> bankAccount.getBalance().equals(BigDecimal.ZERO))
+              .matches(bankAccount -> bankAccount.getBalance().getAmount().equals(zero))
               .matches(bankAccount -> bankAccount.getAccountHolder().equals(account));
         }
 

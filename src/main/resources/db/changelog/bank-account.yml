@@ -41,7 +41,7 @@ databaseChangeLog:
                     nullable: false
                   remarks: The currency of the Bank Account
               - column:
-                  name: balance
+                  name: amount
                   type: decimal(16, 2)
                   constraints:
                     nullable: false
