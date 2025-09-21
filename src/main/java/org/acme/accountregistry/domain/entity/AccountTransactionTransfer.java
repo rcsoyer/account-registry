@@ -14,6 +14,7 @@ import org.hibernate.annotations.Immutable;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.acme.accountregistry.domain.entity.AccountTransaction.TransactionType.TRANSFER;
+import static org.acme.accountregistry.domain.entity.AccountTransactionTransfer.TransferType.MONEY_IN;
 import static org.acme.accountregistry.domain.entity.AccountTransactionTransfer.TransferType.MONEY_OUT;
 
 @Entity
@@ -57,6 +58,15 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
         final BigDecimal balanceBefore = bankAccount.getBalance().getAmount();
         bankAccount.debitMoney(amount);
         return new AccountTransactionTransfer(MONEY_OUT, bankAccount, transferAccount, amount,
+                                              balanceBefore);
+    }
+
+    public static AccountTransactionTransfer moneyIn(final BankAccount bankAccount,
+                                                     final TransferAccount transferAccount,
+                                                     final Money amount) {
+        final BigDecimal balanceBefore = bankAccount.getBalance().getAmount();
+        bankAccount.topUp(amount);
+        return new AccountTransactionTransfer(MONEY_IN, bankAccount, transferAccount, amount,
                                               balanceBefore);
     }
 

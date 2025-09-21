@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.acme.accountregistry.domain.dto.query.AccountOverview;
 import org.acme.accountregistry.domain.entity.BankAccount;
+import org.iban4j.Iban;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,6 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Long> 
              + "JOIN Account accountHolder ON bankAccount.accountHolder = accountHolder "
              + "WHERE bankAccount.id = ?1 AND bankAccount.accountHolder.user.username = ?2")
     Optional<BankAccount> findBy(long id, String username);
+
+    Optional<BankAccount> findByIban(Iban iban);
 }

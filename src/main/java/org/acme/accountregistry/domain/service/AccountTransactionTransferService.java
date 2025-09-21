@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
+import org.acme.accountregistry.domain.dto.command.TopUpMoneyRequest;
 import org.acme.accountregistry.domain.entity.AccountTransactionTransfer;
 import org.acme.accountregistry.domain.entity.BankAccount;
 import org.acme.accountregistry.domain.entity.Money;
@@ -26,6 +27,25 @@ public class AccountTransactionTransferService {
     private final AccountTransactionTransferRepository repository;
     private final BankAccountRepository bankAccountRepository;
 
+    public void topUp(final TopUpMoneyRequest request, final Authentication authentication) {
+        log.debug("Topping up bank account with request command: {}", request);
+
+        bankAccountRepository
+          .findByIban(request.recipientIban())
+          .ifPresentOrElse(recordMoneyIn(request), errorBankAccountNotFound(request));
+    }
+
+    private Consumer<BankAccount> recordMoneyIn(final TopUpMoneyRequest request) {
+        return bankAccount -> {
+            final var transferAccount = new TransferAccount(request.senderIban(),
+                                                            request.senderName());
+            final var money = new Money(request.amount(), request.currency());
+            final var moneyIn =
+              AccountTransactionTransfer.moneyIn(bankAccount, transferAccount, money);
+            repository.save(moneyIn);
+        };
+    }
+
     public void sendMoney(final SendMoneyRequest request, final Authentication authentication) {
         log.debug("Sending money request: {}", request);
 
@@ -34,7 +54,7 @@ public class AccountTransactionTransferService {
           .ifPresentOrElse(recordMoneyOut(request), errorBankAccountNotFound(request));
     }
 
-    private Runnable errorBankAccountNotFound(final SendMoneyRequest request) {
+    private Runnable errorBankAccountNotFound(final Object request) {
         return () -> {
             log.warn("Sender bank account not found. Invalid data from the given payload: {}",
                      request);
