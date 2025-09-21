@@ -29,7 +29,7 @@ public non-sealed class AccountTransactionTransfer extends AccountTransaction {
     private BankAccount bankAccount;
 
     @Valid
-    @NotNull(message = "The transfer account is mandatory")
+    @NotNull(message = "The other account in this transfer is mandatory")
     private TransferAccount transferAccount;
 
     public AccountTransactionTransfer(final TransferType type,
