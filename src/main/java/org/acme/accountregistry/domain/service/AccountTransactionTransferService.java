@@ -27,7 +27,7 @@ public class AccountTransactionTransferService {
     private final AccountTransactionTransferRepository repository;
     private final BankAccountRepository bankAccountRepository;
 
-    public void topUp(final TopUpMoneyRequest request, final Authentication authentication) {
+    public void topUp(final TopUpMoneyRequest request) {
         log.debug("Topping up bank account with request command: {}", request);
 
         bankAccountRepository
