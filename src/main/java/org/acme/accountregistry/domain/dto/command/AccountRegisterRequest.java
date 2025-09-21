@@ -1,12 +1,13 @@
 package org.acme.accountregistry.domain.dto.command;
 
-import java.time.LocalDate;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
 import org.acme.accountregistry.domain.dto.AddressDto;
 import org.acme.accountregistry.domain.dto.PersonNameDto;
 
@@ -26,7 +27,11 @@ public record AccountRegisterRequest(@NotBlank(message = "The Account username i
                                      @NotBlank(message = "A person's ID document is mandatory")
                                      String idDocument,
                                      @NotNull @Valid AddressDto address,
-                                     @NotNull @Valid PersonNameDto personName) {
+                                     @NotNull @Valid PersonNameDto personName)
+  implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -8526578632145698745L;
 
     public AccountRegisterRequest(final String username,
                                   final LocalDate birthDate,

@@ -3,6 +3,8 @@ package org.acme.accountregistry.domain.dto.command;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
 import org.iban4j.Iban;
@@ -23,5 +25,9 @@ public record SendMoneyRequest(@NotNull(message = "The amount is mandatory")
 
                                @PathVariable("bank-account")
                                @Positive(message = "The sender bank account ID must be positive")
-                               long senderBankAccountId) {
+                               long senderBankAccountId)
+  implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8743526851248970123L;
 }
