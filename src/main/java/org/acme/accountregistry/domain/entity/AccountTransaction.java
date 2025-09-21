@@ -1,6 +1,5 @@
 package org.acme.accountregistry.domain.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
@@ -13,9 +12,9 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
-abstract class AccountTransaction extends BaseImmutableEntity {
+abstract sealed class AccountTransaction extends BaseImmutableEntity
+  permits AccountTransactionTransfer {
 
-    @Column(updatable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The transaction type is mandatory")
     private TransactionType transactionType;

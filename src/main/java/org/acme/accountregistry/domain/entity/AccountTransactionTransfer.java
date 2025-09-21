@@ -1,6 +1,5 @@
 package org.acme.accountregistry.domain.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,9 +17,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @Immutable
 @NoArgsConstructor(access = PROTECTED)
-public class AccountTransactionTransfer extends AccountTransaction {
+public non-sealed class AccountTransactionTransfer extends AccountTransaction {
 
-    @Column(updatable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "The transfer account is mandatory")
     private TransferType type;
