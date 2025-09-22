@@ -117,6 +117,19 @@ The application provides an OpenAPI documentation for better integration with ot
     - If a valid `JWT` is provided, the client's banking details associated with the token are
       fetched and returned;
 
+### Manage Bank-Accounts
+
+- **Topup Money into** - ````POST /bank-accounts/topup````
+    - http://localhost:8080/swagger-ui/index.html#/bank-account-controller/topUpMoney
+    - Topup the amount of Money specified in the payload request into an existing Bank Account in this application;
+    - This is a secured endpoint that requires a valid `JWT` for access;
+
+- **Send Money from** - ````POST /bank-accounts/{bank-account-id}/send-funds````
+    - http://localhost:8080/swagger-ui/index.html#/bank-account-controller/sendMoney
+    - Send Money from one Bank Account in this application to another Bank Account anywhere;
+    - This is a secured endpoint that requires a valid `JWT` for access;
+    - A User can only send money from their own Bank Account to another Bank Account;
+
 ### Actuator
 
 The application provides the Spring Boot Actuator endpoints for monitoring and management.
