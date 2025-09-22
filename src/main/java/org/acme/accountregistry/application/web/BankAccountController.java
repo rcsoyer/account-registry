@@ -35,6 +35,7 @@ class BankAccountController {
     @PostMapping("{bank-account-id}/send-funds")
     @ResponseStatus(CREATED)
     @Operation(summary = "Transfer funds, send money from a bank account in this system to another bank account",
+      description = "A User only can send money from their own Bank Account",
       parameters = @Parameter(name = "bank-account-id",
         description = "ID of the bank account from which the funds will be taken from",
         in = ParameterIn.PATH, required = true))
