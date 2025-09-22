@@ -130,6 +130,12 @@ The application provides an OpenAPI documentation for better integration with ot
     - This is a secured endpoint that requires a valid `JWT` for access;
     - A User can only send money from their own Bank Account to another Bank Account;
 
+- **Overview of Bank Account Transactions** - ````GET /bank-accounts/{bank-account-id}/transactions````
+    - http://localhost:8080/swagger-ui/index.html#/bank-account-controller/getAccountTransactionsOverview
+    - Get a paginated overview of all the transactions of a Bank Account;
+    - This is a secured endpoint that requires a valid `JWT` for access;
+    - A User can only see the transactions of their own Bank Account;
+
 ### Actuator
 
 The application provides the Spring Boot Actuator endpoints for monitoring and management.
