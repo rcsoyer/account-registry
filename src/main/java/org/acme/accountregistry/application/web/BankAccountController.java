@@ -1,6 +1,8 @@
 package org.acme.accountregistry.application.web;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,7 +34,10 @@ class BankAccountController {
 
     @PostMapping("{bank-account-id}/send-funds")
     @ResponseStatus(CREATED)
-    @Operation(summary = "Transfer funds, send money from a bank account in this system to another bank account")
+    @Operation(summary = "Transfer funds, send money from a bank account in this system to another bank account",
+      parameters = @Parameter(name = "bank-account-id",
+        description = "ID of the bank account from which the funds will be taken from",
+        in = ParameterIn.PATH, required = true))
     @ApiResponse(responseCode = "201", description = "Funds successfully transferred")
     @ApiResponse(responseCode = "400", description = "Invalid input data",
       content = @Content(mediaType = "application/problem+json",

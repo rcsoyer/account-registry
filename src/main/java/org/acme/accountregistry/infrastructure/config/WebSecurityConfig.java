@@ -67,8 +67,7 @@ class WebSecurityConfig {
     private Customizer<FormLoginConfigurer<HttpSecurity>> customizeLogin() {
         return customizer -> customizer
                                .failureHandler(problemSupport)
-                               .successHandler(loginSuccessHandler)
-                               .permitAll();
+                               .successHandler(loginSuccessHandler);
     }
 
     @Bean

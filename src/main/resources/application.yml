@@ -92,7 +92,7 @@ management:
 springdoc:
   show-login-endpoint: true
   show-actuator: true
-  paths-to-match: /accounts, /login, /health, /info, /health/liveness, /health/readiness
+  paths-to-match: /accounts, /bank-accounts/**, /login, /health, /info, /health/liveness, /health/readiness
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
