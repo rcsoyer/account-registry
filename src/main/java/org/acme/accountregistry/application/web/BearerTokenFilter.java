@@ -1,9 +1,5 @@
 package org.acme.accountregistry.application.web;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.function.Consumer;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import jakarta.annotation.Nonnull;
@@ -11,6 +7,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import org.acme.accountregistry.domain.service.JwtService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,9 +41,11 @@ public class BearerTokenFilter extends OncePerRequestFilter {
     private void setSecurityContext(final String jwt) {
         final Consumer<Jws<Claims>> setAuthentication = jwsClaims -> {
             final String username = jwsClaims.getPayload().getSubject();
+            final var authenticated = UsernamePasswordAuthenticationToken
+                                        .authenticated(username, null, List.of());
             SecurityContextHolder
               .getContext()
-              .setAuthentication(new UsernamePasswordAuthenticationToken(username, null, List.of()));
+              .setAuthentication(authenticated);
         };
 
         jwtService.decodeJwt(jwt)
