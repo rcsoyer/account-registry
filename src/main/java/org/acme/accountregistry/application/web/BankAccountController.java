@@ -78,6 +78,14 @@ class BankAccountController {
     }
 
     @GetMapping("{bank-account-id}/transactions")
+    @Operation(summary = "Overview of all transactions of a bank account in this application",
+      parameters = @Parameter(name = "bank-account-id",
+        description = "ID of the bank account to fetch the transactions",
+        in = ParameterIn.PATH, required = true))
+    @ApiResponse(responseCode = "200", description = "Data successfully fetch")
+    @ApiResponse(responseCode = "400", description = "Invalid input data",
+      content = @Content(mediaType = "application/problem+json",
+        schema = @Schema(implementation = Problem.class)))
     Slice<AccountTransactionOverview> getAccountTransactionsOverview(
       @PathVariable("bank-account-id") final long bankAccountId,
       final Authentication authentication,
