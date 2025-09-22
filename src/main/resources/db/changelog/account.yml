@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: accountv1
+      id: account.v1
       author: rcsoyer
       changes:
         - createTable:

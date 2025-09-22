@@ -20,6 +20,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_bank_account_transaction_transfer_id
                     references: bank_account(id)
+                    nullable: false
               - column:
                   name: type
                   type: varchar(10)
@@ -77,4 +78,6 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(50)
+                  constraints:
+                    nullable: false
                   remarks: The Account that has authenticated login into the platform

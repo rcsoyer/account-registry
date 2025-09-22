@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: addressv1
+      id: address.v1
       author: rcsoyer
       changes:
         - createTable:

@@ -29,6 +29,8 @@ databaseChangeLog:
               - column:
                   name: created_by
                   type: varchar(50)
+                  constraints:
+                    nullable: false
                   remarks: The Account that has authenticated login into the platform
               - column:
                   name: authentication_timestamp
