@@ -19,7 +19,7 @@ import org.springframework.security.authentication.DefaultAuthenticationEventPub
 class EventsConfig {
 
     /**
-     * Set up for the Spring framework to publish and handle events asynchronously
+     * Set up for the Spring framework to publish and handle events asynchronously with virtual threads.
      */
     @Bean
     ApplicationEventMulticaster applicationEventMulticaster(
