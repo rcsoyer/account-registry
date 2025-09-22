@@ -18,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJlMTg4YzM5Yi04YjVjLTQzYzctYmQ1ZC01YzUxNWIwZDAyZjQiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg0NzUyODMsImV4cCI6MTc1ODUyNTY4MywiaXNzIjoiYWNtZS5vcmcifQ.bHrfDfbYanPs69xEznm6tKOctrHj9VmrP1pvRfQfr96MrvZgVpZcvcHEWN0qdc11knySoZcrNiztxGKElYV-ew",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
 									"type": "string"
 								}
 							]
@@ -1588,7 +1588,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJlMTg4YzM5Yi04YjVjLTQzYzctYmQ1ZC01YzUxNWIwZDAyZjQiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg0NzUyODMsImV4cCI6MTc1ODUyNTY4MywiaXNzIjoiYWNtZS5vcmcifQ.bHrfDfbYanPs69xEznm6tKOctrHj9VmrP1pvRfQfr96MrvZgVpZcvcHEWN0qdc11knySoZcrNiztxGKElYV-ew",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
 									"type": "string"
 								}
 							]
@@ -1612,6 +1612,73 @@
 							"path": [
 								"bank-accounts",
 								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send-money",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"666.66\",\n    \"currency\": \"EUR\",\n    \"recipientIban\" : \"PL06330860422861658437839068\",\n    \"senderBankAccountId\": \"1\",\n    \"recipientName\": \"Uncle Scrooge\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bank-accounts/1/send-funds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank-accounts",
+								"1",
+								"send-funds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/bank-accounts/1/transactions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bank-accounts",
+								"1",
+								"transactions"
 							]
 						}
 					},
