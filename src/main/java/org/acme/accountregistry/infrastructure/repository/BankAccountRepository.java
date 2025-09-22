@@ -26,7 +26,7 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Long> 
      */
     @Query("SELECT bankAccount FROM BankAccount bankAccount "
              + "JOIN Account accountHolder ON bankAccount.accountHolder = accountHolder "
-             + "WHERE bankAccount.id = ?1 AND bankAccount.accountHolder.user.username = ?2")
+             + "WHERE bankAccount.id = ?1 AND accountHolder.user.username = ?2")
     Optional<BankAccount> findBy(long id, String username);
 
     Optional<BankAccount> findByIban(Iban iban);
