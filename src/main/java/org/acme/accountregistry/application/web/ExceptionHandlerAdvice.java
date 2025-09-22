@@ -1,8 +1,7 @@
-package org.acme.accountregistry.application.web.errorhandling;
-
-import java.sql.SQLIntegrityConstraintViolationException;
+package org.acme.accountregistry.application.web;
 
 import jakarta.annotation.Nonnull;
+import java.sql.SQLIntegrityConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
