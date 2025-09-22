@@ -11,9 +11,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
 import org.acme.accountregistry.domain.dto.command.TopUpMoneyRequest;
+import org.acme.accountregistry.domain.dto.query.AccountTransactionOverview;
+import org.acme.accountregistry.domain.service.AccountTransactionService;
 import org.acme.accountregistry.domain.service.AccountTransactionTransferService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +37,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 class BankAccountController {
 
     private final AccountTransactionTransferService service;
+    private final AccountTransactionService accountTransactionService;
 
     @PostMapping("{bank-account-id}/send-funds")
     @ResponseStatus(CREATED)
@@ -68,5 +75,14 @@ class BankAccountController {
     void topUpMoney(@RequestBody @Valid final TopUpMoneyRequest request) {
         log.debug("Rest API call to topup money to an account in this application");
         service.topUp(request);
+    }
+
+    @GetMapping("{bank-account-id}/transactions")
+    Slice<AccountTransactionOverview> getAccountTransactionsOverview(
+      @PathVariable("bank-account-id") final long bankAccountId,
+      final Authentication authentication,
+      final Pageable pageable) {
+        return accountTransactionService
+                 .getAccountTransactions(bankAccountId, authentication, pageable);
     }
 }
