@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.acme.accountregistry.domain.dto.command.SendMoneyRequest;
@@ -87,7 +88,9 @@ class BankAccountController {
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
     Slice<AccountTransactionOverview> getAccountTransactionsOverview(
-      @PathVariable("bank-account-id") final long bankAccountId,
+      @PathVariable("bank-account-id")
+      @Positive(message = "The bank account ID must be a positive number")
+      final long bankAccountId,
       final Authentication authentication,
       final Pageable pageable) {
         return accountTransactionService
