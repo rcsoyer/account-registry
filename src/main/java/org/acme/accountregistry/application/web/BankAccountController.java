@@ -73,9 +73,10 @@ class BankAccountController {
     @ApiResponse(responseCode = "404", description = "Unknown Bank Account",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    void topUpMoney(@RequestBody @Valid final TopUpMoneyRequest request) {
+    void topUpMoney(@RequestBody @Valid final TopUpMoneyRequest request,
+                    final Authentication authentication) {
         log.debug("Rest API call to topup money to an account in this application");
-        service.topUp(request);
+        service.topUp(request, authentication);
     }
 
     @GetMapping("{bank-account-id}/transactions")
@@ -89,8 +90,7 @@ class BankAccountController {
         schema = @Schema(implementation = Problem.class)))
     Slice<AccountTransactionOverview> getAccountTransactionsOverview(
       @PathVariable("bank-account-id")
-      @Positive(message = "The bank account ID must be a positive number")
-      final long bankAccountId,
+      @Positive(message = "The bank account ID must be a positive number") final long bankAccountId,
       final Authentication authentication,
       final Pageable pageable) {
         return accountTransactionService
