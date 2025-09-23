@@ -99,6 +99,11 @@ public class BankAccount extends BaseIdentityEntity {
         balance.add(money);
     }
 
+    public String getAccountHolderName() {
+        final PersonName personName = accountHolder.getPersonName();
+        return personName.getInitials() + " " + personName.getLastName();
+    }
+
     public enum Type {
         PAYMENTS,
         SAVINGS,
