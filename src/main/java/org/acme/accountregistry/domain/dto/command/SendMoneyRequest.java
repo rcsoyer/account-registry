@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
 import org.iban4j.Iban;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public record SendMoneyRequest(@NotNull(message = "The amount is mandatory")
                                @Positive(message = "The amount must be positive")
@@ -21,11 +20,7 @@ public record SendMoneyRequest(@NotNull(message = "The amount is mandatory")
                                Iban recipientIban,
 
                                @NotBlank(message = "The recipient name is mandatory")
-                               String recipientName,
-
-                               @PathVariable("bank-account-id")
-                               @Positive(message = "The sender bank account ID must be positive")
-                               long senderBankAccountId)
+                               String recipientName)
   implements Serializable {
 
     @Serial

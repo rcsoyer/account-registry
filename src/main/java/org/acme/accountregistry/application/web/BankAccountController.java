@@ -57,10 +57,13 @@ class BankAccountController {
     @ApiResponse(responseCode = "409", description = "Insufficient funds in Bank Account to execute the transfer",
       content = @Content(mediaType = "application/problem+json",
         schema = @Schema(implementation = Problem.class)))
-    void sendMoney(@RequestBody @Valid final SendMoneyRequest request,
+    void sendMoney(@PathVariable("bank-account-id")
+                   @Positive(message = "The sender bank account ID must be positive")
+                   long senderBankAccountId,
+                   @RequestBody @Valid final SendMoneyRequest request,
                    final Authentication authentication) {
         log.debug("Rest API call to send money from one bank account to another");
-        service.sendMoney(request, authentication);
+        service.sendMoney(senderBankAccountId, request, authentication);
     }
 
     @PostMapping("topup")

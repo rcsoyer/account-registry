@@ -75,11 +75,13 @@ public class AccountTransactionTransferService {
         };
     }
 
-    public void sendMoney(final SendMoneyRequest request, final Authentication authentication) {
+    public void sendMoney(final long senderBankAccountId,
+                          final SendMoneyRequest request,
+                          final Authentication authentication) {
         log.debug("Sending money request: {}", request);
 
         bankAccountRepository
-          .findBy(request.senderBankAccountId(), authentication.getName())
+          .findBy(senderBankAccountId, authentication.getName())
           .ifPresentOrElse(recordMoneyOut(request), errorBankAccountNotFound(request));
     }
 
