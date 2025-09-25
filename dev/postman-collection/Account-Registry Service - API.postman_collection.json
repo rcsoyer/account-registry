@@ -18,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI4MmRlNGY2Yy00ZGZhLTQ1NjQtODhhYS00MTY1YTQ3NDlkZTIiLCJzdWIiOiJtYWNAY2hlZXNlLmNvbSIsImlhdCI6MTc1ODgxMjgwMywiZXhwIjoxNzU4ODYzMjAzLCJpc3MiOiJhY21lLm9yZyJ9.WRCJa9R3z9MPI21YmcyI7UqMEa45qBuk1uodbPyMGTui0Y4qwt3mmnn5RJjEL0S26WAsWmVvi1u-BYeqcO5cnA",
 									"type": "string"
 								}
 							]
@@ -238,7 +238,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\" : \"john@doe.com\",\n    \"birthDate\": \"1992-01-01\",\n    \"idDocument\": \"99999ADFS\",\n    \"address\": {\n        \"street\" : \"Bombay Bicycle Club\",\n        \"city\": \"Bomaby\",\n        \"zipCode\": \"1144CD\",\n        \"country\": \"BE\"\n    },\n    \"personName\": {\n        \"initials\": \"MG\",\n        \"firstName\": \"Mahatma\",\n        \"lastName\": \"Ghandi\"\n    }\n}",
+							"raw": "{\n    \"username\" : \"john@doe.com\",\n    \"birthDate\": \"2001-01-01\",\n    \"idDocument\": \"55S0P12L\",\n    \"address\": {\n        \"street\" : \"Maria\",\n        \"city\": \"Amsterdam\",\n        \"zipCode\": \"23PL\",\n        \"country\": \"BE\"\n    },\n    \"personName\": {\n        \"initials\": \"JD\",\n        \"firstName\": \"John\",\n        \"lastName\": \"Doe\"\n    }\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -1588,7 +1588,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjIwNTJlZS1lODRlLTQxYzMtYjJhOS1mMzJhZGM3MTUyMGMiLCJzdWIiOiJtYWNAY2hlZXNlLmNvbSIsImlhdCI6MTc1ODgxMjMzMiwiZXhwIjoxNzU4ODYyNzMyLCJpc3MiOiJhY21lLm9yZyJ9.Obp2mNw07bpy_lHZLgngRGLuMYMzqxpDVBlM4PIrUMO6y0HFarYKUvrZyEyFgY5MS9o-Gik9i5cN-kor3saQOQ",
 									"type": "string"
 								}
 							]
@@ -1597,7 +1597,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"amount\": \"133.66\",\n    \"currency\": \"EUR\",\n    \"recipientIban\" : \"BE17302022224156\",\n    \"senderIban\": \"PL06330860422861658437839068\",\n    \"senderName\": \"Uncle Scrooge\"\n\n}",
+							"raw": "{\n    \"amount\": \"78.99\",\n    \"currency\": \"EUR\",\n    \"recipientIban\" : \"NL22JQVS2094565574\",\n    \"senderIban\": \"GT84U1T4D9XEQQV5FQL6XIP1SK91\",\n    \"senderName\": \"Bruce Wayne\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1625,7 +1625,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxMmU4NDkxNi03MTg4LTQyZGYtOWE3MC03ZjYzMjMwMDkzNzUiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg4MTI1MDIsImV4cCI6MTc1ODg2MjkwMiwiaXNzIjoiYWNtZS5vcmcifQ.TGf9uPX9pjvcjaJAQwXcw4dz4W_tCa6a3cUEVxsdnwkjkctlJfxyWUzW75_OoAoX3xMGTWQhG65jkUf2lTXO3A",
 									"type": "string"
 								}
 							]
@@ -1634,7 +1634,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"amount\": \"666.66\",\n    \"currency\": \"EUR\",\n    \"recipientIban\" : \"PL06330860422861658437839068\",\n    \"senderBankAccountId\": \"1\",\n    \"recipientName\": \"Uncle Scrooge\"\n\n}",
+							"raw": "{\n    \"amount\": \"10.05\",\n    \"currency\": \"EUR\",\n    \"recipientIban\" : \"GT84U1T4D9XEQQV5FQL6XIP1SK91\",\n    \"recipientName\": \"Bruce Wayne\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1642,13 +1642,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/bank-accounts/1/send-funds",
+							"raw": "{{baseUrl}}/bank-accounts/2/send-funds",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"bank-accounts",
-								"1",
+								"2",
 								"send-funds"
 							]
 						}
@@ -1663,7 +1663,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjQ5ZTQzZi0yOGQ0LTRlNGEtYTg5YS05OGNjY2Q3MzAzYzMiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg1MzkyODksImV4cCI6MTc1ODU4OTY4OSwiaXNzIjoiYWNtZS5vcmcifQ.d1yCtdonaGsjLd6vsxrHfRIuaL9eeEtKSjIBP9K_Id_seXCoAj53EQVYqXie7NVhcd9_b-Eg-RrvMlx70e0uNA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJlYWU3OTEwZS00ZTI4LTQyMDItYmNjYi00OGIzY2QyMzAyNjAiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg4MTI3MDYsImV4cCI6MTc1ODg2MzEwNiwiaXNzIjoiYWNtZS5vcmcifQ.H6W6-evnzOX8-Y6W86F_R-JGn9c41EWXcKc1DrWd4mhElzlvLuwz9W_-RvA_IaEwzusV8vw0b015-cW-inpMtA",
 									"type": "string"
 								}
 							]
