@@ -1,4 +1,4 @@
-package org.acme.accountregistry;
+package org.acme.accountregistry.fixtures;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

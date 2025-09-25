@@ -1,7 +1,7 @@
 package org.acme.accountregistry.repository;
 
 import java.util.Optional;
-import org.acme.accountregistry.TestcontainersConfig;
+import org.acme.accountregistry.fixtures.TestcontainersConfig;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
