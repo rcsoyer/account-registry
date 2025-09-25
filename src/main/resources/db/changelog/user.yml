@@ -3,6 +3,15 @@ databaseChangeLog:
       id: user.v1
       author: rcsoyer
       changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: application_user_seq
+            incrementBy: 30
+  - changeSet:
+      id: user.v2
+      author: rcsoyer
+      changes:
         - createTable:
             tableName: application_user
             remarks: Represents a User's details, security credentials, data in the system
@@ -10,7 +19,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -29,7 +37,7 @@ databaseChangeLog:
                   remarks: the encrypted password of the user's account
               - column:
                   name: enabled
-                  type: tinyint(1)
+                  type: boolean
                   constraints:
                     nullable: false
                   remarks: whether this User is active or not in the platform

@@ -1,6 +1,15 @@
 databaseChangeLog:
   - changeSet:
-      id: bankaccount.v1
+      id: bank-account.v1
+      author: rcsoyer
+      changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: bank_account_seq
+            incrementBy: 30
+  - changeSet:
+      id: bank-account.v2
       author: rcsoyer
       changes:
         - createTable:
@@ -10,7 +19,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false

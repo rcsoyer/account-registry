@@ -36,7 +36,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Account extends BaseIdentityEntity {
+public class Account extends BaseAuditEntity {
 
     @Valid
     @NotNull(message = "A person's name is mandatory")

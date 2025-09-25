@@ -14,7 +14,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.ObjectUtils.anyNull;
 
@@ -26,7 +26,7 @@ import static org.apache.commons.lang3.ObjectUtils.anyNull;
 abstract class BaseImmutableEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = SEQUENCE)
     private Long id;
 
     @CreatedDate

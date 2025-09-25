@@ -3,6 +3,15 @@ databaseChangeLog:
       id: account.v1
       author: rcsoyer
       changes:
+        - createSequence:
+            cycle: true
+            dataType: bigint
+            sequenceName: account_seq
+            incrementBy: 30
+  - changeSet:
+      id: account.v2
+      author: rcsoyer
+      changes:
         - createTable:
             tableName: account
             remarks: Represents a User's Account data in the system
@@ -10,7 +19,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false

@@ -30,7 +30,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class BankAccount extends BaseIdentityEntity {
+public class BankAccount extends BaseAuditEntity {
 
     @NaturalId
     @Immutable

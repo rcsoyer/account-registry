@@ -1,12 +1,12 @@
 package org.acme.accountregistry.repository;
 
 import java.util.Optional;
-
-import org.acme.accountregistry.BaseTestContainer;
+import org.acme.accountregistry.TestcontainersConfig;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,9 +16,10 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 
 @DataJpaTest
 @ActiveProfiles("inttest")
+@Import(TestcontainersConfig.class)
 @AutoConfigureTestDatabase(replace = NONE)
 @ContextConfiguration(classes = {BaseRepositoryTest.JpaTestConfig.class})
-abstract class BaseRepositoryTest extends BaseTestContainer {
+abstract class BaseRepositoryTest {
 
     @TestConfiguration
     @EnableJpaAuditing

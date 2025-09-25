@@ -17,23 +17,10 @@ spring:
     virtual:
       enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 10
       maximum-pool-size: 30
-      data-source-properties:
-        useConfigs: maxPerformance-8-0
-        tlsVersions: TLSv1.3
-        rewriteBatchedStatements: true
-        useServerPrepStmts: true
-        cacheResultSetMetadata: true
-        useUnbufferedInput: false
-        useCursorFetch: true
-        defaultFetchSize: 200
-        prepStmtCacheSize: 250
-        prepStmtCacheSqlLimit: 2048
-        maintainTimeStats: false
-        useLocalTransactionState: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
@@ -42,7 +29,12 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        order_inserts: true
         order_updates: true
+        id:
+          sequence:
+            increment_size_mismatch_strategy: FIX
         query:
           in_clause_parameter_padding: true
         jdbc:

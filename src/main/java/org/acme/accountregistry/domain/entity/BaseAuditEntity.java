@@ -16,7 +16,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 /**
  * Auditable root supper class.
@@ -27,10 +27,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @ToString
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-abstract class BaseIdentityEntity {
+abstract class BaseAuditEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = SEQUENCE)
     private Long id;
 
     @NotNull

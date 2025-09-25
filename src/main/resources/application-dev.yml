@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/account-registry
+    url: jdbc:postgresql://localhost:5432/account-registry
     username: root
     password: root
   jpa:

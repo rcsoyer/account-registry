@@ -1,12 +1,12 @@
 services:
-
   db:
-    image: mysql
-    restart: always
+    container_name: account-registry-db
     hostname: localhost
-    container_name: account_registry-db
+    image: postgres
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: account-registry
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: account-registry
     ports:
-      - "3306:3306"
+      - 5432:5432

@@ -50,8 +50,8 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
+    runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.liquibase:liquibase-core")
-    runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
 
@@ -59,7 +59,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:mysql")
+    testImplementation("org.testcontainers:postgresql")
 
     testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 }
