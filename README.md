@@ -14,13 +14,13 @@ The minimum requirements to run the application are:
 - ``Java 21``
     - any ``JDK 21`` distro should work: Eclipse Temurin, OpenJDK, Oracle JDK..etc
 - ``Docker engine``
-    - the integration tests need a Docker engine to run `MySQL` in a container;
+    - the integration tests need a Docker engine to run `Postgres` in a container;
     - `Docker Desktop` is an easy way to get Docker on your OS;
         - https://docs.docker.com/desktop/
 - If you run the application through an `IDE`, such as `IntelliJ IDEA`, you may need to enable
   annotation processing to support `Lombok` and `MapStruct`.
-- Local ``MySQL`` database instance with an empty schema named ``account_registry``.
-- Local ``MySQL`` database instance can be easily created by running the [docker-compose.yml](dev/docker-compose.yml)
+- Local ``Postgres`` database instance with an empty schema named ``account_registry``.
+- Local ``Postgres`` database instance can be easily created by running the [docker-compose.yml](dev/docker-compose.yml)
   - This will also require to have locally, the Docker Desktop installed.
 
 ## Building the application
@@ -48,9 +48,9 @@ The pipeline runs the following steps:
 The project provides an easy to use ``dev`` Spring profile:
 [application-dev.yml](src/main/resources/application-dev.yml).
 
-From that file, you can adjust the connection to a local MySQL database instance.
+From that file, you can adjust the connection to a local Postgres database instance.
 
-Or you may simply run a MySQL instance in a Docker container with the expected url configuration
+Or you may simply run a Postgres instance in a Docker container with the expected url configuration
 and credentials described in the file.
 
 The application then can be run in two ways:
