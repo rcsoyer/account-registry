@@ -30,6 +30,7 @@ val problemVersion by extra { "0.29.1" }
 val problemJacksonVersion by extra { "0.27.1" }
 val jjwtVersion by extra { "0.13.0" }
 val springdocVersion by extra { "2.8.13" }
+val commonsTextVersion by extra {"1.14.0"}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -46,6 +47,7 @@ dependencies {
     implementation("org.zalando:jackson-datatype-problem:$problemJacksonVersion")
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion")
+    implementation("org.apache.commons:commons-text:$commonsTextVersion")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
