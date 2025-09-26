@@ -44,12 +44,12 @@ public class Money {
         return amount.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public void add(final Money money) {
+    void add(final Money money) {
         validateSameCurrency(money);
         amount = amount.add(money.getAmount());
     }
 
-    public void subtract(final Money money) {
+    void subtract(final Money money) {
         validateSameCurrency(money);
         amount = amount.subtract(money.getAmount());
     }
