@@ -29,7 +29,6 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         order_inserts: true
         order_updates: true
         id:
@@ -65,7 +64,7 @@ management:
         info: info
   endpoint:
     metrics:
-      enabled: true
+      access: read_only
     health:
       group:
         liveness:

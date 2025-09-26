@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
 import org.iban4j.Iban;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -17,6 +18,7 @@ import static org.apache.commons.lang3.StringUtils.normalizeSpace;
  * <br/> This can be an account from this system or from an external bank
  */
 @Getter
+@Immutable
 @Embeddable
 @NoArgsConstructor(access = PROTECTED)
 public class TransferAccount {
