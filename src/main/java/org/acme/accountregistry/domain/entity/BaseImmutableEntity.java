@@ -42,6 +42,10 @@ abstract class BaseImmutableEntity {
 
     @Override
     public boolean equals(final Object another) {
+        if (this == another) {
+            return true;
+        }
+
         if (another == null || getClass() != another.getClass()) {
             return false;
         }

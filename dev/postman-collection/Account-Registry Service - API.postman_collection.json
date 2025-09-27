@@ -18,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI4MmRlNGY2Yy00ZGZhLTQ1NjQtODhhYS00MTY1YTQ3NDlkZTIiLCJzdWIiOiJtYWNAY2hlZXNlLmNvbSIsImlhdCI6MTc1ODgxMjgwMywiZXhwIjoxNzU4ODYzMjAzLCJpc3MiOiJhY21lLm9yZyJ9.WRCJa9R3z9MPI21YmcyI7UqMEa45qBuk1uodbPyMGTui0Y4qwt3mmnn5RJjEL0S26WAsWmVvi1u-BYeqcO5cnA",
+									"value": "{{vault:JWT}}",
 									"type": "string"
 								}
 							]
@@ -1588,7 +1588,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYjIwNTJlZS1lODRlLTQxYzMtYjJhOS1mMzJhZGM3MTUyMGMiLCJzdWIiOiJtYWNAY2hlZXNlLmNvbSIsImlhdCI6MTc1ODgxMjMzMiwiZXhwIjoxNzU4ODYyNzMyLCJpc3MiOiJhY21lLm9yZyJ9.Obp2mNw07bpy_lHZLgngRGLuMYMzqxpDVBlM4PIrUMO6y0HFarYKUvrZyEyFgY5MS9o-Gik9i5cN-kor3saQOQ",
+									"value": "{{vault:JWT}}",
 									"type": "string"
 								}
 							]
@@ -1625,7 +1625,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxMmU4NDkxNi03MTg4LTQyZGYtOWE3MC03ZjYzMjMwMDkzNzUiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg4MTI1MDIsImV4cCI6MTc1ODg2MjkwMiwiaXNzIjoiYWNtZS5vcmcifQ.TGf9uPX9pjvcjaJAQwXcw4dz4W_tCa6a3cUEVxsdnwkjkctlJfxyWUzW75_OoAoX3xMGTWQhG65jkUf2lTXO3A",
+									"value": "{{vault:JWT}}",
 									"type": "string"
 								}
 							]
@@ -1642,13 +1642,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/bank-accounts/2/send-funds",
+							"raw": "{{baseUrl}}/bank-accounts/1/send-funds",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"bank-accounts",
-								"2",
+								"1",
 								"send-funds"
 							]
 						}
@@ -1663,7 +1663,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJlYWU3OTEwZS00ZTI4LTQyMDItYmNjYi00OGIzY2QyMzAyNjAiLCJzdWIiOiJqb2huQGRvZS5jb20iLCJpYXQiOjE3NTg4MTI3MDYsImV4cCI6MTc1ODg2MzEwNiwiaXNzIjoiYWNtZS5vcmcifQ.H6W6-evnzOX8-Y6W86F_R-JGn9c41EWXcKc1DrWd4mhElzlvLuwz9W_-RvA_IaEwzusV8vw0b015-cW-inpMtA",
+									"value": "{{vault:JWT}}",
 									"type": "string"
 								}
 							]
