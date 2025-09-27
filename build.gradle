@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'io.freefair.lombok' version '8.14.2'
+}
+
+group = 'org.acme'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    iban4JVersion = '3.2.11-RELEASE'
+    i18nVersion = '1.29'
+    mapStructVersion = '1.6.3'
+    passWayVersion = '1.6.6'
+    problemVersion = '0.29.1'
+    problemJacksonVersion = '0.27.1'
+    jjwtVersion = '0.13.0'
+    springdocVersion = '2.8.13'
+    commonsTextVersion = '1.14.0'
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-validation')
+    implementation('org.apache.commons:commons-lang3')
+    implementation("org.iban4j:iban4j:$iban4JVersion")
+    implementation("com.neovisionaries:nv-i18n:$i18nVersion")
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    implementation("org.passay:passay:$passWayVersion")
+    implementation("org.zalando:problem-spring-web:$problemVersion")
+    implementation("org.zalando:jackson-datatype-problem:$problemJacksonVersion")
+    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion")
+    implementation("org.apache.commons:commons-text:$commonsTextVersion")
+
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
+
+    runtimeOnly('org.postgresql:postgresql')
+    runtimeOnly('org.liquibase:liquibase-core')
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-testcontainers')
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation('org.testcontainers:junit-jupiter')
+    testImplementation('org.testcontainers:postgresql')
+
+    testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events = ['PASSED', 'FAILED', 'SKIPPED']
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+}
+
+compileJava {
+    options.compilerArgs.addAll(
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.unmappedTargetPolicy=IGNORE')
+}
+
+springBoot.buildInfo()
