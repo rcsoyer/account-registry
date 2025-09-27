@@ -21,10 +21,10 @@ import static com.neovisionaries.i18n.CountryCode.NL;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
-import static org.apache.commons.lang3.StringUtils.capitalize;
 import static org.apache.commons.lang3.StringUtils.deleteWhitespace;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 import static org.apache.commons.lang3.StringUtils.upperCase;
+import static org.apache.commons.text.WordUtils.capitalize;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 /**
