@@ -21,6 +21,8 @@ spring:
     hikari:
       minimum-idle: 10
       maximum-pool-size: 30
+      data-source-properties:
+        reWriteBatchedInserts: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   jpa:
