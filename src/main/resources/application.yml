@@ -43,6 +43,8 @@ spring:
               preferred: pooled-lo
         query:
           in_clause_parameter_padding: true
+          plan_cache_max_size: 2048
+          plan_parameter_metadata_max_size: 128
         jdbc:
           batch_size: 30
           fetch_size: 200
