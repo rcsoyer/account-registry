@@ -12,7 +12,7 @@ import org.iban4j.Iban;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
-import static org.apache.commons.text.WordUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.upperCase;
 
 /**
  * Bank account details of an account used on a transfer.
@@ -35,6 +35,6 @@ public class TransferAccount {
 
     public TransferAccount(final Iban accountNumber, final String accountHolderName) {
         this.accountNumber = accountNumber;
-        this.accountHolderName = capitalize(normalizeSpace(accountHolderName));
+        this.accountHolderName = upperCase(normalizeSpace(accountHolderName));
     }
 }
