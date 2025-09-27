@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import lombok.Getter;
 import lombok.ToString;
+import org.hibernate.annotations.Immutable;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -34,6 +35,7 @@ abstract class BaseAuditEntity {
     private Long id;
 
     @NotNull
+    @Immutable
     @CreatedDate
     @Column(name = "date_created", updatable = false)
     private Instant createdAt;
@@ -46,6 +48,7 @@ abstract class BaseAuditEntity {
      * username that created the entity
      */
     @NotBlank
+    @Immutable
     @CreatedBy
     @Column(name = "created_by", updatable = false)
     private String createdBy;
