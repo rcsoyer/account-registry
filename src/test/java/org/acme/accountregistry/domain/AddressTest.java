@@ -24,13 +24,13 @@ class AddressTest {
         @ValueSource(strings = {"NL", "BE"})
         void testConstructor_whenCountriesAllowedThenSuccess(final String countryCode) {
             final var address = Address.builder()
-                                       .street("  123  main  st  ")
+                                       .street("  123  main  st ")
                                        .city("  New  York  ")
                                        .zipCode("  10001 BA ")
                                        .country(CountryCode.valueOf(countryCode))
                                        .build();
 
-            assertEquals("123 main st", address.getStreet());
+            assertEquals("123 Main St", address.getStreet());
             assertEquals("New York", address.getCity());
             assertEquals("10001BA", address.getZipCode());
             assertEquals(CountryCode.valueOf(countryCode), address.getCountry());
