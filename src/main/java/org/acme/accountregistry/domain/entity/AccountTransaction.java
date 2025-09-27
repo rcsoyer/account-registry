@@ -2,7 +2,10 @@ package org.acme.accountregistry.domain.entity;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -29,12 +32,24 @@ abstract sealed class AccountTransaction extends BaseImmutableEntity
     @NotNull(message = "The balance after the transaction is mandatory")
     private BigDecimal balanceAfterTransaction;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "bank_account_id", updatable = false)
+    @NotNull(message = "The bank account is mandatory")
+    private BankAccount bankAccount;
+
+    @Valid
+    @NotNull(message = "The transaction amount is mandatory")
+    private Money amount;
+
     protected AccountTransaction(final TransactionType transactionType,
-                                 final BigDecimal balanceBeforeTransaction,
-                                 final BigDecimal balanceAfterTransaction) {
+                                 final BankAccount bankAccount,
+                                 final Money amount,
+                                 final BigDecimal balanceBeforeTransaction) {
         this.transactionType = transactionType;
+        this.bankAccount = bankAccount;
+        this.amount = amount;
         this.balanceBeforeTransaction = balanceBeforeTransaction;
-        this.balanceAfterTransaction = balanceAfterTransaction;
+        this.balanceAfterTransaction = bankAccount.getBalance().getAmount();
     }
 
     public enum TransactionType {
