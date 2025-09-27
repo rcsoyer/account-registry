@@ -33,9 +33,14 @@ spring:
       hibernate:
         order_inserts: true
         order_updates: true
+        connection:
+          release_mode: after_transaction
         id:
           sequence:
             increment_size_mismatch_strategy: FIX
+          optimizer:
+            pooled:
+              preferred: pooled-lo
         query:
           in_clause_parameter_padding: true
         jdbc:
