@@ -40,7 +40,7 @@ public class BankAccount extends BaseAuditEntity {
 
     @Immutable
     @Enumerated(STRING)
-    @Column(columnDefinition = "VARCHAR", updatable = false)
+    @Column(updatable = false)
     @NotNull(message = "The account type is mandatory")
     private Type type;
 
